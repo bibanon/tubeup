@@ -166,7 +166,7 @@ while len(videotodourls) > 0:
     item.upload(videofilename)
 
 
-"""
+    """
     curl = ['curl', '--location', 
         '--header', u"'x-amz-auto-make-bucket:1'",
         '--header', u"'x-archive-meta01-collection:%s'" % (collection),
