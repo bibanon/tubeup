@@ -165,31 +165,6 @@ while len(videotodourls) > 0:
 
     item.upload(videofilename, metadata=md, access_key=accesskey, secret_key=secretkey)
 
-
-    """
-    curl = ['curl', '--location', 
-        '--header', u"'x-amz-auto-make-bucket:1'",
-        '--header', u"'x-archive-meta01-collection:%s'" % (collection),
-        '--header', u"'x-archive-meta-mediatype:movies'",
-        '--header', u"'x-archive-size-hint:%d'" % (os.path.getsize(videofilename)), 
-        '--header', u'"authorization: LOW %s:%s"' % (accesskey, secretkey),
-        '--header', u"'x-archive-meta-title:%s'" % (quote(title)),
-        '--header', u"'x-archive-meta-description:%s<br/><br/>Source: <a href=\"%s\">%s</a><br/>Uploader: <a href=\"http://www.youtube.com/user/%s\">%s</a><br/>Upload date: %s'" % (quote(description), videotodourl, videotodourl, quote(uploader), quote(uploader), upload_date),
-        '--header', u"'x-archive-meta-date:%s'" % (upload_date),
-        '--header', u"'x-archive-meta-year:%s'" % (upload_year),
-        '--header', u"'x-archive-meta-language:%s'" % (language),
-        '--header', u"'x-archive-meta-creator:%s'" % (quote(uploader)),
-        '--header', u"'x-archive-meta-subject:%s'" % (u'; '.join([collection, 'videos', upload_month, upload_year] + tags)),
-        '--header', u"'x-archive-meta-licenseurl:%s'" % (cc and 'http://creativecommons.org/licenses/by/3.0/' or ''), # from https://www.youtube.com/t/creative_commons
-        #'--header', "'x-archive-meta-rights:%s'" % (rights),
-        '--header', u"'x-archive-meta-originalurl:%s'" % (videotodourl),
-        '--upload-file', videofilename,
-            u"http://s3.us.archive.org/%s/%s" % (itemname, videofilename_),
-    ]
-    print 'Uploading to Internet Archive as:', itemname
-    curlline = ' '.join(curl)
-    os.system(curlline.encode('utf-8'))"""
-    
     print 'You can browse it in http://archive.org/details/%s' % (itemname)
     videotodourls.remove(videotodourl)
     updatetodo(videotodourls)
