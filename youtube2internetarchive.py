@@ -93,7 +93,7 @@ while len(videotodourls) > 0:
     rawsearch = unicode(urllib.urlopen(searchurl).read(), 'utf-8')
     print searchurl
     while not re.search(ur"\d+ through \d+", rawsearch): #error in IA search engine? retry....
-        print 'Error while searching in IA... waiting some seconds and retry'
+        print 'Error while searching in IA... waiting some seconds and retrying'
         time.sleep(15)
         rawsearch = unicode(urllib.urlopen(searchurl).read(), 'utf-8')
     if not re.search(ur"1 through 0 of <b>0</b>", rawsearch):
@@ -121,7 +121,7 @@ while len(videotodourls) > 0:
             for f in filenames:
                 if f.endswith('%s.mp4' % videoid):
                     videofilename = unicode(f, 'utf-8')
-            break #stop searching, dot not explore subdirectories
+            break #stop searching, do not explore subdirectories
     
     if videofilename:
         videobasename = os.path.splitext(videofilename)[0]
@@ -135,7 +135,7 @@ while len(videotodourls) > 0:
                 os.chdir('..')
                 continue
     else:
-        print 'No video downloaded, an error ocurred'
+        print 'No video downloaded, an error occurred'
         videotodourls.remove(videotodourl)
         updatetodo(videotodourls)
         os.chdir('..')
