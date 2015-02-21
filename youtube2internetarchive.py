@@ -66,6 +66,8 @@ else:
 collection = sys.argv[3]
 
 use_ffmpeg = True       # youtube-dl muxes bestvideo+bestaudio with ffmpeg. else, just does 'best' quality.
+subject_contains_collection = False
+id_contains_collection = False
 # End preferences
 
 accesskey = open('keys.txt', 'r').readlines()[0].strip()
@@ -156,8 +158,12 @@ while len(videotodourls) > 0:
     description = json_['description']
     uploader = json_['uploader']
     title = re.sub(u"%", u"/", json_['title']) # 6%7
-    
-    itemname = removeoddchars('%s-%s' % (collection, videofilename.split(videoid)[0][:-1])) # [:-1] to remove the -
+   
+    if id_contains_collection:
+        itemname = removeoddchars('%s-%s' % (collection, videofilename.split(videoid)[0][:-1])) # [:-1] to remove the -
+    else:
+        itemname = removeoddchars(videofilename.split(videoid)[0][:-1]) # [:-1] to remove the -
+        
     itemname = itemname[:88] + '-' + videoid
     videofilename_ = removeoddchars(videofilename)
     if not re.search(ur"Item cannot be found", unicode(urllib.urlopen('http://archive.org/details/%s' % (itemname)).read(), 'utf-8')):
@@ -166,10 +172,15 @@ while len(videotodourls) > 0:
         updatetodo(videotodourls)
         os.chdir('..')
         continue
-   
+  
+    if subject_contains_collection:
+        subject = (u'; '.join([collection, upload_month, upload_year] + tags)) 
+    else:
+        subject = (u'; '.join([upload_month, upload_year] + tags))
+
 
     item = internetarchive.get_item(itemname)
-    md = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description='{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/user/{3}">{4}</a><br/>Upload date: {5}'.format(quote(description), videotodourl, videotodourl, quote(uploader), quote(uploader), upload_date), date=upload_date, year=upload_year, subject=(u'; '.join([collection, 'videos', upload_month, upload_year] + tags)), originalurl=videotodourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
+    md = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description='{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/user/{3}">{4}</a><br/>Upload date: {5}'.format(quote(description), videotodourl, videotodourl, quote(uploader), quote(uploader), upload_date), date=upload_date, year=upload_year, subject=subject, originalurl=videotodourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
 
     item.upload(glob.glob(videobasename + '*'), metadata=md, access_key=accesskey, secret_key=secretkey)
 
