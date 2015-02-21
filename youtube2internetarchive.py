@@ -34,6 +34,7 @@ Instructions:
 
 import json
 import os
+import glob
 import re
 import subprocess
 import sys
@@ -63,6 +64,8 @@ if cc == 'cc':
 else:
     cc = False
 collection = sys.argv[3]
+
+use_ffmpeg = True       # youtube-dl muxes bestvideo+bestaudio with ffmpeg. else, just does 'best' quality.
 # End preferences
 
 accesskey = open('keys.txt', 'r').readlines()[0].strip()
@@ -112,8 +115,13 @@ while len(videotodourls) > 0:
     #get tags
     tags = re.findall(ur"search=tag\">([^<]+)</a>", videohtml)
     tags = [quote(tag) for tag in tags]
-    
-    os.system('youtube-dl -t -i -c --write-info-json --format best %s' % (videotodourl)) #mp4 (18)
+   
+    if use_ffmpeg:
+        os.system('youtube-dl --title --continue --retries 4 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --format bestvideo+bestaudio/best %s' % (videotodourl))
+
+    else:
+        os.system('youtube-dl --title --continue --retries 4 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --format best %s' % (videotodourl)) #mp4 (18)
+        
     videofilename = ''
     jsonfilename = ''
     for dirname, dirnames, filenames in os.walk('.'):
@@ -163,7 +171,7 @@ while len(videotodourls) > 0:
     item = internetarchive.get_item(itemname)
     md = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description='{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/user/{3}">{4}</a><br/>Upload date: {5}'.format(quote(description), videotodourl, videotodourl, quote(uploader), quote(uploader), upload_date), date=upload_date, year=upload_year, subject=(u'; '.join([collection, 'videos', upload_month, upload_year] + tags)), originalurl=videotodourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
 
-    item.upload(videofilename, metadata=md, access_key=accesskey, secret_key=secretkey)
+    item.upload(glob.glob(videobasename + '*'), metadata=md, access_key=accesskey, secret_key=secretkey)
 
     print 'You can browse it in http://archive.org/details/%s' % (itemname)
     videotodourls.remove(videotodourl)
