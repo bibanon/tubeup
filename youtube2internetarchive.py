@@ -1,7 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 
 # Copyright (C) 2012 emijrp
+# Copyright (C) 2015 Matt Hazinski <matt@hazinski.net>
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -19,7 +20,7 @@
 Instructions:
  1) Create a subdirectory "download" and add a videostodo.txt file with YouTube links.
  2) In the current directory, create a keys.txt file with your IA S3 keys. Accesskey and secretkey in two separated lines.
- 3) Download youtube-dl to the current directory http://rg3.github.com/youtube-dl/download.html
+ 3) Install youtube-dl
  4) Modify preferences if desired (see below).
  5) Run this script: python youtube2internetarchive.py [english|spanish] [cc|all] [collectionname]
     (where param 1 is language for the video dates,
@@ -46,7 +47,7 @@ num2month = {
     }
 
 # Start preferences
-sizelimit = 10000*1024*1024 # file size, if you want to skip those videos greater than this size, 10000*1024*1024 for 10GB
+sizelimit = 0       # file size, if you want to skip those videos greater than this size, 10000*1024*1024 for 10GB. Set to 0 to never skip.
 if len(sys.argv) < 4:
     print 'python youtube2internetarchive.py [english|spanish] [cc|all] [collectionname]'
     sys.exit()
@@ -111,7 +112,7 @@ while len(videotodourls) > 0:
     tags = re.findall(ur"search=tag\">([^<]+)</a>", videohtml)
     tags = [quote(tag) for tag in tags]
     
-    os.system('python ../youtube-dl -t -i -c - %s --write-info-json --format 18' % (videotodourl)) #mp4 (18)
+    os.system('youtube-dl -t -i -c --write-info-json --format best %s' % (videotodourl)) #mp4 (18)
     videofilename = ''
     jsonfilename = ''
     for dirname, dirnames, filenames in os.walk('.'):
@@ -123,13 +124,14 @@ while len(videotodourls) > 0:
     
     if videofilename:
         jsonfilename = '%s.info.json' % (videofilename)
-        if os.path.getsize(videofilename) > sizelimit:
-            print 'Video is greater than', sizelimit, 'bytes'
-            print 'Skiping...'
-            videotodourls.remove(videotodourl)
-            updatetodo(videotodourls)
-            os.chdir('..')
-            continue
+        if sizelimit > 0:
+            if os.path.getsize(videofilename) > sizelimit:
+                print 'Video is greater than', sizelimit, 'bytes'
+                print 'Skiping...'
+                videotodourls.remove(videotodourl)
+                updatetodo(videotodourls)
+                os.chdir('..')
+                continue
     else:
         print 'No video downloaded, an error ocurred'
         videotodourls.remove(videotodourl)
