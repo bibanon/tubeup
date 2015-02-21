@@ -40,6 +40,7 @@ import sys
 import time
 import unicodedata
 import urllib
+import internetarchive
 
 num2month = { 
     'spanish': {'01':'enero', '02': 'febrero', '03':'marzo', '04':'abril', '05':'mayo', '06':'junio', '07':'julio', '08':'agosto','09':'septiembre','10':'octubre', '11':'noviembre', '12':'diciembre'},
@@ -123,7 +124,8 @@ while len(videotodourls) > 0:
             break #stop searching, dot not explore subdirectories
     
     if videofilename:
-        jsonfilename = '%s.info.json' % (videofilename)
+        videobasename = os.path.splitext(videofilename)[0]
+        jsonfilename = '%s.info.json' % (videobasename)
         if sizelimit > 0:
             if os.path.getsize(videofilename) > sizelimit:
                 print 'Video is greater than', sizelimit, 'bytes'
@@ -156,7 +158,15 @@ while len(videotodourls) > 0:
         updatetodo(videotodourls)
         os.chdir('..')
         continue
-    
+   
+
+    item = internetarchive.get_item(itemname)
+    md = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description='{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/user/{3}">{4}</a><br/>Upload date: {5}'.format(quote(description), videotodourl, videotodourl, quote(uploader), quote(uploader), upload_date), date=upload_date, year=upload_year, subject=(u'; '.join([collection, 'videos', upload_month, upload_year] + tags)), originalurl=videotodourl)
+
+    item.upload(videofilename)
+
+
+"""
     curl = ['curl', '--location', 
         '--header', u"'x-amz-auto-make-bucket:1'",
         '--header', u"'x-archive-meta01-collection:%s'" % (collection),
@@ -178,7 +188,7 @@ while len(videotodourls) > 0:
     ]
     print 'Uploading to Internet Archive as:', itemname
     curlline = ' '.join(curl)
-    os.system(curlline.encode('utf-8'))
+    os.system(curlline.encode('utf-8'))"""
     
     print 'You can browse it in http://archive.org/details/%s' % (itemname)
     videotodourls.remove(videotodourl)
