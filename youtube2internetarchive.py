@@ -180,7 +180,7 @@ while len(videotodourls) > 0:
 
 
     item = internetarchive.get_item(itemname)
-    md = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description='{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/user/{3}">{4}</a><br/>Upload date: {5}'.format(quote(description), videotodourl, videotodourl, quote(uploader), quote(uploader), upload_date), date=upload_date, year=upload_year, subject=subject, originalurl=videotodourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
+    md = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/user/{3}">{4}</a><br/>Upload date: {5}'.format(quote(description), videotodourl, videotodourl, quote(uploader), quote(uploader), upload_date), date=upload_date, year=upload_year, subject=subject, originalurl=videotodourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
 
     item.upload(glob.glob(videobasename + '*'), metadata=md, access_key=accesskey, secret_key=secretkey)
 
