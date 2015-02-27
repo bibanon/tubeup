@@ -95,7 +95,7 @@ while len(videotodourls) > 0:
     videoid = videotodourl.split('watch?v=')[1]
     #check if it is on IA
     searchurl = 'http://archive.org/search.php?query=%s' % (re.sub(ur"(?im)^-+", ur"", videoid))
-    rawsearch = unicode(urllib.urlopen(searchurl).read(), 'utf-8')
+    rawsearch = unicode(urllib.urlopen(searchurl).read(), 'utf-8', errors='replace')
     print searchurl
     while not re.search(ur"\d+ through \d+", rawsearch): #error in IA search engine? retry....
         print 'Error while searching in IA... waiting some seconds and retrying'
