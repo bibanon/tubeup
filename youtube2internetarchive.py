@@ -65,7 +65,10 @@ else:
     cc = False
 collection = sys.argv[3]
 
-use_ffmpeg = True       # youtube-dl muxes bestvideo+bestaudio with ffmpeg. else, just does 'best' quality.
+encoder = 'ffmpeg'      # valid options are: 'ffmpeg', 'avconv', 'none'
+                        # youtube-dl muxes bestvideo+bestaudio with 
+                        # ffmpeg/avconv, else just does 'best' quality.
+
 subject_contains_collection = False
 id_contains_collection = False
 # End preferences
@@ -118,8 +121,11 @@ while len(videotodourls) > 0:
     tags = re.findall(ur"search=tag\">([^<]+)</a>", videohtml)
     tags = [quote(tag) for tag in tags]
    
-    if use_ffmpeg:
+    if encoder == 'avconv':
         os.system('youtube-dl --title --continue --retries 4 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --format bestvideo+bestaudio/best %s' % (videotodourl))
+
+    elif encoder == 'ffmpeg':
+        os.system('youtube-dl --title --continue --retries 4 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --prefer-ffmpeg --format bestvideo+bestaudio/best %s' % (videotodourl))
 
     else:
         os.system('youtube-dl --title --continue --retries 4 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --format best %s' % (videotodourl)) #mp4 (18)
