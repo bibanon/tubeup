@@ -113,14 +113,6 @@ def upload_ia(videobasename):
     upload_year = upload_date[:4] # 20150614 -> 2015
     cc = False # let's not misapply creative commons
     
-    # if there is no description don't upload the empty .description file
-    if len(vid_meta['description']) != 0 or vid_meta['description'] is None:
-        description = vid_meta['description']
-        no_description = False
-    else:
-        description = ''
-        no_description = True
-    
     # load up tags into an IA compatible semicolon-separated string
     tags_string = '%s;video;' % vid_meta['extractor_key'] # Youtube;video;
     
@@ -134,20 +126,33 @@ def upload_ia(videobasename):
         for tag in tags:
             tags_string += '%s;' % tag
     
-    item = internetarchive.get_item(itemname)
-    meta = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/user/{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
-
+    # if there is no description don't upload the empty .description file
+    if 'description' in vid_meta:
+        description = vid_meta['description']
+        no_description = False
+    else:
+        description = ''
+        no_description = True
+    
+    # if there is no annotations file don't upload the empty .annotation file
+    if 'annotations' in vid_meta:
+        no_annotations = False
+    else:
+        no_annotations = True
+    
     # upload all files with videobase name: e.g. video.mp4, video.info.json, video.srt, etc.
     vid_files = glob.glob(videobasename + '*')
     
-    # don't upload the description if there was none
     for f in vid_files:
         filename, file_extension = os.path.splitext(f)
         if no_description and file_extension == '.description':
-            try:
-                vid_files.remove(f)
-            except ValueError:
-                pass
+            vid_files.remove(f)                                 # don't upload the description if there was none
+        if no_annotations and file_extension == '.xml':
+            vid_files.remove(f)                                 # don't upload the annotations.xml if there was none
+
+    # upload the item to the Internet Archive
+    item = internetarchive.get_item(itemname)
+    meta = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/user/{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
     
     item.upload(vid_files, metadata=meta)
     
