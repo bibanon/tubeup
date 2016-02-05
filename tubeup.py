@@ -1,0 +1,186 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# tubeup.py - Download a video using youtube-dl and upload to the Internet Archive with metadata
+
+# Copyright (C) 2016 Bibliotheca Anonoma
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+from __future__ import unicode_literals
+import re
+import os
+import sys
+import glob
+import json
+import docopt
+import youtube_dl
+import internetarchive
+import logging
+
+__doc__ = """tubeup.py - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
+
+Usage:
+  tubeup.py <url>...
+  tubeup.py [--upload-only]
+  tubeup.py -h | --help
+
+Arguments:
+  <url>           Youtube-dl compatible URL to download.
+                  Check Youtube-dl documentation for a list
+                  of compatible websites. 
+
+Options:
+  -h --help       Show this screen.
+  --upload-only   Upload a previous download attempt.
+"""
+
+def mkdirs(path):
+	"""Make directory, if it doesn't exist."""
+	if not os.path.exists(path):
+		os.makedirs(path)
+
+# log youtube-dl errors to stdout
+class MyLogger(object):
+    def debug(self, msg):
+        pass
+
+    def warning(self, msg):
+        pass
+
+    def error(self, msg):
+        print(msg)
+
+# equivalent of youtube-dl --title --continue --retries 4 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors URL 
+# uses downloads/ folder and safe title in output template
+def download(URLs):
+    
+    ydl_opts = {
+        'outtmpl': 'downloads/%(title)s-%(id)s.%(ext)s',
+        'restrictfilenames': True,
+        'verbose': True,
+        'progress_with_newline': True,
+        'forcetitle': True,
+        'continuedl': True,
+        'retries': 4,
+        'forcejson': True,
+        'writeinfojson': True,
+        'writedescription': True,
+        'writethumbnail': True,
+        'writeannotations': True,
+        'writesubtitles': True,
+        'allsubtitles': True,
+        'logger': MyLogger(),
+        'progress_hooks': [my_hook]
+    }
+    
+    # format: We don't set a default format. Youtube-dl will choose the best option for us automatically.
+    # Since the end of April 2015 and version 2015.04.26 youtube-dl uses -f bestvideo+bestaudio/best as default format selection (see #5447, #5456). 
+    # If ffmpeg or avconv are installed this results in downloading bestvideo and bestaudio separately and muxing them together into a single file giving the best overall quality available. 
+    # Otherwise it falls back to best and results in downloading best available quality served as a single file.
+    # best is also needed for videos that don't come from YouTube because they don't provide the audio and video in two different files. 
+    
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download(URLs)
+
+# upload a video to the Internet Archive
+def upload_ia(videobasename):
+    # obtain metadata from JSON
+    json_fname = videobasename + '.info.json'
+    with open(json_fname) as f:    
+        vid_meta = json.load(f)
+    
+    itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
+    uploader = vid_meta['uploader']
+    language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
+    collection = 'opensource_movies'
+    title = '%s: %s - %s' % (vid_meta['extractor_key'], vid_meta['display_id'], vid_meta['title']) # Youtube: LE2v3sUzTH4 - THIS IS A BUTTERFLY!
+    description = vid_meta['description']
+    videourl = vid_meta['webpage_url']
+    upload_date = vid_meta['upload_date']
+    upload_year = upload_date[:4] # 20150614 -> 2015
+    cc = False # let's not misapply creative commons
+    
+    # load up tags into an IA compatible semicolon-separated string
+    tags_string = '%s;video;' % vid_meta['extractor_key'] # Youtube;video;
+    
+    if 'categories' in vid_meta: # add categories as tags as well, if they exist
+        categories = vid_meta['categories']
+        for category in categories:
+            tags_string += '%s;' % category
+    
+    if 'tags' in vid_meta: # some video services don't have tags
+        tags = vid_meta['tags']
+        for tag in tags:
+            tags_string += '%s;' % tag
+    
+    item = internetarchive.get_item(itemname)
+    meta = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/user/{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
+
+    # upload all files with videobase name: e.g. video.mp4, video.info.json, video.srt, etc.
+    item.upload(glob.glob(videobasename + '*'), metadata=meta)
+    
+    # return item identifier and metadata as output
+    return itemname, meta
+
+# array of basenames to upload (not ideal, maybe we should transform all this into an OOP library)
+to_upload = []
+
+# monitor download status
+def my_hook(d):
+    filename, file_extension = os.path.splitext(d['filename'])
+    if d['status'] == 'finished': # only upload if download was a success
+        print(d)    # display download stats
+        print(':: Downloaded: %s...' % d['filename'])
+        
+        global to_upload
+        videobasename = re.sub(r'(\.f\d+)', '', filename) # remove .fxxx from filename (e.g. .f141.mp4)
+        if videobasename not in to_upload: # don't add if it's already in the list
+            to_upload.append(videobasename)
+
+    if d['status'] == 'error':
+        print(':: Error occurred while downloading: %s.' % d['filename'])
+
+def main():
+    # display log output from internetarchive libraries: http://stackoverflow.com/a/14058475
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+    
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+    root.addHandler(ch)
+    
+    # parse arguments from file docstring
+    args = docopt.docopt(__doc__)
+    
+    # test url: https://www.youtube.com/watch?v=LE2v3sUzTH4
+    URLs = args['<url>']
+
+    # download all URLs with youtube-dl
+    download(URLs)
+    
+    # while downloading, if the download hook returns status "finished", myhook() will append the basename to the `to_upload` array.
+    
+    # upload all URLs with metadata to the Internet Archive
+    global to_upload
+    for video in to_upload:
+        print(":: Uploading %s..." % video)
+        identifier, meta = upload_ia(video)
+        
+        print("\n:: Upload Finished. Item information:")
+        print("Title: %s" % meta['title'])
+        print("Upload URL: http://archive.org/details/%s" % identifier)
+
+if __name__ == '__main__':
+    main()
