@@ -3,7 +3,7 @@ tubeup.py - Youtube (and other video site) to Internet Archive Uploader
 
 `tubeup.py` uses youtube-dl to download a Youtube video (or [any other provider supported by youtube-dl](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md)), and then uploads it with all metadata to the Internet Archive.
 
-It was designed by the Bibliotheca Anonoma to archive entire Youtube accounts and playlists to the Internet Archive.
+It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/wiki) to archive entire Youtube accounts and playlists to the Internet Archive.
 
 ## Prerequisites
 
@@ -40,10 +40,6 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
         python3 tubeup.py <url>
 7. Each archived video gets it's own Archive.org item. Check out what you've uploaded at `http://archive.org/details/@yourusername`.
 
-## Troubleshooting
-
-* Obviously, if someone else uploaded the video to the Internet Archive, you will get a permissions error. We don't want duplicates, do we?
-
 ## Usage
 
 ```
@@ -63,6 +59,11 @@ Options:
   -h --help       Show this screen.
   --upload-only   Upload a previous download attempt.
 ```
+
+## Troubleshooting
+
+* Obviously, if someone else uploaded the video to the Internet Archive, you will get a permissions error. We don't want duplicates, do we?
+
 
 ## Credits
 
