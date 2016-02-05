@@ -19,15 +19,23 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 ## Installation
 
 1. Install `avconv` or `ffmpeg`, depending on what your distro prefers. Also install pip3 and git. For Debian/Ubuntu:
+
         sudo apt-get install libav python3-pip git
+
 2. Use pip3 to install the required python3 packages.
+
         sudo pip3 install docopt youtube_dl internetarchive
+
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
 4. Configure internetarchive with your Internet Archive account. You will be prompted for your username and password.
+
         ia configure
+
 5. Clone this repository to your Linux system.
+
         git clone https://github.com/bibanon/tubeup
         cd tubeup
+
 6. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Dailymotion, [anything supported by youtube-dl.](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs. 
         python3 tubeup.py <url>
 7. Each archived video gets it's own Archive.org item. Check out what you've uploaded at `http://archive.org/details/@yourusername`.
