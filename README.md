@@ -47,7 +47,7 @@ tubeup.py - Download a video with Youtube-dl, then upload to Internet Archive, p
 
 Usage:
   tubeup.py <url>...
-  tubeup.py [--upload-only]
+  tubeup.py <url>... [--proxy <prox>]
   tubeup.py -h | --help
 
 Arguments:
@@ -57,13 +57,14 @@ Arguments:
 
 Options:
   -h --help       Show this screen.
-  --upload-only   Upload a previous download attempt.
+  --proxy <prox>  Use a proxy while uploading.
 ```
 
 ## Troubleshooting
 
+* If you've already downloaded some videos, unless you delete the video youtube-dl will not redownload it and will output nothing.
 * Obviously, if someone else uploaded the video to the Internet Archive, you will get a permissions error. We don't want duplicates, do we?
-
+* Some videos are copyright blocked in certain countries. Use the proxy option to use a proxy to bypass this.
 
 ## Credits
 
