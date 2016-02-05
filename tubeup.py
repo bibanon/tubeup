@@ -31,7 +31,7 @@ __doc__ = """tubeup.py - Download a video with Youtube-dl, then upload to Intern
 
 Usage:
   tubeup.py <url>...
-  tubeup.py [--upload-only]
+  tubeup.py [--proxy <prox>]
   tubeup.py -h | --help
 
 Arguments:
@@ -41,7 +41,7 @@ Arguments:
 
 Options:
   -h --help       Show this screen.
-  --upload-only   Upload a previous download attempt.
+  --proxy <prox>  Use a proxy while uploading.
 """
 
 def mkdirs(path):
@@ -62,16 +62,17 @@ class MyLogger(object):
 
 # equivalent of youtube-dl --title --continue --retries 4 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors URL 
 # uses downloads/ folder and safe title in output template
-def download(URLs):
+def download(URLs, proxy_url):
     
     ydl_opts = {
         'outtmpl': 'downloads/%(title)s-%(id)s.%(ext)s',
+#        'download_archive': 'downloads/.ytdlarchive', # I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
         'restrictfilenames': True,
         'verbose': True,
         'progress_with_newline': True,
         'forcetitle': True,
         'continuedl': True,
-        'retries': 4,
+        'retries': 100,
         'forcejson': True,
         'writeinfojson': True,
         'writedescription': True,
@@ -82,6 +83,9 @@ def download(URLs):
         'logger': MyLogger(),
         'progress_hooks': [my_hook]
     }
+    
+    if proxy_url is not None: # use proxy url as argument
+        ydl_opts['proxy'] = proxy_url
     
     # format: We don't set a default format. Youtube-dl will choose the best option for us automatically.
     # Since the end of April 2015 and version 2015.04.26 youtube-dl uses -f bestvideo+bestaudio/best as default format selection (see #5447, #5456). 
@@ -104,11 +108,18 @@ def upload_ia(videobasename):
     language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
     collection = 'opensource_movies'
     title = '%s: %s - %s' % (vid_meta['extractor_key'], vid_meta['display_id'], vid_meta['title']) # Youtube: LE2v3sUzTH4 - THIS IS A BUTTERFLY!
-    description = vid_meta['description']
     videourl = vid_meta['webpage_url']
     upload_date = vid_meta['upload_date']
     upload_year = upload_date[:4] # 20150614 -> 2015
     cc = False # let's not misapply creative commons
+    
+    # if there is no description don't upload the empty .description file
+    if len(vid_meta['description']) != 0 or vid_meta['description'] is None:
+        description = vid_meta['description']
+        no_description = False
+    else:
+        description = ''
+        no_description = True
     
     # load up tags into an IA compatible semicolon-separated string
     tags_string = '%s;video;' % vid_meta['extractor_key'] # Youtube;video;
@@ -127,7 +138,18 @@ def upload_ia(videobasename):
     meta = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/user/{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
 
     # upload all files with videobase name: e.g. video.mp4, video.info.json, video.srt, etc.
-    item.upload(glob.glob(videobasename + '*'), metadata=meta)
+    vid_files = glob.glob(videobasename + '*')
+    
+    # don't upload the description if there was none
+    for f in vid_files:
+        filename, file_extension = os.path.splitext(f)
+        if no_description and file_extension == '.description':
+            try:
+                vid_files.remove(f)
+            except ValueError:
+                pass
+    
+    item.upload(vid_files, metadata=meta)
     
     # return item identifier and metadata as output
     return itemname, meta
@@ -166,9 +188,10 @@ def main():
     
     # test url: https://www.youtube.com/watch?v=LE2v3sUzTH4
     URLs = args['<url>']
+    proxy_url = args['--proxy']
 
     # download all URLs with youtube-dl
-    download(URLs)
+    download(URLs, proxy_url)
     
     # while downloading, if the download hook returns status "finished", myhook() will append the basename to the `to_upload` array.
     
