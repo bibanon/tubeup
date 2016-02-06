@@ -127,18 +127,18 @@ def upload_ia(videobasename):
             tags_string += '%s;' % tag
     
     # if there is no description don't upload the empty .description file
+    description = ''
+    no_description = True
     if 'description' in vid_meta:
-        description = vid_meta['description']
-        no_description = False
-    else:
-        description = ''
-        no_description = True
+        if vid_meta['description'] != "":
+            description = vid_meta['description']
+            no_description = False
     
-    # if there is no annotations file don't upload the empty .annotation file
+    # if there is no annotations file (or annotations are not in XML) don't upload the empty .annotation.xml file
+    no_annotations = True
     if 'annotations' in vid_meta:
-        no_annotations = False
-    else:
-        no_annotations = True
+        if vid_meta['annotations'] != "" and vid_meta['annotations'] != """<?xml version="1.0" encoding="UTF-8" ?><document><annotations></annotations></document>""":
+            no_annotations = False
     
     # upload all files with videobase name: e.g. video.mp4, video.info.json, video.srt, etc.
     vid_files = glob.glob(videobasename + '*')
