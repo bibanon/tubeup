@@ -106,7 +106,7 @@ def upload_ia(videobasename):
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
     uploader = vid_meta['uploader']
     language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
-    collection = 'opensource_movies'
+    collection = 'youtubearchive-dkl3'
     title = '%s: %s - %s' % (vid_meta['extractor_key'], vid_meta['display_id'], vid_meta['title']) # Youtube: LE2v3sUzTH4 - THIS IS A BUTTERFLY!
     videourl = vid_meta['webpage_url']
     upload_date = vid_meta['upload_date']
@@ -127,28 +127,29 @@ def upload_ia(videobasename):
             tags_string += '%s;' % tag
     
     # if there is no description don't upload the empty .description file
-    description = ''
+    description = ""
     no_description = True
     if 'description' in vid_meta:
         if vid_meta['description'] != "":
             description = vid_meta['description']
             no_description = False
     
+    # delete empty description file so it isn't uploaded
+    if no_description or os.stat(videobasename + '.description').st_size == 0:
+        os.remove(videobasename + '.description')
+    
     # if there is no annotations file (or annotations are not in XML) don't upload the empty .annotation.xml file
     no_annotations = True
     if 'annotations' in vid_meta:
         if vid_meta['annotations'] != "" and vid_meta['annotations'] != """<?xml version="1.0" encoding="UTF-8" ?><document><annotations></annotations></document>""":
             no_annotations = False
+
+    # delete empty annotations.xml file so it isn't uplodaed
+    if no_annotations or os.stat(videobasename + '.annotations.xml').st_size == 0:
+        os.remove(videobasename + '.annotations.xml')
     
     # upload all files with videobase name: e.g. video.mp4, video.info.json, video.srt, etc.
     vid_files = glob.glob(videobasename + '*')
-    
-    for f in vid_files:
-        filename, file_extension = os.path.splitext(f)
-        if no_description and file_extension == '.description':
-            vid_files.remove(f)                                 # don't upload the description if there was none
-        if no_annotations and file_extension == '.xml':
-            vid_files.remove(f)                                 # don't upload the annotations.xml if there was none
 
     # upload the item to the Internet Archive
     item = internetarchive.get_item(itemname)
