@@ -106,7 +106,7 @@ def upload_ia(videobasename):
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
     uploader = vid_meta['uploader']
     language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
-    collection = 'videoarchive-dkl3'
+    collection = 'opensource_movies'
     title = '%s: %s - %s' % (vid_meta['extractor_key'], vid_meta['display_id'], vid_meta['title']) # Youtube: LE2v3sUzTH4 - THIS IS A BUTTERFLY!
     videourl = vid_meta['webpage_url']
     upload_date = vid_meta['upload_date']
