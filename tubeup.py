@@ -22,6 +22,7 @@ import os
 import sys
 import glob
 import json
+import time
 import docopt
 import youtube_dl
 import internetarchive
@@ -106,12 +107,18 @@ def upload_ia(videobasename):
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
     uploader = vid_meta['uploader']
     language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
-    collection = 'opensource_movies'
+    collection = 'videoarchive-dkl3'
     title = '%s: %s - %s' % (vid_meta['extractor_key'], vid_meta['display_id'], vid_meta['title']) # Youtube: LE2v3sUzTH4 - THIS IS A BUTTERFLY!
     videourl = vid_meta['webpage_url']
-    upload_date = vid_meta['upload_date']
-    upload_year = upload_date[:4] # 20150614 -> 2015
     cc = False # let's not misapply creative commons
+    
+    # start with current date and time as default values
+    upload_date = time.strftime("%Y%m%d")
+    upload_year = time.strftime("%Y")
+    if 'upload_date' in vid_meta: # some videos don't give an upload date
+        if vid_meta['upload_date'] != "":
+            upload_date = vid_meta['upload_date']
+            upload_year = upload_date[:4] # 20150614 -> 2015
     
     # load up tags into an IA compatible semicolon-separated string
     tags_string = '%s;video;' % vid_meta['extractor_key'] # Youtube;video;
