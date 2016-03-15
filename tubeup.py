@@ -106,7 +106,7 @@ def upload_ia(videobasename):
     
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
     uploader = vid_meta['uploader']
-    uploader_id = vid_meta['uploader_id']
+    uploader_url = vid_meta['uploader_url']
     language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
     collection = 'opensource_movies'
     title = '%s: %s - %s' % (vid_meta['extractor_key'], vid_meta['display_id'], vid_meta['title']) # Youtube: LE2v3sUzTH4 - THIS IS A BUTTERFLY!
@@ -161,7 +161,7 @@ def upload_ia(videobasename):
 
     # upload the item to the Internet Archive
     item = internetarchive.get_item(itemname)
-    meta = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/channel/{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader_id, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
+    meta = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader_url, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
     
     item.upload(vid_files, metadata=meta)
     
