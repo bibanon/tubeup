@@ -105,12 +105,16 @@ def upload_ia(videobasename):
         vid_meta = json.load(f)
     
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
-    uploader = vid_meta['uploader']
     language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
     collection = 'opensource_movies'
     title = '%s: %s - %s' % (vid_meta['extractor_key'], vid_meta['display_id'], vid_meta['title']) # Youtube: LE2v3sUzTH4 - THIS IS A BUTTERFLY!
     videourl = vid_meta['webpage_url']
     cc = False # let's not misapply creative commons
+    
+    # some video services don't tell you the uploader, use our program's name in that case
+    uploader = 'tubeup.py'
+    if 'uploader' in vid_meta:
+        uploader = vid_meta['uploader']
     
     # start with current date and time as default values
     upload_date = time.strftime("%Y%m%d")
@@ -142,8 +146,11 @@ def upload_ia(videobasename):
             no_description = False
     
     # delete empty description file so it isn't uploaded
-    if no_description or os.stat(videobasename + '.description').st_size == 0:
-        os.remove(videobasename + '.description')
+    try:
+        if no_description or os.stat(videobasename + '.description').st_size == 0:
+            os.remove(videobasename + '.description')
+    except OSError:
+        print(":: Description not saved, so not removed.")
     
     # if there is no annotations file (or annotations are not in XML) don't upload the empty .annotation.xml file
     no_annotations = True
@@ -152,8 +159,11 @@ def upload_ia(videobasename):
             no_annotations = False
 
     # delete empty annotations.xml file so it isn't uplodaed
-    if no_annotations or os.stat(videobasename + '.annotations.xml').st_size == 0:
-        os.remove(videobasename + '.annotations.xml')
+    try:
+        if no_annotations or os.stat(videobasename + '.annotations.xml').st_size == 0:
+            os.remove(videobasename + '.annotations.xml')
+    except OSError:
+        print(":: annotations.xml not saved, so not removed.")
     
     # upload all files with videobase name: e.g. video.mp4, video.info.json, video.srt, etc.
     vid_files = glob.glob(videobasename + '*')
