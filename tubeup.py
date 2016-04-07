@@ -112,17 +112,23 @@ def upload_ia(videobasename):
     cc = False # let's not misapply creative commons
     
     # some video services don't tell you the uploader, use our program's name in that case
-    uploader = 'tubeup.py'
     if 'uploader' in vid_meta:
         uploader = vid_meta['uploader']
+    else:
+        uploader = 'tubeup.py'
     
-    # start with current date and time as default values
-    upload_date = time.strftime("%Y%m%d")
-    upload_year = time.strftime("%Y")
+    if 'uploader_url' in vid_meta:
+        uploader_url = vid_meta['uploader_url']
+    else:
+        uploader_url = videourl
+
     if 'upload_date' in vid_meta: # some videos don't give an upload date
         if vid_meta['upload_date'] != "":
             upload_date = vid_meta['upload_date']
             upload_year = upload_date[:4] # 20150614 -> 2015
+    else: # use current date and time as default values
+        upload_date = time.strftime("%Y%m%d")
+        upload_year = time.strftime("%Y")
     
     # load up tags into an IA compatible semicolon-separated string
     tags_string = '%s;video;' % vid_meta['extractor_key'] # Youtube;video;
@@ -138,12 +144,13 @@ def upload_ia(videobasename):
             tags_string += '%s;' % tag
     
     # if there is no description don't upload the empty .description file
-    description = ""
-    no_description = True
     if 'description' in vid_meta:
         if vid_meta['description'] != "":
             description = vid_meta['description']
             no_description = False
+    else:
+        description = ""
+        no_description = True
     
     # delete empty description file so it isn't uploaded
     try:
@@ -153,10 +160,11 @@ def upload_ia(videobasename):
         print(":: Description not saved, so not removed.")
     
     # if there is no annotations file (or annotations are not in XML) don't upload the empty .annotation.xml file
-    no_annotations = True
     if 'annotations' in vid_meta:
         if vid_meta['annotations'] != "" and vid_meta['annotations'] != """<?xml version="1.0" encoding="UTF-8" ?><document><annotations></annotations></document>""":
             no_annotations = False
+    else:
+        no_annotations = True
 
     # delete empty annotations.xml file so it isn't uplodaed
     try:
@@ -170,7 +178,7 @@ def upload_ia(videobasename):
 
     # upload the item to the Internet Archive
     item = internetarchive.get_item(itemname)
-    meta = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="http://www.youtube.com/user/{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
+    meta = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader_url, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
     
     item.upload(vid_files, metadata=meta)
     
