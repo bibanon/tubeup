@@ -106,7 +106,8 @@ def upload_ia(videobasename):
     
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
     language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
-    collection = 'opensource_movies'
+#    collection = 'opensource_movies'
+    collection = 'videoarchive-dkl3'
     title = '%s: %s - %s' % (vid_meta['extractor_key'], vid_meta['display_id'], vid_meta['title']) # Youtube: LE2v3sUzTH4 - THIS IS A BUTTERFLY!
     videourl = vid_meta['webpage_url']
     cc = False # let's not misapply creative commons
@@ -160,13 +161,12 @@ def upload_ia(videobasename):
         print(":: Description not saved, so not removed.")
     
     # if there is no annotations file (or annotations are not in XML) don't upload the empty .annotation.xml file
+    no_annotations = True
     if 'annotations' in vid_meta:
         if vid_meta['annotations'] != "" and vid_meta['annotations'] != """<?xml version="1.0" encoding="UTF-8" ?><document><annotations></annotations></document>""":
             no_annotations = False
-    else:
-        no_annotations = True
 
-    # delete empty annotations.xml file so it isn't uplodaed
+    # delete empty annotations.xml file so it isn't uploaded
     try:
         if no_annotations or os.stat(videobasename + '.annotations.xml').st_size == 0:
             os.remove(videobasename + '.annotations.xml')
