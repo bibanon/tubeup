@@ -144,13 +144,12 @@ def upload_ia(videobasename):
             tags_string += '%s;' % tag
     
     # if there is no description don't upload the empty .description file
+    description = ""
+    no_description = True
     if 'description' in vid_meta:
         if vid_meta['description'] != "":
             description = vid_meta['description']
             no_description = False
-    else:
-        description = ""
-        no_description = True
     
     # delete empty description file so it isn't uploaded
     try:
