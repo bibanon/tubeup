@@ -109,7 +109,7 @@ def upload_ia(videobasename):
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
     language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
     collection = 'opensource_movies'
-    title = '%s - %s' % (vid_meta['title'], vid_meta['display_id']) # THIS IS A BUTTERFLY! - LE2v3sUzTH4
+    title = '%s' % (vid_meta['title']) # THIS IS A BUTTERFLY!
     videourl = vid_meta['webpage_url']
     cc = False # let's not misapply creative commons
     
