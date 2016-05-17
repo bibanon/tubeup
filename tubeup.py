@@ -61,13 +61,13 @@ class MyLogger(object):
     def error(self, msg):
         print(msg)
 
-# equivalent of youtube-dl --title --continue --retries 4 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors URL 
+# equivalent of youtube-dl --title --continue --retries 100 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors URL 
 # uses downloads/ folder and safe title in output template
 def download(URLs, proxy_url):
     
     ydl_opts = {
         'outtmpl': 'downloads/%(title)s-%(id)s.%(ext)s',
-#        'download_archive': 'downloads/.ytdlarchive', # I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
+#        'download_archive': '$HOME/.ytdlarchive', # I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
         'restrictfilenames': True,
         'verbose': True,
         'progress_with_newline': True,
@@ -82,6 +82,8 @@ def download(URLs, proxy_url):
         'writesubtitles': True,
         'allsubtitles': True,
         'logger': MyLogger(),
+#        'container': 'mp4/webm', #Not working right now don't enable until this can be investigated
+#	 'format': 'bestvideo+bestaudio/best', #No noticeable difference but an in-dept video comparison will be done soon
         'progress_hooks': [my_hook]
     }
     
@@ -107,7 +109,7 @@ def upload_ia(videobasename):
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
     language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
     collection = 'opensource_movies'
-    title = '%s - %s' % (vid_meta['title'], vid_meta['display_id']) # THIS IS A BUTTERFLY! - LE2v3sUzTH4
+    title = '%s' % (vid_meta['title']) # THIS IS A BUTTERFLY!
     videourl = vid_meta['webpage_url']
     cc = False # let's not misapply creative commons
     
