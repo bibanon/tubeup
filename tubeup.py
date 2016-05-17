@@ -82,8 +82,8 @@ def download(URLs, proxy_url):
         'writesubtitles': True,
         'allsubtitles': True,
         'logger': MyLogger(),
-#        'container': 'mp4/webm',
-#	 'format': 'bestvideo+bestaudio/best',
+#        'container': 'mp4/webm', #Not working right now don't enable until this can be investigated
+#	 'format': 'bestvideo+bestaudio/best', #No noticeable difference but an in-dept video comparison will be done soon
         'progress_hooks': [my_hook]
     }
     
