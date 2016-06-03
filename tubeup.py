@@ -29,17 +29,14 @@ import internetarchive
 import logging
 
 __doc__ = """tubeup.py - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
-
 Usage:
   tubeup.py <url>...
   tubeup.py [--proxy <prox>]
   tubeup.py -h | --help
-
 Arguments:
   <url>           Youtube-dl compatible URL to download.
                   Check Youtube-dl documentation for a list
                   of compatible websites. 
-
 Options:
   -h --help       Show this screen.
   --proxy <prox>  Use a proxy while uploading.
@@ -67,7 +64,7 @@ def download(URLs, proxy_url):
     
     ydl_opts = {
         'outtmpl': 'downloads/%(title)s-%(id)s.%(ext)s',
-#       'download_archive': 'downloads/.ytdlarchive', # I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
+#        'download_archive': 'downloads/.ytdlarchive', # I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
         'restrictfilenames': True,
         'verbose': True,
         'progress_with_newline': True,
@@ -82,8 +79,17 @@ def download(URLs, proxy_url):
         'writesubtitles': True,
         'allsubtitles': True,
         'logger': MyLogger(),
-#        'container': 'mp4/webm', #Not working right now don't enable until this can be investigated
-#	 'format': 'bestvideo+bestaudio/best', #No noticeable difference but an in-dept video comparison will be done soon
+## experimental opts
+	'fixup': 'warn',
+	'convertsubtitles': 'srt',
+#	'merge_output_format': mp4, ##Causing reduced resolution output to meet mp4 requirement, leaving disabled for now for qualitys sake
+	'nooverwrites': True,
+	'consoletitle': True,
+	'prefer_ffmpeg': True,
+# 'simulate': True, 		## Testing variable
+# 'skip_download': True, 	## Testing variable
+	'call_home': True,
+#	'format': 'best',  ##Scarafices best quality for allowance of uniform mp4 output
         'progress_hooks': [my_hook]
     }
     
