@@ -78,18 +78,17 @@ def download(URLs, proxy_url):
         'writeannotations': True,
         'writesubtitles': True,
         'allsubtitles': True,
+	'fixup': 'warn',		## Slightly more verbosity for debugging problems
+	'convertsubtitles': 'srt',	## Convert YouTubes VTT subtitles to Archives SRT
+#	'merge_output_format': mp4, 	## Causing occasional reduced resolution output to meet mp4 requirement, leaving disabled for now for qualitys sake
+	'nooverwrites': True,		## Don't touch what's already been downloaded, speeds things
+	'consoletitle': True,		## Download percentage in console title
+	'prefer_ffmpeg': True,		## FFMPEG is better than avconv
+        'call_home': True,		## Warns on out of date youtube-dl script
+#	'simulate': True, 		## Testing variable for speed of fixing
+#	'skip_download': True, 		## Testing variable for speed of fixing
+#	'format': 'best',  		## Sarafices best quality for allowance of uniform mp4 containers, disabled for now
         'logger': MyLogger(),
-## experimental opts
-	'fixup': 'warn',
-	'convertsubtitles': 'srt',
-#	'merge_output_format': mp4, ##Causing reduced resolution output to meet mp4 requirement, leaving disabled for now for qualitys sake
-	'nooverwrites': True,
-	'consoletitle': True,
-	'prefer_ffmpeg': True,
-# 'simulate': True, 		## Testing variable
-# 'skip_download': True, 	## Testing variable
-	'call_home': True,
-#	'format': 'best',  ##Scarafices best quality for allowance of uniform mp4 output
         'progress_hooks': [my_hook]
     }
     
