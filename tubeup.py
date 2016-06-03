@@ -29,17 +29,14 @@ import internetarchive
 import logging
 
 __doc__ = """tubeup.py - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
-
 Usage:
   tubeup.py <url>...
   tubeup.py [--proxy <prox>]
   tubeup.py -h | --help
-
 Arguments:
   <url>           Youtube-dl compatible URL to download.
                   Check Youtube-dl documentation for a list
                   of compatible websites. 
-
 Options:
   -h --help       Show this screen.
   --proxy <prox>  Use a proxy while uploading.
@@ -67,7 +64,11 @@ def download(URLs, proxy_url):
     
     ydl_opts = {
         'outtmpl': 'downloads/%(title)s-%(id)s.%(ext)s',
+<<<<<<< HEAD
 #       'download_archive': 'downloads/.ytdlarchive', # I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
+=======
+#        'download_archive': 'downloads/.ytdlarchive', # I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
+>>>>>>> testing
         'restrictfilenames': True,
         'verbose': True,
         'progress_with_newline': True,
@@ -81,9 +82,17 @@ def download(URLs, proxy_url):
         'writeannotations': True,
         'writesubtitles': True,
         'allsubtitles': True,
+	'fixup': 'warn',		## Slightly more verbosity for debugging problems
+	'convertsubtitles': 'srt',	## Convert YouTubes VTT subtitles to Archives SRT
+#	'merge_output_format': mp4, 	## Causing occasional reduced resolution output to meet mp4 requirement, leaving disabled for now for qualitys sake
+	'nooverwrites': True,		## Don't touch what's already been downloaded, speeds things
+	'consoletitle': True,		## Download percentage in console title
+	'prefer_ffmpeg': True,		## FFMPEG is better than avconv
+        'call_home': True,		## Warns on out of date youtube-dl script
+#	'simulate': True, 		## Testing variable for speed of fixing
+#	'skip_download': True, 		## Testing variable for speed of fixing
+#	'format': 'best',  		## Sarafices best quality for allowance of uniform mp4 containers, disabled for now
         'logger': MyLogger(),
-#        'container': 'mp4/webm', #Not working right now don't enable until this can be investigated
-#	 'format': 'bestvideo+bestaudio/best', #No noticeable difference but an in-dept video comparison will be done soon
         'progress_hooks': [my_hook]
     }
     
