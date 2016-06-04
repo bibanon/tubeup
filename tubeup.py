@@ -29,14 +29,17 @@ import internetarchive
 import logging
 
 __doc__ = """tubeup.py - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
+
 Usage:
   tubeup.py <url>...
   tubeup.py [--proxy <prox>]
   tubeup.py -h | --help
+
 Arguments:
   <url>           Youtube-dl compatible URL to download.
                   Check Youtube-dl documentation for a list
                   of compatible websites. 
+
 Options:
   -h --help       Show this screen.
   --proxy <prox>  Use a proxy while uploading.
