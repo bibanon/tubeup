@@ -64,13 +64,14 @@ def download(URLs, proxy_url):
     
     ydl_opts = {
         'outtmpl': 'downloads/%(title)s-%(id)s.%(ext)s',
-#        'download_archive': 'downloads/.ytdlarchive', # I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
+        'download_archive': 'downloads/.ytdlarchive', ## I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
         'restrictfilenames': True,
-        'verbose': True,
+#       'verbose': True,		## We only care about errors not successes, anything else is pollution
         'progress_with_newline': True,
         'forcetitle': True,
         'continuedl': True,
-        'retries': 100,
+        'retries': 9001,		## Let's really beef up stability of channel rips
+	'fragment_retries': 9001,	## Let's really beef up stability of channel rips
         'forcejson': True,
         'writeinfojson': True,
         'writedescription': True,
@@ -78,16 +79,17 @@ def download(URLs, proxy_url):
         'writeannotations': True,
         'writesubtitles': True,
         'allsubtitles': True,
+	'ignoreerrors': True,		## Geo-blocked, copyrighted/private/deleted will be printed to STDOUT and channel ripping will continue uninterupted, use with verbose off
 	'fixup': 'warn',		## Slightly more verbosity for debugging problems
 	'convertsubtitles': 'srt',	## Convert YouTubes VTT subtitles to Archives SRT
-#	'merge_output_format': mp4, 	## Causing occasional reduced resolution output to meet mp4 requirement, leaving disabled for now for qualitys sake
+#	 'merge_output_format': mp4, 	## Causing occasional reduced resolution output to meet mp4 requirement, leaving disabled for now for qualitys sake
 	'nooverwrites': True,		## Don't touch what's already been downloaded, speeds things
 	'consoletitle': True,		## Download percentage in console title
-	'prefer_ffmpeg': True,		## FFMPEG is better than avconv
-        'call_home': True,		## Warns on out of date youtube-dl script
-#	'simulate': True, 		## Testing variable for speed of fixing
-#	'skip_download': True, 		## Testing variable for speed of fixing
-#	'format': 'best',  		## Sarafices best quality for allowance of uniform mp4 containers, disabled for now
+	'prefer_ffmpeg': True,		## ffmpeg is better than avconv, let's prefer it's use
+        'call_home': True,		## Warns on out of date youtube-dl script, helps debugging for youtube-dl devs
+# 	 'simulate': True, 		## Testing variable for speed of fixing
+# 	 'skip_download': True, 	## Testing variable for speed of fixing
+#	 'format': 'best',  		## Sacrafices best quality for allowance of uniform mp4 containers, disabled for now and use is discouraged
         'logger': MyLogger(),
         'progress_hooks': [my_hook]
     }
