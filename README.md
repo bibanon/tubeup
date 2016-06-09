@@ -18,9 +18,13 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 
 ## Installation
 
-1. Install `avconv` or `ffmpeg`, depending on what your distro prefers. Also install pip3 and git. For Debian/Ubuntu:
+1. Install `avconv` or `ffmpeg`, depending on what your distro prefers. Also install pip3 and git. 
+   The script prefers ffmpeg if found but will work with just libav. To install ffmpeg in ubuntu have
+   the Universe repository enabled.
 
-        sudo apt-get install libav-tools python3-pip git
+For Debian/Ubuntu:
+
+        sudo apt-get install libav-tools ffmpeg x264 x265 python3-pip git mkvtoolnix
 
 2. Use pip3 to install the required python3 packages. Python 3.4.2 and up is required, as 3.2 will not work.
 
