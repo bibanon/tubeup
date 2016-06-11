@@ -117,7 +117,6 @@ def upload_ia(videobasename):
         vid_meta = json.load(f)
     
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
-    language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
     collection = 'opensource_movies'
     title = '%s' % (vid_meta['title']) # THIS IS A BUTTERFLY!
     videourl = vid_meta['webpage_url']
