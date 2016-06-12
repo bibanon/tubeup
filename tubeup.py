@@ -61,7 +61,7 @@ class MyLogger(object):
     def error(self, msg):
         print(msg)
 
-# equivalent of youtube-dl --title --continue --retries 100 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors URL 
+# equivalent of youtube-dl --title --continue --retries 9001 --fragment-retries 9001 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --convert-subs 'srt' --no-overwrites --prefer-ffmpeg --call-home URL 
 # uses downloads/ folder and safe title in output template
 def download(URLs, proxy_url):
     
@@ -119,6 +119,7 @@ def upload_ia(videobasename):
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
     collection = 'opensource_movies'
     title = '%s' % (vid_meta['title']) # THIS IS A BUTTERFLY!
+    language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
     videourl = vid_meta['webpage_url']
     cc = False # let's not misapply creative commons
     
