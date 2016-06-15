@@ -66,7 +66,7 @@ Options:
 
 ## Collections
 
-By default the collection this script will upload to is [Community Video] (https://archive.org/details/opensource_movies), and care should be taken when uploading entire channels.  Read this guide for creating collections, and contact the [collections staff] (mailto: collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
+By default the collection this script will upload to is [Community Video] (https://archive.org/details/opensource_movies), and care should be taken when uploading entire channels.  Read the appropraite section [in this guide] (https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff] (mailto: collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
 
 **Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the admins first before doing large uploads it's better to ask for guidence or help first than run afowl with the rules._
 
