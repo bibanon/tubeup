@@ -67,7 +67,7 @@ def download(URLs, proxy_url):
     
     ydl_opts = {
         'outtmpl': 'downloads/%(title)s-%(id)s.%(ext)s',
-        'download_archive': 'downloads/.ytdlarchive', ## I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
+#        'download_archive': 'downloads/.ytdlarchive', ## I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
         'restrictfilenames': True,
 #       'verbose': True,		## We only care about errors not successes, anything else is pollution
         'progress_with_newline': True,
@@ -117,9 +117,9 @@ def upload_ia(videobasename):
         vid_meta = json.load(f)
     
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
+##    collection = 'randytaylor69archive'
     collection = 'opensource_movies'
     title = '%s' % (vid_meta['title']) # THIS IS A BUTTERFLY!
-    language = 'en' # I doubt we usually archive spanish videos, but maybe this should be a cmd argument?
     videourl = vid_meta['webpage_url']
     cc = False # let's not misapply creative commons
     
@@ -188,7 +188,7 @@ def upload_ia(videobasename):
 
     # upload the item to the Internet Archive
     item = internetarchive.get_item(itemname)
-    meta = dict(mediatype='movies', creator=uploader, language=language, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader_url, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
+    meta = dict(mediatype='movies', creator=uploader, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader_url, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
     
     item.upload(vid_files, metadata=meta)
     
