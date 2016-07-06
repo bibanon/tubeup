@@ -64,6 +64,22 @@ Options:
   --proxy <prox>  Use a proxy while uploading.
 ```
 
+## Collections
+
+By default the collection this script will upload to is [Community Video] (https://archive.org/details/opensource_movies), and care should be taken when uploading entire channels.  Read the appropraite section [in this guide] (https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff] (mailto: collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
+
+**Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the admins first before doing large uploads it's better to ask for guidence or help first than run afowl with the rules._
+
+The default collection can be edited, and later on I or someone ele will impliment it as a flag, but for the time being it can be edited by hand in the script. Seach (CTRL-F in most text editors) for the word ```collection```, the text should look like this:
+
+```collection = 'opensource_movies'```
+
+Change it to something else, for example:
+
+```collection = 'gamergate_archive'```
+
+**If you do not own a collection you will need to be added as an admin for that collection if yo want to upload to it** Talk to the collection owner or staff if you need assistance with this.
+
 ## Troubleshooting
 
 * If you've already downloaded some videos, unless you delete the video youtube-dl will not redownload it and will output nothing.
