@@ -190,7 +190,7 @@ def upload_ia(videobasename):
     item = internetarchive.get_item(itemname)
     meta = dict(mediatype='movies', creator=uploader, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader_url, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
     
-    item.upload(vid_files, metadata=meta)
+    item.upload(vid_files, metadata=meta, request_kwargs=dict(timeout=600))
     
     # return item identifier and metadata as output
     return itemname, meta
