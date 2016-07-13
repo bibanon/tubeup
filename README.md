@@ -50,14 +50,16 @@ For Debian/Ubuntu:
 tubeup.py - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
 
 Usage:
-  tubeup.py <url>...
-  tubeup.py <url>... [--proxy <prox>]
+  tubeup.py <url>... [--metadata=<key:value>...]
+  tubeup.py [--proxy <prox>]
   tubeup.py -h | --help
 
 Arguments:
-  <url>           Youtube-dl compatible URL to download.
-                  Check Youtube-dl documentation for a list
-                  of compatible websites. 
+  <url>                         Youtube-dl compatible URL to download.
+                                Check Youtube-dl documentation for a list
+                                of compatible websites.
+  -m, --metadata=<key:value>    Custom metadata to add to the archive.org
+                                item.
 
 Options:
   -h --help       Show this screen.
