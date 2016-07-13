@@ -64,21 +64,34 @@ Options:
   --proxy <prox>  Use a proxy while uploading.
 ```
 
-## Collections
+## Metadata
 
-By default the collection this script will upload to is [Community Video] (https://archive.org/details/opensource_movies), and care should be taken when uploading entire channels.  Read the appropraite section [in this guide] (https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff] (mailto: collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
+You can specify custom metadata with the `--metadata` flag.
+For example, this script will upload your video to the [Community Video collection] (https://archive.org/details/opensource_movies) by default.
+You can specify a different collection with the `--metadata` flag:
+
+```
+tubeup.py <url> --metadata=collection:opensource_audio
+```
+
+Any arbitrary metadta can be added to the item, with a few exceptions.
+You can learn more about archive.org metadata [here] (http://internetarchive.readthedocs.io/en/latest/metadata.html).
+
+### Collections
+
+Archive.org users can upload to to four open collections:
+
+* [Community Audio] (https://archive.org/details/opensource_audio) where the identifier is `opensource_audio`.
+* [Community Software] (https://archive.org/details/opensource_software)  where the identifier is `opensource_software`.
+* [Community Texts] (https://archive.org/details/opensource) where the identifier is `opensource`.
+* [Community Video] (https://archive.org/details/opensource_movies) where the identifier is `opensource_movies`.
+
+Note that care should be taken when uploading entire channels.
+Read the appropraite section [in this guide] (https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff] (mailto: collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
 
 **Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the admins first before doing large uploads it's better to ask for guidence or help first than run afowl with the rules._
 
-The default collection can be edited, and later on I or someone ele will impliment it as a flag, but for the time being it can be edited by hand in the script. Seach (CTRL-F in most text editors) for the word ```collection```, the text should look like this:
-
-```collection = 'opensource_movies'```
-
-Change it to something else, for example:
-
-```collection = 'gamergate_archive'```
-
-**If you do not own a collection you will need to be added as an admin for that collection if yo want to upload to it** Talk to the collection owner or staff if you need assistance with this.
+**If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it** Talk to the collection owner or staff if you need assistance with this.
 
 ## Troubleshooting
 
