@@ -82,7 +82,7 @@ You can learn more about archive.org metadata [here] (http://internetarchive.rea
 Archive.org users can upload to to four open collections:
 
 * [Community Audio] (https://archive.org/details/opensource_audio) where the identifier is `opensource_audio`.
-* [Community Software] (https://archive.org/details/opensource_software)  where the identifier is `opensource_software`.
+* [Community Software] (https://archive.org/details/open_source_software)  where the identifier is `opensource_software`.
 * [Community Texts] (https://archive.org/details/opensource) where the identifier is `opensource`.
 * [Community Video] (https://archive.org/details/opensource_movies) where the identifier is `opensource_movies`.
 
