@@ -26,19 +26,22 @@ import time
 import docopt
 import youtube_dl
 import internetarchive
+import internetarchive.cli
 import logging
 
 __doc__ = """tubeup.py - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
 
 Usage:
-  tubeup.py <url>...
+  tubeup.py <url>... [--metadata=<key:value>...]
   tubeup.py [--proxy <prox>]
   tubeup.py -h | --help
 
 Arguments:
-  <url>           Youtube-dl compatible URL to download.
-                  Check Youtube-dl documentation for a list
-                  of compatible websites. 
+  <url>                         Youtube-dl compatible URL to download.
+                                Check Youtube-dl documentation for a list
+                                of compatible websites.
+  -m, --metadata=<key:value>    Custom metadata to add to the archive.org
+                                item.
 
 Options:
   -h --help       Show this screen.
@@ -110,19 +113,18 @@ def download(URLs, proxy_url):
         ydl.download(URLs)
 
 # upload a video to the Internet Archive
-def upload_ia(videobasename):
+def upload_ia(videobasename, custom_meta=None):
     # obtain metadata from JSON
     json_fname = videobasename + '.info.json'
     with open(json_fname) as f:    
         vid_meta = json.load(f)
     
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
-##    collection = 'randytaylor69archive'
     collection = 'opensource_movies'
     title = '%s' % (vid_meta['title']) # THIS IS A BUTTERFLY!
     videourl = vid_meta['webpage_url']
     cc = False # let's not misapply creative commons
-    
+
     # some video services don't tell you the uploader, use our program's name in that case
     if 'uploader' in vid_meta:
         uploader = vid_meta['uploader']
@@ -190,6 +192,9 @@ def upload_ia(videobasename):
     item = internetarchive.get_item(itemname)
     meta = dict(mediatype='movies', creator=uploader, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="{3}">{4}</a><br/>Upload date: {5}'.format(description, videourl, videourl, uploader_url, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/3.0/' or ''))
     
+    # override default metadata with any supplemental metadata provided.
+    meta.update(custom_meta)
+
     item.upload(vid_files, metadata=meta, request_kwargs=dict(timeout=600))
     
     # return item identifier and metadata as output
@@ -233,6 +238,9 @@ def main():
 
     # download all URLs with youtube-dl
     download(URLs, proxy_url)
+
+    # parse supplemental metadata.
+    md = internetarchive.cli.argparser.get_args_dict(args['--metadata'])
     
     # while downloading, if the download hook returns status "finished", myhook() will append the basename to the `to_upload` array.
     
@@ -240,7 +248,7 @@ def main():
     global to_upload
     for video in to_upload:
         print(":: Uploading %s..." % video)
-        identifier, meta = upload_ia(video)
+        identifier, meta = upload_ia(video, custom_meta=md)
         
         print("\n:: Upload Finished. Item information:")
         print("Title: %s" % meta['title'])
