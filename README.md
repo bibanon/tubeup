@@ -42,17 +42,11 @@ Or your entire python install:
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
 
 4. Configure internetarchive with your Internet Archive account. You will be prompted for your username and password.
-
         ia configure
 
-5. Clone this repository to your Linux system.
-
-        git clone https://github.com/bibanon/tubeup
-        cd tubeup
-
-6. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Dailymotion, [anything supported by youtube-dl.](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs. 
-        ./tubeup.py <url>
-7. Each archived video gets it's own Archive.org item. Check out what you've uploaded at `http://archive.org/details/@yourusername`.
+5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Dailymotion, [anything supported by youtube-dl.](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs. 
+        ./tubeup <url>
+6. Each archived video gets it's own Archive.org item. Check out what you've uploaded at `http://archive.org/details/@yourusername`.
 
 ## Usage
 
@@ -83,7 +77,7 @@ For example, this script will upload your video to the [Community Video collecti
 You can specify a different collection with the `--metadata` flag:
 
 ```
-tubeup.py <url> --metadata=collection:opensource_audio
+tubeup <url> --metadata=collection:opensource_audio
 ```
 
 Any arbitrary metadta can be added to the item, with a few exceptions.
