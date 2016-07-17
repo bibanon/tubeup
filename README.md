@@ -15,6 +15,7 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 * **docopt** - The usage documentation can specify command line arguments and options.
 * **youtube-dl** - Used to download the videos.
 * **internetarchive** - A Python library used to upload videos with their metadata to the Internet Archive.
+* **jsonpatch** - For JSON-like things.
 
 ## Installation
 
@@ -28,9 +29,14 @@ For Debian/Ubuntu:
 
 2. Use pip3 to install the required python3 packages. Python 3.4.2 and up is required, as 3.2 will not work.
 
-        sudo -H pip3 install -U pip docopt youtube_dl internetarchive
+        sudo -H pip3 install -U pip tubeup
+
+Perodically upgrade tubeup and it's dependencies by running:
+
+        pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip3 install -U
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
+
 4. Configure internetarchive with your Internet Archive account. You will be prompted for your username and password.
 
         ia configure
