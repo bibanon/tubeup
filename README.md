@@ -1,4 +1,4 @@
-tubeup - Youtube (and other video site) to Internet Archive Uploader
+Tubeup - a multi-site video to Archive.org uploader
 ==========================================
 
 `tubeup` uses youtube-dl to download a Youtube video (or [any other provider supported by youtube-dl](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md)), and then uploads it with all metadata to the Internet Archive.
