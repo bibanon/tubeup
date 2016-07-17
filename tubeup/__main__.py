@@ -29,12 +29,12 @@ import internetarchive
 import internetarchive.cli
 import logging
 
-__doc__ = """tubeup.py - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
+__doc__ = """tubeup - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
 
 Usage:
-  tubeup.py <url>... [--metadata=<key:value>...]
-  tubeup.py [--proxy <prox>]
-  tubeup.py -h | --help
+  tubeup <url>... [--metadata=<key:value>...]
+  tubeup [--proxy <prox>]
+  tubeup -h | --help
 
 Arguments:
   <url>                         Youtube-dl compatible URL to download.
