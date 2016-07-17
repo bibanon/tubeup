@@ -33,6 +33,10 @@ For Debian/Ubuntu:
 
 Perodically upgrade tubeup and it's dependencies by running:
 
+        sudo -H pip3 install -U tubeup youtube_dl jsonpatch docopt internetarchive requests
+
+Or your entire python install:
+
         pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip3 install -U
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
