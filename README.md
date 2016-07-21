@@ -77,7 +77,7 @@ For example, this script will upload your video to the [Community Video collecti
 You can specify a different collection with the `--metadata` flag:
 
 ```
-tubeup <url> --metadata=collection:opensource_audio
+tubeup --metadata=collection:opensource_audio <url> 
 ```
 
 Any arbitrary metadta can be added to the item, with a few exceptions.
