@@ -123,9 +123,12 @@ def upload_ia(videobasename, custom_meta=None):
         vid_meta = json.load(f)
     
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
-    collection = 'opensource_movies'
     title = '%s' % (vid_meta['title']) # THIS IS A BUTTERFLY!
     videourl = vid_meta['webpage_url']
+    if 'soundcloud.com' in videourl:
+        collection = 'opensource_audio'
+    else:
+        collection = 'opensource_movies'
     cc = False # let's not misapply creative commons
 
     # some video services don't tell you the uploader, use our program's name in that case
