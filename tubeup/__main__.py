@@ -23,6 +23,7 @@ import sys
 import glob
 import json
 import time
+from datetime import datetime
 import docopt
 import youtube_dl
 import internetarchive
@@ -67,10 +68,12 @@ class MyLogger(object):
 # equivalent of youtube-dl --title --continue --retries 9001 --fragment-retries 9001 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --convert-subs 'srt' --no-overwrites --prefer-ffmpeg --call-home URL 
 # uses downloads/ folder and safe title in output template
 def download(URLs, proxy_url):
+    mkdirs(os.path.expanduser('~/.tubeup'))
+    mkdirs(os.path.expanduser('~/.tubeup/downloads'))
     
     ydl_opts = {
-        'outtmpl': '~/.tubeup/%(title)s-%(id)s.%(ext)s',
-        'download_archive': '~/.tubeup/downloads/.ytdlarchive', ## I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
+        'outtmpl': os.path.expanduser('~/.tubeup/%(title)s-%(id)s.%(ext)s'),
+        'download_archive': os.path.expanduser('~/.tubeup/downloads/.ytdlarchive'), ## I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
         'restrictfilenames': True,
 #       'verbose': True,		## We only care about errors not successes, anything else is pollution
         'progress_with_newline': True,
@@ -136,12 +139,12 @@ def upload_ia(videobasename, custom_meta=None):
     else:
         uploader_url = videourl
 
-    if 'upload_date' in vid_meta: # some videos don't give an upload date
-        if vid_meta['upload_date'] != "":
-            upload_date = vid_meta['upload_date']
+    try: # some videos don't give an upload date
+            d = datetime.strptime(vid_meta['upload_date'], '%Y%m%d')
+            upload_date = d.isoformat().split('T')[0]
             upload_year = upload_date[:4] # 20150614 -> 2015
-    else: # use current date and time as default values
-        upload_date = time.strftime("%Y%m%d")
+    except ValueError: # use current date and time as default values
+        upload_date = time.strftime("%Y-%m-%d")
         upload_year = time.strftime("%Y")
     
     # load up tags into an IA compatible semicolon-separated string
