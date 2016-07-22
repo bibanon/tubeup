@@ -23,6 +23,7 @@ import sys
 import glob
 import json
 import time
+from datetime import datetime
 import docopt
 import youtube_dl
 import internetarchive
@@ -136,12 +137,12 @@ def upload_ia(videobasename, custom_meta=None):
     else:
         uploader_url = videourl
 
-    if 'upload_date' in vid_meta: # some videos don't give an upload date
-        if vid_meta['upload_date'] != "":
-            upload_date = vid_meta['upload_date']
+    try: # some videos don't give an upload date
+            d = datetime.strptime(vid_meta['upload_date'], '%Y%m%d')
+            upload_date = d.isoformat().split('T')[0]
             upload_year = upload_date[:4] # 20150614 -> 2015
-    else: # use current date and time as default values
-        upload_date = time.strftime("%Y%m%d")
+    except ValueError: # use current date and time as default values
+        upload_date = time.strftime("%Y-%m-%d")
         upload_year = time.strftime("%Y")
     
     # load up tags into an IA compatible semicolon-separated string
