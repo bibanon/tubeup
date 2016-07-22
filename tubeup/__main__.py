@@ -196,7 +196,7 @@ def upload_ia(videobasename, custom_meta=None):
     # override default metadata with any supplemental metadata provided.
     meta.update(custom_meta)
 
-    item.upload(vid_files, metadata=meta, retries=9001, request_kwargs=dict(timeout=9001))
+    item.upload(vid_files, metadata=meta, retries=9001, request_kwargs=dict(timeout=9001), delete=True)
     
     # return item identifier and metadata as output
     return itemname, meta
