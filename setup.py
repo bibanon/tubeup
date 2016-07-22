@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='tubeup',
-    version='0.0.1.dev6',
+    version='0.0.1.dev7',
     url='https://github.com/bibanon/tubeup',
     license='GPL 3',
     author='Bibliotheca Anonoma',
