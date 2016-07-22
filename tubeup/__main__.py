@@ -73,7 +73,7 @@ def download(URLs, proxy_url):
     
     ydl_opts = {
         'outtmpl': os.path.expanduser('~/.tubeup/%(title)s-%(id)s.%(ext)s'),
-        'download_archive': os.path.expanduser('~/.tubeup/downloads/.ytdlarchive'), ## I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
+        'download_archive': os.path.expanduser('~/.tubeup/.ytdlarchive'), ## I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
         'restrictfilenames': True,
 #       'verbose': True,		## We only care about errors not successes, anything else is pollution
         'progress_with_newline': True,
