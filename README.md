@@ -21,7 +21,7 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 
 1. Install `avconv` or `ffmpeg`, depending on what your distro prefers. Also install pip3 and git. 
    The script prefers ffmpeg if found but will work with just libav. To install ffmpeg in ubuntu have
-   the Universe repository enabled.
+   the Universe repository enabled. 
 
 For Debian/Ubuntu:
 
@@ -29,11 +29,11 @@ For Debian/Ubuntu:
 
 2. Use pip3 to install the required python3 packages. Python 3.4.2 and up is required, as 3.2 will not work.
 
-        sudo -H pip3 install -U pip tubeup
+        sudo -H pip3 install pip ; sudo -H pip3 install tubeup
 
 Perodically upgrade tubeup and it's dependencies by running:
 
-        sudo -H pip3 install -U tubeup youtube_dl jsonpatch docopt internetarchive requests
+        sudo -H pip3 install -U tubeup pip
 
 Or your entire python install:
 
