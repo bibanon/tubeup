@@ -29,7 +29,7 @@ For Debian/Ubuntu:
 
 2. Use pip3 to install the required python3 packages. Python 3.4.2 and up is required, as 3.2 will not work.
 
-        sudo -H pip3 install pip ; sudo -H pip3 install tubeup
+        sudo -H pip3 install -U pip ; sudo -H pip3 install tubeup
 
 Perodically upgrade tubeup and it's dependencies by running:
 
