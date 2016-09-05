@@ -65,7 +65,7 @@ class MyLogger(object):
     def error(self, msg):
         print(msg)
 
-# equivalent of youtube-dl --title --continue --retries 9001 --fragment-retries 9001 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --convert-subs 'srt' --no-overwrites --prefer-ffmpeg --call-home URL 
+# equivalent of youtube-dl --title --continue --retries 30000 --fragment-retries 30000 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --convert-subs 'srt' --no-overwrites --prefer-ffmpeg --call-home URL 
 # uses downloads/ folder and safe title in output template
 def download(URLs, proxy_url):
     mkdirs(os.path.expanduser('~/.tubeup'))
@@ -79,8 +79,8 @@ def download(URLs, proxy_url):
         'progress_with_newline': True,
         'forcetitle': True,
         'continuedl': True,
-        'retries': 9001,		
-	'fragment_retries': 9001,	
+        'retries': 30000,		
+	'fragment_retries': 30000,	
         'forcejson': True,
         'writeinfojson': True,
         'writedescription': True,
