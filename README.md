@@ -25,7 +25,7 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 
 For Debian/Ubuntu:
 
-        sudo apt-get install libav-tools ffmpeg x264 x265 python3-pip git mkvtoolnix
+        sudo apt-get install libav-tools ffmpeg nscd
 
 2. Use pip3 to install the required python3 packages. Python 3.4.2 and up is required, as 3.2 will not work.
 
@@ -35,9 +35,6 @@ Perodically upgrade tubeup and it's dependencies by running:
 
         sudo -H pip3 install -U tubeup pip
 
-Or your entire python install:
-
-        pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip3 install -U
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
 
