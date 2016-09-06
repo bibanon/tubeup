@@ -122,25 +122,25 @@ def upload_ia(videobasename, custom_meta=None):
     videourl = vid_meta['webpage_url']
     if 'soundcloud.com' in videourl:
         collection = 'opensource_audio'
-	if 'libsyn.com' in videourl:
+    if 'libsyn.com' in videourl:
         collection = 'opensource_audio'
-	if 'bandcamp.com' in videourl:
+    if 'bandcamp.com' in videourl:
         collection = 'opensource_audio'
-	if 'audioboom.com' in videourl:
+    if 'audioboom.com' in videourl:
         collection = 'opensource_audio'
-	if 'audiomack.com' in videourl:
+    if 'audiomack.com' in videourl:
         collection = 'opensource_audio'
-	if 'soundgasm.net' in videourl:
+    if 'soundgasm.net' in videourl:
         collection = 'opensource_audio'
-	if 'polskieradio.com' in videourl:
+    if 'polskieradio.com' in videourl:
         collection = 'opensource_audio'
-	if 'mixcloud.com' in videourl:
+    if 'mixcloud.com' in videourl:
         collection = 'opensource_audio'
-	if 'deezer.com' in videourl:
+    if 'deezer.com' in videourl:
         collection = 'opensource_audio'
-	if 'radio.de' in videourl:
+    if 'radio.de' in videourl:
         collection = 'opensource_audio'
-	if 'radiobremen.de' in videourl:
+    if 'radiobremen.de' in videourl:
         collection = 'opensource_audio'
     else:
         collection = 'opensource_movies'
