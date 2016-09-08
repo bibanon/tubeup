@@ -65,7 +65,7 @@ class MyLogger(object):
     def error(self, msg):
         print(msg)
 
-# equivalent of youtube-dl --title --continue --retries 30000 --fragment-retries 30000 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --convert-subs 'srt' --no-overwrites --prefer-ffmpeg --call-home URL 
+# equivalent of youtube-dl --title --continue --retries 9001 --fragment-retries 9001 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --convert-subs 'srt' --no-overwrites --prefer-ffmpeg --call-home URL 
 # uses downloads/ folder and safe title in output template
 def download(URLs, proxy_url):
     mkdirs(os.path.expanduser('~/.tubeup'))
@@ -79,8 +79,8 @@ def download(URLs, proxy_url):
         'progress_with_newline': True,
         'forcetitle': True,
         'continuedl': True,
-        'retries': 30000,		
-	'fragment_retries': 30000,	
+        'retries': 9001,		
+	'fragment_retries': 9001,	
         'forcejson': True,
         'writeinfojson': True,
         'writedescription': True,
@@ -216,7 +216,7 @@ def upload_ia(videobasename, custom_meta=None):
     # override default metadata with any supplemental metadata provided.
     meta.update(custom_meta)
 
-    item.upload(vid_files, metadata=meta, retries=30000, request_kwargs=dict(timeout=30000), delete=True)
+    item.upload(vid_files, metadata=meta, retries=9001, request_kwargs=dict(timeout=9001), delete=True)
     
     # return item identifier and metadata as output
     return itemname, meta
