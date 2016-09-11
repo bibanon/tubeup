@@ -21,20 +21,23 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 
 1. Install `avconv` or `ffmpeg`, depending on what your distro prefers. Also install pip3 and git. 
    The script prefers ffmpeg if found but will work with just libav. To install ffmpeg in ubuntu have
-   the Universe repository enabled. 
+   the Universe repository enabled.
 
 For Debian/Ubuntu:
 
-        sudo apt-get install libav-tools ffmpeg nscd
+        sudo apt-get install libav-tools ffmpeg x264 x265 python3-pip git mkvtoolnix
 
 2. Use pip3 to install the required python3 packages. Python 3.4.2 and up is required, as 3.2 will not work.
 
-        sudo -H pip3 install -U pip ; sudo -H pip3 install tubeup
+        sudo -H pip3 install -U pip tubeup
 
 Perodically upgrade tubeup and it's dependencies by running:
 
-        sudo -H pip3 install -U tubeup pip
+        sudo -H pip3 install -U tubeup youtube_dl jsonpatch docopt internetarchive requests
 
+Or your entire python install:
+
+        pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip3 install -U
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
 
