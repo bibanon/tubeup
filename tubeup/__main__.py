@@ -141,7 +141,7 @@ def upload_ia(videobasename, custom_meta=None):
             d = datetime.strptime(vid_meta['upload_date'], '%Y%m%d')
             upload_date = d.isoformat().split('T')[0]
             upload_year = upload_date[:4] # 20150614 -> 2015
-    except ValueError: # use current date and time as default values
+    except KeyError: # use current date and time as default values
         upload_date = time.strftime("%Y-%m-%d")
         upload_year = time.strftime("%Y")
     
