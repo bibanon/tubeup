@@ -34,7 +34,8 @@ __doc__ = """tubeup - Download a video with Youtube-dl, then upload to Internet 
 
 Usage:
   tubeup <url>... [--metadata=<key:value>...]
-  tubeup [--proxy <prox>]
+  tubeup <url> [--username <user>] [--password <pass>]
+  tubeup <url> [--proxy <prox>]
   tubeup -h | --help
 
 Arguments:
@@ -45,8 +46,10 @@ Arguments:
                                 item.
 
 Options:
-  -h --help       Show this screen.
-  --proxy <prox>  Use a proxy while uploading.
+  -h --help         Show this screen.
+  --proxy <prox>    Use a proxy while uploading.
+  --username <user> Provide a username, for sites like Nico Nico Douga.
+  --password <pass> Provide a password, for sites like Nico Nico Douga.
 """
 
 def mkdirs(path):
@@ -67,7 +70,7 @@ class MyLogger(object):
 
 # equivalent of youtube-dl --title --continue --retries 9001 --fragment-retries 9001 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --convert-subs 'srt' --no-overwrites --prefer-ffmpeg --call-home URL 
 # uses downloads/ folder and safe title in output template
-def download(URLs, proxy_url):
+def download(URLs, proxy_url, username, password):
     mkdirs(os.path.expanduser('~/.tubeup'))
     mkdirs(os.path.expanduser('~/.tubeup/downloads'))
     
@@ -100,6 +103,12 @@ def download(URLs, proxy_url):
     
     if proxy_url is not None: # use proxy url as argument
         ydl_opts['proxy'] = proxy_url
+    
+    if username is not None: # use username as argument, e.g. nicovideo
+        ydl_opts['username'] = username
+    
+    if password is not None: # use password as argument, e.g. nicovideo
+        ydl_opts['password'] = password
     
     # format: We don't set a default format. Youtube-dl will choose the best option for us automatically.
     # Since the end of April 2015 and version 2015.04.26 youtube-dl uses -f bestvideo+bestaudio/best as default format selection (see #5447, #5456). 
@@ -236,9 +245,11 @@ def main():
     # test url: https://www.youtube.com/watch?v=LE2v3sUzTH4
     URLs = args['<url>']
     proxy_url = args['--proxy']
+    username = args['--username']
+    password = args['--password']
 
     # download all URLs with youtube-dl
-    download(URLs, proxy_url)
+    download(URLs, proxy_url, username, password)
 
     # parse supplemental metadata.
     md = internetarchive.cli.argparser.get_args_dict(args['--metadata'])
