@@ -29,8 +29,10 @@ import youtube_dl
 import internetarchive
 import internetarchive.cli
 import logging
+import gettext
+gettext.install("tubeup", "locale")
 
-__doc__ = """tubeup - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
+__doc__ = _("""tubeup - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
 
 Usage:
   tubeup <url>... [--metadata=<key:value>...]
@@ -50,7 +52,7 @@ Options:
   --proxy <prox>    Use a proxy while uploading.
   --username <user> Provide a username, for sites like Nico Nico Douga.
   --password <pass> Provide a password, for sites like Nico Nico Douga.
-"""
+""")
 
 def mkdirs(path):
 	"""Make directory, if it doesn't exist."""
@@ -218,15 +220,14 @@ def my_hook(d):
     filename, file_extension = os.path.splitext(d['filename'])
     if d['status'] == 'finished': # only upload if download was a success
         print(d)    # display download stats
-        print(':: Downloaded: %s...' % d['filename'])
+        print(_(':: Downloaded: %s...') % d['filename'])
         
         global to_upload
         videobasename = re.sub(r'(\.f\d+)', '', filename) # remove .fxxx from filename (e.g. .f141.mp4)
         if videobasename not in to_upload: # don't add if it's already in the list
             to_upload.append(videobasename)
-
     if d['status'] == 'error':
-        print(':: Error occurred while downloading: %s.' % d['filename'])
+        print(_(':: Error occurred while downloading: %s.') % d['filename'])
 
 def main():
     # display log output from internetarchive libraries: http://stackoverflow.com/a/14058475
@@ -259,12 +260,12 @@ def main():
     # upload all URLs with metadata to the Internet Archive
     global to_upload
     for video in to_upload:
-        print(":: Uploading %s..." % video)
+        print(_(":: Uploading %s...") % video)
         identifier, meta = upload_ia(video, custom_meta=md)
         
-        print("\n:: Upload Finished. Item information:")
-        print("Title: %s" % meta['title'])
-        print("Upload URL: http://archive.org/details/%s" % identifier)
+        print(_("\n:: Upload Finished. Item information:"))
+        print(_("Title: %s") % meta['title'])
+        print(_("Upload URL: http://archive.org/details/%s") % identifier)
 
 if __name__ == '__main__':
     main()
