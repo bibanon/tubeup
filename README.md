@@ -25,7 +25,7 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 
 For Debian/Ubuntu:
 
-        sudo apt-get install libav-tools ffmpeg x264 x265 python3-pip git mkvtoolnix
+        sudo apt-get install libav-tools ffmpeg x264 x265 python3-pip git
 
 2. Use pip3 to install the required python3 packages. Python 3.4.2 and up is required, as 3.2 will not work.
 
@@ -73,7 +73,7 @@ Options:
 ## Metadata
 
 You can specify custom metadata with the `--metadata` flag.
-For example, this script will upload your video to the [Community Video collection] (https://archive.org/details/opensource_movies) by default.
+For example, this script will upload your video to the [Community Video collection](https://archive.org/details/opensource_movies) by default.
 You can specify a different collection with the `--metadata` flag:
 
 ```
@@ -81,16 +81,16 @@ tubeup --metadata=collection:opensource_audio <url>
 ```
 
 Any arbitrary metadta can be added to the item, with a few exceptions.
-You can learn more about archive.org metadata [here] (http://internetarchive.readthedocs.io/en/latest/metadata.html).
+You can learn more about archive.org metadata [here](http://internetarchive.readthedocs.io/en/latest/metadata.html).
 
 ### Collections
 
 Archive.org users can upload to to four open collections:
 
-* [Community Audio] (https://archive.org/details/opensource_audio) where the identifier is `opensource_audio`.
-* [Community Software] (https://archive.org/details/open_source_software)  where the identifier is `opensource_software`.
-* [Community Texts] (https://archive.org/details/opensource) where the identifier is `opensource`.
-* [Community Video] (https://archive.org/details/opensource_movies) where the identifier is `opensource_movies`.
+* [Community Audio](https://archive.org/details/opensource_audio) where the identifier is `opensource_audio`.
+* [Community Software](https://archive.org/details/open_source_software)  where the identifier is `opensource_software`.
+* [Community Texts](https://archive.org/details/opensource) where the identifier is `opensource`.
+* [Community Video](https://archive.org/details/opensource_movies) where the identifier is `opensource_movies`.
 
 Note that care should be taken when uploading entire channels.
 Read the appropraite section [in this guide] (https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff] (mailto: collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
