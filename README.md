@@ -93,7 +93,7 @@ Archive.org users can upload to to four open collections:
 * [Community Video](https://archive.org/details/opensource_movies) where the identifier is `opensource_movies`.
 
 Note that care should be taken when uploading entire channels.
-Read the appropraite section [in this guide] (https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff] (mailto: collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
+Read the appropraite section [in this guide](https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff](mailto: collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
 
 **Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the admins first before doing large uploads it's better to ask for guidence or help first than run afowl with the rules._
 
@@ -103,7 +103,8 @@ Read the appropraite section [in this guide] (https://archive.org/about/faqs.php
 
 * If you've already downloaded some videos, unless you delete the video youtube-dl will not redownload it and will output nothing.
 * Obviously, if someone else uploaded the video to the Internet Archive, you will get a permissions error. We don't want duplicates, do we?
-* Some videos are copyright blocked in certain countries. Use the proxy option to use a proxy to bypass this.
+* Some videos are copyright blocked in certain countries. Use the proxy or torrenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countried to bypass geo-restrrictions.
+* Upload taking forever? Getting s3 throttling on upload? Tubeup has specifically been tailored to wait the longest possible time before failing, and we've never seen a S3 outage that outlasted the insane wait times set in Tubeup.
 
 ## Credits
 
