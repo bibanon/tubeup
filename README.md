@@ -25,28 +25,45 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 
 For Debian/Ubuntu:
 
-        sudo apt-get install libav-tools ffmpeg x264 x265 python3-pip git
+```
+   sudo apt-get install libav-tools ffmpeg x264 x265 python3-pip git
+```
 
 2. Use pip3 to install the required python3 packages. Python 3.4.2 and up is required, as 3.2 will not work.
 
-        sudo -H pip3 install -U pip tubeup
+```
+   sudo -H pip3 install -U pip tubeup
+```
 
 Perodically upgrade tubeup and it's dependencies by running:
 
-        sudo -H pip3 install -U tubeup youtube_dl jsonpatch docopt internetarchive requests
+```
+   sudo -H pip3 install -U tubeup youtube_dl jsonpatch docopt internetarchive requests
+```
 
 Or your entire python install:
 
-        pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip3 install -U
+```
+   pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip3 install -U
+```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
 
 4. Configure internetarchive with your Internet Archive account. You will be prompted for your username and password.
-        ia configure
+        
+```
+   ia configure
+```
 
 5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Dailymotion, [anything supported by youtube-dl.](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs. 
-        ./tubeup <url>
-6. Each archived video gets it's own Archive.org item. Check out what you've uploaded at `http://archive.org/details/@yourusername`.
+   
+```
+   tubeup <url>
+```
+   
+6. Each archived video gets it's own Archive.org item. Check out what you've uploaded at                                     
+
+   `http://archive.org/details/@yourusername`.
 
 ## Usage
 
@@ -77,7 +94,7 @@ For example, this script will upload your video to the [Community Video collecti
 You can specify a different collection with the `--metadata` flag:
 
 ```
-tubeup --metadata=collection:opensource_audio <url> 
+   tubeup --metadata=collection:opensource_audio <url> 
 ```
 
 Any arbitrary metadta can be added to the item, with a few exceptions.
@@ -93,7 +110,7 @@ Archive.org users can upload to to four open collections:
 * [Community Video](https://archive.org/details/opensource_movies) where the identifier is `opensource_movies`.
 
 Note that care should be taken when uploading entire channels.
-Read the appropraite section [in this guide](https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff](mailto: collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
+Read the appropraite section [in this guide](https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff](mailto:collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
 
 **Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the admins first before doing large uploads it's better to ask for guidence or help first than run afowl with the rules._
 
