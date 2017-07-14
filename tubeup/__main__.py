@@ -265,7 +265,7 @@ def main():
         
         print(_("\n:: Upload Finished. Item information:"))
         print(_("Title: %s") % meta['title'])
-        print(_("Upload URL: http://archive.org/details/%s") % identifier)
+        print(_("Upload URL: https://archive.org/details/%s") % identifier)
 
 if __name__ == '__main__':
     main()
