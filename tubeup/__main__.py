@@ -163,22 +163,31 @@ def upload_ia(videobasename, custom_meta=None):
     tags_string = '%s;video;' % vid_meta['extractor_key'] # Youtube;video;
     
     if 'categories' in vid_meta: # add categories as tags as well, if they exist
-        categories = vid_meta['categories']
-        for category in categories:
-            tags_string += '%s;' % category
+        try:
+            categories = vid_meta['categories']
+            for category in categories:
+                tags_string += '%s;' % category
+        except TypeError:
+            categories = []
     
     if 'tags' in vid_meta: # some video services don't have tags
-        tags = vid_meta['tags']
-        for tag in tags:
-            tags_string += '%s;' % tag
+        try:
+            tags = vid_meta['tags']
+            for tag in tags:
+                tags_string += '%s;' % tag
+        except TypeError:
+            tags = []
     
     # if there is no description don't upload the empty .description file
     description = ""
     no_description = True
     if 'description' in vid_meta:
-        if vid_meta['description'] != "":
-            description = vid_meta['description']
-            no_description = False
+        try:
+            if vid_meta['description'] != "":
+                description = vid_meta['description']
+                no_description = False
+        except TypeError:
+            description = ""
     
     # delete empty description file so it isn't uploaded
     try:
@@ -190,8 +199,11 @@ def upload_ia(videobasename, custom_meta=None):
     # if there is no annotations file (or annotations are not in XML) don't upload the empty .annotation.xml file
     no_annotations = True
     if 'annotations' in vid_meta:
-        if vid_meta['annotations'] != "" and vid_meta['annotations'] != """<?xml version="1.0" encoding="UTF-8" ?><document><annotations></annotations></document>""":
-            no_annotations = False
+        try:
+            if vid_meta['annotations'] != "" and vid_meta['annotations'] != """<?xml version="1.0" encoding="UTF-8" ?><document><annotations></annotations></document>""":
+                no_annotations = False
+        except TypeError:
+            no_annotations = True
 
     # delete empty annotations.xml file so it isn't uploaded
     try:
