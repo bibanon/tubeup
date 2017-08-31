@@ -152,7 +152,7 @@ def upload_ia(videobasename, custom_meta=None):
             d = datetime.strptime(vid_meta['upload_date'], '%Y%m%d')
             upload_date = d.isoformat().split('T')[0]
             upload_year = upload_date[:4] # 20150614 -> 2015
-    except KeyError: # use current date and time as default values
+    except (KeyError, TypeError) as e: # use current date and time as default values
         upload_date = time.strftime("%Y-%m-%d")
         upload_year = time.strftime("%Y")
     
@@ -202,7 +202,7 @@ def upload_ia(videobasename, custom_meta=None):
 
     # upload the item to the Internet Archive
     item = internetarchive.get_item(itemname)
--    meta = dict(mediatype='movies', creator=uploader, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="{3}">{4}</a>'.format(description, videourl, videourl, uploader_url, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/4.0/' or ''))
+    meta = dict(mediatype='movies', creator=uploader, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="{3}">{4}</a>'.format(description, videourl, videourl, uploader_url, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'http://creativecommons.org/licenses/by/4.0/' or ''))
     
     # override default metadata with any supplemental metadata provided.
     meta.update(custom_meta)
