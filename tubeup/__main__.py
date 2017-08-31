@@ -138,9 +138,12 @@ def upload_ia(videobasename, custom_meta=None):
     cc = False # let's not misapply creative commons
 
     # some video services don't tell you the uploader, use our program's name in that case
-    if 'uploader' in vid_meta:
-        uploader = vid_meta['uploader']
-    else:
+    try:
+        if 'uploader' in vid_meta:
+            uploader = vid_meta['uploader']
+        else:
+            uploader = 'tubeup.py'
+    except TypeError as e: # apparently uploader is null as well
         uploader = 'tubeup.py'
     
     if 'uploader_url' in vid_meta:
