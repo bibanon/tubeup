@@ -72,6 +72,7 @@ tubeup - Download a video with Youtube-dl, then upload to Internet Archive, pass
 
 Usage:
   tubeup <url>... [--metadata=<key:value>...]
+  tubeup <url> [--username <user>] [--password <pass>]
   tubeup [--proxy <prox>]
   tubeup -h | --help
 
