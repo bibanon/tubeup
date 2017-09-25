@@ -234,6 +234,24 @@ to_upload = []
 # monitor download status
 def my_hook(d):
     filename, file_extension = os.path.splitext(d['filename'])
+
+    if d['status'] == 'downloading':
+        if d.get('_total_bytes_str') is not None:
+            msg_template = '%(_percent_str)s of %(_total_bytes_str)s at %(_speed_str)s ETA %(_eta_str)s'
+        elif d.get('_total_bytes_estimate_str') is not None:
+            msg_template = '%(_percent_str)s of ~%(_total_bytes_estimate_str)s at %(_speed_str)s ETA %(_eta_str)s'
+        elif d.get('_downloaded_bytes_str') is not None:
+            if d.get('_elapsed_str'):
+                msg_template = '%(_downloaded_bytes_str)s at %(_speed_str)s (%(_elapsed_str)s)'
+            else:
+                msg_template = '%(_downloaded_bytes_str)s at %(_speed_str)s'
+        else:
+            msg_template = '%(_percent_str)s % at %(_speed_str)s ETA %(_eta_str)s'
+
+        process_msg = '[download] ' + (msg_template % d) + '\r'
+        sys.stdout.write(process_msg)
+        sys.stdout.flush()
+
     if d['status'] == 'finished': # only upload if download was a success
         print(d)    # display download stats
         print(_(':: Downloaded: %s...') % d['filename'])
