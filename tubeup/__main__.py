@@ -7,12 +7,12 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -70,12 +70,12 @@ class MyLogger(object):
     def error(self, msg):
         print(msg)
 
-# equivalent of youtube-dl --title --continue --retries 9001 --fragment-retries 9001 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --convert-subs 'srt' --no-overwrites --prefer-ffmpeg --call-home URL 
+# equivalent of youtube-dl --title --continue --retries 9001 --fragment-retries 9001 --write-info-json --write-description --write-thumbnail --write-annotations --all-subs --ignore-errors --convert-subs 'srt' --no-overwrites --prefer-ffmpeg --call-home URL
 # uses downloads/ folder and safe title in output template
 def download(URLs, proxy_url, username, password):
     mkdirs(os.path.expanduser('~/.tubeup'))
     mkdirs(os.path.expanduser('~/.tubeup/downloads'))
-    
+
     ydl_opts = {
         'outtmpl': os.path.expanduser('~/.tubeup/downloads/%(title)s-%(id)s.%(ext)s'),
         'download_archive': os.path.expanduser('~/.tubeup/.ytdlarchive'), ## I guess we will avoid doing this because it prevents failed uploads from being redone in our current system. Maybe when we turn it into an OOP library?
@@ -84,8 +84,8 @@ def download(URLs, proxy_url, username, password):
         'progress_with_newline': True,
         'forcetitle': True,
         'continuedl': True,
-        'retries': 9001,		
-	'fragment_retries': 9001,	
+        'retries': 9001,
+	'fragment_retries': 9001,
         'forcejson': True,
         'writeinfojson': True,
         'writedescription': True,
@@ -102,22 +102,22 @@ def download(URLs, proxy_url, username, password):
         'logger': MyLogger(),
         'progress_hooks': [my_hook]
     }
-    
+
     if proxy_url is not None: # use proxy url as argument
         ydl_opts['proxy'] = proxy_url
-    
+
     if username is not None: # use username as argument, e.g. nicovideo
         ydl_opts['username'] = username
-    
+
     if password is not None: # use password as argument, e.g. nicovideo
         ydl_opts['password'] = password
-    
+
     # format: We don't set a default format. Youtube-dl will choose the best option for us automatically.
-    # Since the end of April 2015 and version 2015.04.26 youtube-dl uses -f bestvideo+bestaudio/best as default format selection (see #5447, #5456). 
-    # If ffmpeg or avconv are installed this results in downloading bestvideo and bestaudio separately and muxing them together into a single file giving the best overall quality available. 
+    # Since the end of April 2015 and version 2015.04.26 youtube-dl uses -f bestvideo+bestaudio/best as default format selection (see #5447, #5456).
+    # If ffmpeg or avconv are installed this results in downloading bestvideo and bestaudio separately and muxing them together into a single file giving the best overall quality available.
     # Otherwise it falls back to best and results in downloading best available quality served as a single file.
-    # best is also needed for videos that don't come from YouTube because they don't provide the audio and video in two different files. 
-    
+    # best is also needed for videos that don't come from YouTube because they don't provide the audio and video in two different files.
+
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         ydl.download(URLs)
 
@@ -125,9 +125,9 @@ def download(URLs, proxy_url, username, password):
 def upload_ia(videobasename, custom_meta=None):
     # obtain metadata from JSON
     json_fname = videobasename + '.info.json'
-    with open(json_fname) as f:    
+    with open(json_fname) as f:
         vid_meta = json.load(f)
-    
+
     itemname = '%s-%s' % (vid_meta['extractor'], vid_meta['display_id'])
     title = '%s' % (vid_meta['title']) # THIS IS A BUTTERFLY!
     videourl = vid_meta['webpage_url']
@@ -145,7 +145,7 @@ def upload_ia(videobasename, custom_meta=None):
             uploader = 'tubeup.py'
     except TypeError as e: # apparently uploader is null as well
         uploader = 'tubeup.py'
-    
+
     if 'uploader_url' in vid_meta:
         uploader_url = vid_meta['uploader_url']
     else:
@@ -158,10 +158,10 @@ def upload_ia(videobasename, custom_meta=None):
     except (KeyError, TypeError) as e: # use current date and time as default values
         upload_date = time.strftime("%Y-%m-%d")
         upload_year = time.strftime("%Y")
-    
+
     # load up tags into an IA compatible semicolon-separated string
     tags_string = '%s;video;' % vid_meta['extractor_key'] # Youtube;video;
-    
+
     if 'categories' in vid_meta: # add categories as tags as well, if they exist
         try:
             categories = vid_meta['categories']
@@ -169,7 +169,7 @@ def upload_ia(videobasename, custom_meta=None):
                 tags_string += '%s;' % category
         except TypeError:
             categories = []
-    
+
     if 'tags' in vid_meta: # some video services don't have tags
         try:
             tags = vid_meta['tags']
@@ -177,7 +177,7 @@ def upload_ia(videobasename, custom_meta=None):
                 tags_string += '%s;' % tag
         except TypeError:
             tags = []
-    
+
     # if there is no description don't upload the empty .description file
     description = ""
     no_description = True
@@ -188,14 +188,14 @@ def upload_ia(videobasename, custom_meta=None):
                 no_description = False
         except TypeError:
             description = ""
-    
+
     # delete empty description file so it isn't uploaded
     try:
         if no_description or os.stat(videobasename + '.description').st_size == 0:
             os.remove(videobasename + '.description')
     except OSError:
         print(":: Description not saved, so not removed.")
-    
+
     # if there is no annotations file (or annotations are not in XML) don't upload the empty .annotation.xml file
     no_annotations = True
     if 'annotations' in vid_meta:
@@ -211,19 +211,20 @@ def upload_ia(videobasename, custom_meta=None):
             os.remove(videobasename + '.annotations.xml')
     except OSError:
         print(":: annotations.xml not saved, so not removed.")
-    
+
     # upload all files with videobase name: e.g. video.mp4, video.info.json, video.srt, etc.
     vid_files = glob.glob(videobasename + '*')
 
     # upload the item to the Internet Archive
     item = internetarchive.get_item(itemname)
+
     meta = dict(mediatype='movies', creator=uploader, collection=collection, title=title, description=u'{0} <br/><br/>Source: <a href="{1}">{2}</a><br/>Uploader: <a href="{3}">{4}</a>'.format(description, videourl, videourl, uploader_url, uploader, upload_date), date=upload_date, year=upload_year, subject=tags_string, originalurl=videourl, licenseurl=(cc and 'https://creativecommons.org/licenses/by/4.0/' or ''))
-    
+
     # override default metadata with any supplemental metadata provided.
     meta.update(custom_meta)
 
     item.upload(vid_files, metadata=meta, retries=9001, request_kwargs=dict(timeout=9001), delete=True)
-    
+
     # return item identifier and metadata as output
     return itemname, meta
 
@@ -233,10 +234,28 @@ to_upload = []
 # monitor download status
 def my_hook(d):
     filename, file_extension = os.path.splitext(d['filename'])
+
+    if d['status'] == 'downloading':
+        if d.get('_total_bytes_str') is not None:
+            msg_template = '%(_percent_str)s of %(_total_bytes_str)s at %(_speed_str)s ETA %(_eta_str)s'
+        elif d.get('_total_bytes_estimate_str') is not None:
+            msg_template = '%(_percent_str)s of ~%(_total_bytes_estimate_str)s at %(_speed_str)s ETA %(_eta_str)s'
+        elif d.get('_downloaded_bytes_str') is not None:
+            if d.get('_elapsed_str'):
+                msg_template = '%(_downloaded_bytes_str)s at %(_speed_str)s (%(_elapsed_str)s)'
+            else:
+                msg_template = '%(_downloaded_bytes_str)s at %(_speed_str)s'
+        else:
+            msg_template = '%(_percent_str)s % at %(_speed_str)s ETA %(_eta_str)s'
+
+        process_msg = '[download] ' + (msg_template % d) + '\r'
+        sys.stdout.write(process_msg)
+        sys.stdout.flush()
+
     if d['status'] == 'finished': # only upload if download was a success
         print(d)    # display download stats
         print(_(':: Downloaded: %s...') % d['filename'])
-        
+
         global to_upload
         videobasename = re.sub(r'(\.f\d+)', '', filename) # remove .fxxx from filename (e.g. .f141.mp4)
         if videobasename not in to_upload: # don't add if it's already in the list
@@ -248,16 +267,16 @@ def main():
     # display log output from internetarchive libraries: http://stackoverflow.com/a/14058475
     root = logging.getLogger()
     root.setLevel(logging.INFO)
-    
+
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     ch.setFormatter(formatter)
     root.addHandler(ch)
-    
+
     # parse arguments from file docstring
     args = docopt.docopt(__doc__)
-    
+
     # test url: https://www.youtube.com/watch?v=LE2v3sUzTH4
     URLs = args['<url>']
     proxy_url = args['--proxy']
@@ -269,15 +288,15 @@ def main():
 
     # parse supplemental metadata.
     md = internetarchive.cli.argparser.get_args_dict(args['--metadata'])
-    
+
     # while downloading, if the download hook returns status "finished", myhook() will append the basename to the `to_upload` array.
-    
+
     # upload all URLs with metadata to the Internet Archive
     global to_upload
     for video in to_upload:
         print(_(":: Uploading %s...") % video)
         identifier, meta = upload_ia(video, custom_meta=md)
-        
+
         print(_("\n:: Upload Finished. Item information:"))
         print(_("Title: %s") % meta['title'])
         print(_("Upload URL: https://archive.org/details/%s") % identifier)
