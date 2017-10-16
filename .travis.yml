@@ -6,5 +6,10 @@ python:
   - "3.5"
   - "3.6"
 
-script:
+install:
   - python setup.py install
+  - pip install -r test-requirements.txt
+
+script:
+  - pytest --cov
+  - flake8
