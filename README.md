@@ -1,6 +1,8 @@
 Tubeup - a multi-site video to Archive.org uploader
 ==========================================
 
+[![Build Status](https://travis-ci.org/bibanon/tubeup.svg?branch=master)](https://travis-ci.org/bibanon/tubeup)
+
 `tubeup` uses youtube-dl to download a Youtube video (or [any other provider supported by youtube-dl](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md)), and then uploads it with all metadata to the Internet Archive.
 
 It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/wiki) to archive entire Youtube accounts and playlists to the Internet Archive.
@@ -73,7 +75,9 @@ tubeup - Download a video with Youtube-dl, then upload to Internet Archive, pass
 Usage:
   tubeup <url>... [--metadata=<key:value>...]
   tubeup <url> [--username <user>] [--password <pass>]
-  tubeup [--proxy <prox>]
+  tubeup <url> [--proxy <prox>]
+  tubeup <url> -q | --quiet
+  tubeup <url> -d | --debug
   tubeup -h | --help
 
 Arguments:
@@ -84,8 +88,12 @@ Arguments:
                                 item.
 
 Options:
-  -h --help       Show this screen.
-  --proxy <prox>  Use a proxy while uploading.
+  -h --help         Show this screen.
+  --proxy <prox>    Use a proxy while uploading.
+  --username <user> Provide a username, for sites like Nico Nico Douga.
+  --password <pass> Provide a password, for sites like Nico Nico Douga.
+  -q --quiet        Just print errors.
+  -d --debug        Print all logs to stdout.
 ```
 
 ## Metadata
