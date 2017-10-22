@@ -106,7 +106,7 @@ class TubeUp(object):
                     msg_template = ('%(_percent_str)s % at '
                                     '%(_speed_str)s ETA %(_eta_str)s')
 
-                process_msg = '[download] ' + (msg_template % d) + '\r'
+                process_msg = '\r[download] ' + (msg_template % d) + '\033[K'
                 sys.stdout.write(process_msg)
                 sys.stdout.flush()
 
@@ -116,7 +116,7 @@ class TubeUp(object):
                 log.debug(d)
                 log.info(msg)
                 if self.verbose:
-                    print(d)
+                    print('\n%s' % d)
                     print(msg)
 
             if d['status'] == 'error':
