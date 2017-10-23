@@ -1,10 +1,14 @@
 language: python
 python:
-  - "2.7"
   - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
 
-script:
+install:
   - python setup.py install
+  - pip install -r test-requirements.txt
+
+script:
+  - pytest --cov
+  - flake8
