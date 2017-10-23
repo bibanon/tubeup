@@ -1,2 +1,6 @@
 downloads/
 .~c9_invoke_*
+.vscode/
+**/*.pyc
+.coverage
+*.egg-info

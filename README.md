@@ -1,6 +1,8 @@
 Tubeup - a multi-site video to Archive.org uploader
 ==========================================
 
+[![Build Status](https://travis-ci.org/bibanon/tubeup.svg?branch=master)](https://travis-ci.org/bibanon/tubeup)
+
 `tubeup` uses youtube-dl to download a Youtube video (or [any other provider supported by youtube-dl](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md)), and then uploads it with all metadata to the Internet Archive.
 
 It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/wiki) to archive entire Youtube accounts and playlists to the Internet Archive.
@@ -50,18 +52,18 @@ Or your entire python install:
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
 
 4. Configure internetarchive with your Internet Archive account. You will be prompted for your username and password.
-        
+
 ```
    ia configure
 ```
 
-5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Dailymotion, [anything supported by youtube-dl.](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs. 
-   
+5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Dailymotion, [anything supported by youtube-dl.](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs.
+
 ```
    tubeup <url>
 ```
-   
-6. Each archived video gets it's own Archive.org item. Check out what you've uploaded at                                     
+
+6. Each archived video gets it's own Archive.org item. Check out what you've uploaded at
 
    `http://archive.org/details/@yourusername`.
 
@@ -73,7 +75,9 @@ tubeup - Download a video with Youtube-dl, then upload to Internet Archive, pass
 Usage:
   tubeup <url>... [--metadata=<key:value>...]
   tubeup <url> [--username <user>] [--password <pass>]
-  tubeup [--proxy <prox>]
+  tubeup <url> [--proxy <prox>]
+  tubeup <url> -q | --quiet
+  tubeup <url> -d | --debug
   tubeup -h | --help
 
 Arguments:
@@ -84,8 +88,12 @@ Arguments:
                                 item.
 
 Options:
-  -h --help       Show this screen.
-  --proxy <prox>  Use a proxy while uploading.
+  -h --help         Show this screen.
+  --proxy <prox>    Use a proxy while uploading.
+  --username <user> Provide a username, for sites like Nico Nico Douga.
+  --password <pass> Provide a password, for sites like Nico Nico Douga.
+  -q --quiet        Just print errors.
+  -d --debug        Print all logs to stdout.
 ```
 
 ## Metadata
@@ -95,7 +103,7 @@ For example, this script will upload your video to the [Community Video collecti
 You can specify a different collection with the `--metadata` flag:
 
 ```
-   tubeup --metadata=collection:opensource_audio <url> 
+   tubeup --metadata=collection:opensource_audio <url>
 ```
 
 Any arbitrary metadta can be added to the item, with a few exceptions.
@@ -145,6 +153,6 @@ This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
- 
+
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
