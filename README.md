@@ -17,7 +17,7 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 * **docopt** - The usage documentation can specify command line arguments and options.
 * **youtube-dl** - Used to download the videos.
 * **internetarchive** - A Python library used to upload videos with their metadata to the Internet Archive.
-* **jsonpatch** - For JSON-like things.
+* **jsonpatch** - For JSON things.
 
 ## Installation
 
@@ -28,10 +28,11 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 For Debian/Ubuntu:
 
 ```
-   sudo apt-get install libav-tools ffmpeg x264 x265 python3-pip git
+   sudo apt-get install libav-tools ffmpeg python3-pip git
 ```
 
-2. Use pip3 to install the required python3 packages. Python 3.4.2 and up is required, as 3.2 will not work.
+2. Use pip3 to install the required python3 packages. 
+   At the minimum Python 3.4.2 and up is required, as 3.2 will not work.
 
 ```
    sudo -H pip3 install -U pip tubeup
@@ -40,22 +41,19 @@ For Debian/Ubuntu:
 Perodically upgrade tubeup and it's dependencies by running:
 
 ```
-   sudo -H pip3 install -U tubeup youtube_dl jsonpatch docopt internetarchive requests
-```
-
-Or your entire python install:
-
-```
-   pip3 freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H pip3 install -U
+   sudo -H pip3 install -U tubeup 
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
 
-4. Configure internetarchive with your Internet Archive account. You will be prompted for your username and password.
+4. Configure internetarchive with your Internet Archive account.
 
 ```
    ia configure
 ```
+
+You will be prompted for your login credentials for the Internet Archive account you use.
+
 
 5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Dailymotion, [anything supported by youtube-dl.](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs.
 
@@ -127,18 +125,13 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 
 ## Troubleshooting
 
-* If you've already downloaded some videos, unless you delete the video youtube-dl will not redownload it and will output nothing.
 * Obviously, if someone else uploaded the video to the Internet Archive, you will get a permissions error. We don't want duplicates, do we?
-* Some videos are copyright blocked in certain countries. Use the proxy or torrenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countried to bypass geo-restrrictions.
+* Some videos are copyright blocked in certain countries. Use the proxy or torrenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countries to bypass geo-restrrictions.
 * Upload taking forever? Getting s3 throttling on upload? Tubeup has specifically been tailored to wait the longest possible time before failing, and we've never seen a S3 outage that outlasted the insane wait times set in Tubeup.
 
 ## Credits
 
-Inspired by youtube2internetarchive by Matt Hazinski, Copyright (c) 2015 GPLv3.
-
-Which in turn is a fork of emijrp's [youtube2internetarchive.py](https://code.google.com/p/emijrp/source/browse/trunk/scrapers/youtube2internetarchive.py), written in 2012.
-
-This script improves on Matt Hazinski's work by interfacing directly with youtube-dl as a library, rather than functioning as an external script.
+Inspired by youtube2internetarchive by Matt Hazinski (Copyright 2015 GPLv3), which in turn is a fork of emijrp's [youtube2internetarchive.py](https://code.google.com/p/emijrp/source/browse/trunk/scrapers/youtube2internetarchive.py), written in 2012. This script improves on Matt Hazinski's work by interfacing directly with youtube-dl as a library, rather than functioning as an external script.
 
 ## License (GPLv3)
 
