@@ -74,6 +74,7 @@ Usage:
   tubeup <url>... [--metadata=<key:value>...]
   tubeup <url> [--username <user>] [--password <pass>]
   tubeup <url> [--proxy <prox>]
+  tubeup <url> --use-download-archive
   tubeup <url> -q | --quiet
   tubeup <url> -d | --debug
   tubeup -h | --help
@@ -86,12 +87,16 @@ Arguments:
                                 item.
 
 Options:
-  -h --help         Show this screen.
-  --proxy <prox>    Use a proxy while uploading.
-  --username <user> Provide a username, for sites like Nico Nico Douga.
-  --password <pass> Provide a password, for sites like Nico Nico Douga.
-  -q --quiet        Just print errors.
-  -d --debug        Print all logs to stdout.
+  -h --help                 Show this screen.
+  --proxy <prox>            Use a proxy while uploading.
+  --username <user>         Provide a username, for sites like Nico Nico Douga.
+  --password <pass>         Provide a password, for sites like Nico Nico Douga.
+  --use-download-archive    Record the video url to the download archive.
+                            This will download only videos not listed in
+                            the archive file. Record the IDs of all
+                            downloaded videos in it.
+  -q --quiet                Just print errors.
+  -d --debug                Print all logs to stdout.
 ```
 
 ## Metadata

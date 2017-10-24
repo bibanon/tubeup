@@ -118,14 +118,47 @@ class TubeUpTests(unittest.TestCase):
 
         self.assertEqual(result, expected_result)
 
+    def test_generate_ydl_options_with_download_archive(self):
+        result = self.tu.generate_ydl_options(mocked_ydl_progress_hook,
+                                              use_download_archive=True)
+
+        expected_result = {
+            'outtmpl': os.path.join(
+                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+            'restrictfilenames': True,
+            'verbose': False,
+            'quiet': True,
+            'download_archive': os.path.join(self.tu.dir_path['root'],
+                                             '.ytdlarchive'),
+            'progress_with_newline': True,
+            'forcetitle': True,
+            'continuedl': True,
+            'retries': 9001,
+            'fragment_retries': 9001,
+            'forcejson': True,
+            'writeinfojson': True,
+            'writedescription': True,
+            'writethumbnail': True,
+            'writeannotations': True,
+            'writesubtitles': True,
+            'allsubtitles': True,
+            'ignoreerrors': True,
+            'fixup': 'warn',
+            'nooverwrites': True,
+            'consoletitle': True,
+            'prefer_ffmpeg': True,
+            'call_home': False,
+            'logger': self.tu.logger,
+            'progress_hooks': [mocked_ydl_progress_hook]}
+
+        self.assertEqual(result, expected_result)
+
     def test_generate_ydl_options(self):
         result = self.tu.generate_ydl_options(mocked_ydl_progress_hook)
 
         expected_result = {
             'outtmpl': os.path.join(
                 self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
-            'download_archive': os.path.join(self.tu.dir_path['root'],
-                                             '.ytdlarchive'),
             'restrictfilenames': True,
             'verbose': False,
             'quiet': True,
@@ -159,8 +192,6 @@ class TubeUpTests(unittest.TestCase):
         expected_result = {
             'outtmpl': os.path.join(
                 self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
-            'download_archive': os.path.join(self.tu.dir_path['root'],
-                                             '.ytdlarchive'),
             'restrictfilenames': True,
             'verbose': False,
             'quiet': True,
@@ -196,8 +227,6 @@ class TubeUpTests(unittest.TestCase):
         expected_result = {
             'outtmpl': os.path.join(
                 self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
-            'download_archive': os.path.join(self.tu.dir_path['root'],
-                                             '.ytdlarchive'),
             'restrictfilenames': True,
             'verbose': False,
             'quiet': True,
@@ -235,8 +264,6 @@ class TubeUpTests(unittest.TestCase):
         expected_result = {
             'outtmpl': os.path.join(
                 self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
-            'download_archive': os.path.join(self.tu.dir_path['root'],
-                                             '.ytdlarchive'),
             'restrictfilenames': True,
             'verbose': True,
             'quiet': False,

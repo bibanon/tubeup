@@ -70,18 +70,22 @@ class TubeUp(object):
         }
 
     def get_resource_basenames(self, urls, proxy_url=None, ydl_username=None,
-                               ydl_password=None):
+                               ydl_password=None, use_download_archive=False):
         """
         Get resource basenames from an url.
 
-        :param urls:          A list of urls that will be downloaded with
-                              youtubedl.
-        :param proxy_url:     A proxy url for YoutubeDL.
-        :param ydl_username:  Username that will be used to download the
-                              resources with youtube_dl.
-        :param ydl_password:  Password of the related username, will be used
-                              to download the resources with youtube_dl.
-        :return:              Set of videos basename that has been downloaded.
+        :param urls:                  A list of urls that will be downloaded with
+                                      youtubedl.
+        :param proxy_url:             A proxy url for YoutubeDL.
+        :param ydl_username:          Username that will be used to download the
+                                      resources with youtube_dl.
+        :param ydl_password:          Password of the related username, will be used
+                                      to download the resources with youtube_dl.
+        :param use_download_archive:  Record the video url to the download archive.
+                                      This will download only videos not listed in
+                                      the archive file. Record the IDs of all
+                                      downloaded videos in it.
+        :return:                      Set of videos basename that has been downloaded.
         """
         downloaded_files_basename = set()
 
@@ -127,7 +131,8 @@ class TubeUp(object):
                     print(msg)
 
         ydl_opts = self.generate_ydl_options(ydl_progress_hook, proxy_url,
-                                             ydl_username, ydl_password)
+                                             ydl_username, ydl_password,
+                                             use_download_archive)
 
         with YoutubeDL(ydl_opts) as ydl:
             for url in urls:
@@ -181,32 +186,30 @@ class TubeUp(object):
                              ydl_progress_hook,
                              proxy_url=None,
                              ydl_username=None,
-                             ydl_password=None):
+                             ydl_password=None,
+                             use_download_archive=False):
         """
         Generate a dictionary that contains options that will be used
         by youtube_dl.
 
-        :param ydl_progress_hook:  A function that will be called during the
-                                   download process by youtube_dl.
-        :param proxy_url:          A proxy url for YoutubeDL.
-        :param ydl_username:       Username that will be used to download the
-                                   resources with youtube_dl.
-        :param ydl_password:       Password of the related username, will be
-                                   used to download the resources with
-                                   youtube_dl.
-        :return:                   A dictionary that contains options that will
-                                   be used by youtube_dl.
+        :param ydl_progress_hook:     A function that will be called during the
+                                      download process by youtube_dl.
+        :param proxy_url:             A proxy url for YoutubeDL.
+        :param ydl_username:          Username that will be used to download the
+                                      resources with youtube_dl.
+        :param ydl_password:          Password of the related username, will be
+                                      used to download the resources with
+                                      youtube_dl.
+        :param use_download_archive:  Record the video url to the download archive.
+                                      This will download only videos not listed in
+                                      the archive file. Record the IDs of all
+                                      downloaded videos in it.
+        :return:                      A dictionary that contains options that will
+                                      be used by youtube_dl.
         """
         ydl_opts = {
             'outtmpl': os.path.join(self.dir_path['downloads'],
                                     '%(title)s-%(id)s.%(ext)s'),
-
-            # I guess we will avoid doing this because it prevents failed
-            # uploads from being redone in our current system. Maybe when we
-            # turn it into an OOP library?
-            'download_archive': os.path.join(self.dir_path['root'],
-                                             '.ytdlarchive'),
-
             'restrictfilenames': True,
             'quiet': not self.verbose,
             'verbose': self.verbose,
@@ -249,6 +252,10 @@ class TubeUp(object):
 
         if ydl_password is not None:
             ydl_opts['password'] = ydl_password
+
+        if use_download_archive:
+            ydl_opts['download_archive'] = os.path.join(self.dir_path['root'],
+                                                        '.ytdlarchive')
 
         return ydl_opts
 
@@ -316,25 +323,30 @@ class TubeUp(object):
         return itemname, metadata
 
     def archive_urls(self, urls, custom_meta=None, proxy=None,
-                     ydl_username=None, ydl_password=None):
+                     ydl_username=None, ydl_password=None,
+                     use_download_archive=False):
         """
         Download and upload videos from youtube_dl supported sites to
         archive.org
 
-        :param urls:          List of url that will be downloaded and uploaded
-                              to archive.org
-        :param custom_meta:   A custom metadata that will be used when
-                              uploading the file with archive.org.
-        :param proxy_url:     A proxy url for YoutubeDL.
-        :param ydl_username:  Username that will be used to download the
-                              resources with youtube_dl.
-        :param ydl_password:  Password of the related username, will be used
-                              to download the resources with youtube_dl.
-        :return:              Tuple containing identifier and metadata of the
-                              file that has been uploaded to archive.org.
+        :param urls:                  List of url that will be downloaded and uploaded
+                                      to archive.org
+        :param custom_meta:           A custom metadata that will be used when
+                                      uploading the file with archive.org.
+        :param proxy_url:             A proxy url for YoutubeDL.
+        :param ydl_username:          Username that will be used to download the
+                                      resources with youtube_dl.
+        :param ydl_password:          Password of the related username, will be used
+                                      to download the resources with youtube_dl.
+        :param use_download_archive:  Record the video url to the download archive.
+                                      This will download only videos not listed in
+                                      the archive file. Record the IDs of all
+                                      downloaded videos in it.
+        :return:                      Tuple containing identifier and metadata of the
+                                      file that has been uploaded to archive.org.
         """
         downloaded_file_basenames = self.get_resource_basenames(
-            urls, proxy, ydl_username, ydl_password)
+            urls, proxy, ydl_username, ydl_password, use_download_archive)
 
         for basename in downloaded_file_basenames:
             identifier, meta = self.upload_ia(basename, custom_meta)

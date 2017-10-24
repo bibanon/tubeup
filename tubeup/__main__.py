@@ -22,6 +22,7 @@ Usage:
                   [--metadata=<key:value>...]
                   [--proxy <prox>]
                   [--quiet] [--debug]
+                  [--use-download-archive]
   tubeup -h | --help
 
 Arguments:
@@ -32,12 +33,16 @@ Arguments:
                                 item.
 
 Options:
-  -h --help         Show this screen.
-  --proxy <prox>    Use a proxy while uploading.
-  --username <user> Provide a username, for sites like Nico Nico Douga.
-  --password <pass> Provide a password, for sites like Nico Nico Douga.
-  --quiet           Just print errors.
-  --debug           Print all logs to stdout.
+  -h --help                 Show this screen.
+  --proxy <prox>            Use a proxy while uploading.
+  --username <user>         Provide a username, for sites like Nico Nico Douga.
+  --password <pass>         Provide a password, for sites like Nico Nico Douga.
+  --use-download-archive    Record the video url to the download archive.
+                            This will download only videos not listed in
+                            the archive file. Record the IDs of all
+                            downloaded videos in it.
+  --quiet                   Just print errors.
+  --debug                   Print all logs to stdout.
 """
 
 import sys
@@ -59,6 +64,7 @@ def main():
     password = args['--password']
     quiet_mode = args['--quiet']
     debug_mode = args['--debug']
+    use_download_archive = args['--use-download-archive']
 
     if debug_mode:
         # Display log messages.
@@ -79,7 +85,8 @@ def main():
 
     try:
         for identifier, meta in tu.archive_urls(URLs, metadata, proxy_url,
-                                                username, password):
+                                                username, password,
+                                                use_download_archive):
             print('\n:: Upload Finished. Item information:')
             print('Title: %s' % meta['title'])
             print('Upload URL: https://archive.org/details/%s\n' % identifier)
