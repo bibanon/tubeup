@@ -129,9 +129,15 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 * Some videos are copyright blocked in certain countries. Use the proxy or torrenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countries to bypass geo-restrrictions.
 * Upload taking forever? Getting s3 throttling on upload? Tubeup has specifically been tailored to wait the longest possible time before failing, and we've never seen a S3 outage that outlasted the insane wait times set in Tubeup.
 
-## Credits
+## Major Credits
 
-Inspired by youtube2internetarchive by Matt Hazinski (Copyright 2015 GPLv3), which in turn is a fork of emijrp's [youtube2internetarchive.py](https://code.google.com/p/emijrp/source/browse/trunk/scrapers/youtube2internetarchive.py), written in 2012. This script improves on Matt Hazinski's work by interfacing directly with youtube-dl as a library, rather than functioning as an external script.
+- [emijrp](https://github.com/emijrp/) who wrote the original [youtube2internetarchive.py](https://code.google.com/p/emijrp/source/browse/trunk/scrapers/youtube2internetarchive.py) in 2012
+- [Matt Hazinski](https://github.com/matthazinski) who forked emijrps work in 2015 with numerous improvements of his own.
+- Antonizoon for switching the script to library calls rather than functioning as an external script, and many small improvements.
+- Small PRs from various people, both in and out of BibAnon.
+- vxbinaca for stabilizing downloads/uploads in `youtube-dl` / `internetarchive` library calls, subtitles ingestion, and numerous small improvements over time.
+- [Jake Johnson](https://github.com/jjjake) of the Internet Archive for adding variable collections ability as a flag, switching Tubeup from a script to PyPi repository, fixing what others couldn't, and many improvements.
+- [Refeed](https://github.com/refeed) for re-basing the code to OOP, turning Tubeup it's self into a library. and adding download and upload bar graphs.
 
 ## License (GPLv3)
 
