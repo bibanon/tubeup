@@ -85,6 +85,8 @@ class TubeUpTests(unittest.TestCase):
         expected_result = {
             'outtmpl': os.path.join(
                 download_path, '%(title)s-%(id)s.%(ext)s'),
+            'download_archive': os.path.join(self.tu.dir_path['root'],
+                                             '.ytdlarchive'),
             'restrictfilenames': True,
             'verbose': False,
             'progress_with_newline': True,
@@ -120,6 +122,8 @@ class TubeUpTests(unittest.TestCase):
         expected_result = {
             'outtmpl': os.path.join(
                 download_path, '%(title)s-%(id)s.%(ext)s'),
+            'download_archive': os.path.join(self.tu.dir_path['root'],
+                                             '.ytdlarchive'),
             'restrictfilenames': True,
             'verbose': False,
             'progress_with_newline': True,
@@ -157,6 +161,8 @@ class TubeUpTests(unittest.TestCase):
         expected_result = {
             'outtmpl': os.path.join(
                 download_path, '%(title)s-%(id)s.%(ext)s'),
+            'download_archive': os.path.join(self.tu.dir_path['root'],
+                                             '.ytdlarchive'),
             'restrictfilenames': True,
             'verbose': False,
             'progress_with_newline': True,

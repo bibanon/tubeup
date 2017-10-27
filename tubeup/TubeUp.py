@@ -167,6 +167,13 @@ class TubeUp(object):
         ydl_opts = {
             'outtmpl': os.path.join(self.dir_path['downloads'],
                                     '%(title)s-%(id)s.%(ext)s'),
+
+            # I guess we will avoid doing this because it prevents failed
+            # uploads from being redone in our current system. Maybe when we
+            # turn it into an OOP library?
+            'download_archive': os.path.join(self.dir_path['root'],
+                                             '.ytdlarchive'),
+
             'restrictfilenames': True,
             'verbose': self.verbose,
             'progress_with_newline': True,
