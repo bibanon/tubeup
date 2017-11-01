@@ -174,6 +174,7 @@ class TubeUp(object):
                                              '.ytdlarchive'),
 
             'restrictfilenames': True,
+            'quiet': not self.verbose,
             'verbose': self.verbose,
             'progress_with_newline': True,
             'forcetitle': True,
