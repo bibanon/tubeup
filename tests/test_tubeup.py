@@ -6,7 +6,9 @@ import time
 import requests_mock
 import glob
 
-from tubeup.TubeUp import TubeUp, log, DOWNLOAD_DIR_NAME
+from logging import Logger
+from tubeup.TubeUp import TubeUp, DOWNLOAD_DIR_NAME
+from tubeup.utils import LogErrorToStdout
 
 
 current_path = os.path.dirname(os.path.realpath(__file__))
@@ -66,6 +68,15 @@ class TubeUpTests(unittest.TestCase):
         # Clean the test directory
         shutil.rmtree(root_path, ignore_errors=True)
 
+    def test_tubeup_attribute_logger_when_quiet_mode(self):
+        # self.tu is already `TubeUp` instance with quiet mode, so we don't
+        # create a new instance here.
+        self.assertIsInstance(self.tu.logger, LogErrorToStdout)
+
+    def test_tubeup_attribute_logger_when_verbose_mode(self):
+        tu = TubeUp(verbose=True)
+        self.assertIsInstance(tu.logger, Logger)
+
     def test_determine_collection_type(self):
         soundcloud_colltype = self.tu.determine_collection_type(
             'https://soundcloud.com/testurl')
@@ -104,7 +115,7 @@ class TubeUpTests(unittest.TestCase):
             'consoletitle': True,
             'prefer_ffmpeg': True,
             'call_home': False,
-            'logger': log,
+            'logger': self.tu.logger,
             'progress_hooks': [mocked_ydl_progress_hook]}
 
         self.assertEqual(result, expected_result)
@@ -138,7 +149,7 @@ class TubeUpTests(unittest.TestCase):
             'consoletitle': True,
             'prefer_ffmpeg': True,
             'call_home': False,
-            'logger': log,
+            'logger': self.tu.logger,
             'progress_hooks': [mocked_ydl_progress_hook],
             'proxy': 'http://proxytest.com:8080'}
 
@@ -174,7 +185,7 @@ class TubeUpTests(unittest.TestCase):
             'consoletitle': True,
             'prefer_ffmpeg': True,
             'call_home': False,
-            'logger': log,
+            'logger': self.tu.logger,
             'progress_hooks': [mocked_ydl_progress_hook],
             'username': 'testUsername',
             'password': 'testPassword'}
