@@ -79,12 +79,9 @@ class TubeUpTests(unittest.TestCase):
     def test_generate_ydl_options(self):
         result = self.tu.generate_ydl_options(mocked_ydl_progress_hook)
 
-        download_path = os.path.join(
-            os.path.expanduser('~/.tubeup'), DOWNLOAD_DIR_NAME)
-
         expected_result = {
             'outtmpl': os.path.join(
-                download_path, '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
             'download_archive': os.path.join(self.tu.dir_path['root'],
                                              '.ytdlarchive'),
             'restrictfilenames': True,
@@ -116,12 +113,9 @@ class TubeUpTests(unittest.TestCase):
         result = self.tu.generate_ydl_options(
             mocked_ydl_progress_hook, proxy_url='http://proxytest.com:8080')
 
-        download_path = os.path.join(
-            os.path.expanduser('~/.tubeup'), DOWNLOAD_DIR_NAME)
-
         expected_result = {
             'outtmpl': os.path.join(
-                download_path, '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
             'download_archive': os.path.join(self.tu.dir_path['root'],
                                              '.ytdlarchive'),
             'restrictfilenames': True,
@@ -155,12 +149,9 @@ class TubeUpTests(unittest.TestCase):
             mocked_ydl_progress_hook, ydl_username='testUsername',
             ydl_password='testPassword')
 
-        download_path = os.path.join(
-            os.path.expanduser('~/.tubeup'), DOWNLOAD_DIR_NAME)
-
         expected_result = {
             'outtmpl': os.path.join(
-                download_path, '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
             'download_archive': os.path.join(self.tu.dir_path['root'],
                                              '.ytdlarchive'),
             'restrictfilenames': True,
