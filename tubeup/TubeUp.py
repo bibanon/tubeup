@@ -18,9 +18,6 @@ from urllib.parse import urlparse
 DOWNLOAD_DIR_NAME = 'downloads'
 
 
-log = getLogger(__name__)
-
-
 class TubeUp(object):
 
     def __init__(self,
@@ -42,6 +39,8 @@ class TubeUp(object):
         self.dir_path = dir_path
         self.verbose = verbose
         self.ia_config_path = ia_config_path
+        self.logger = (getLogger(__name__) if self.verbose  # Just print errors
+                       else LogErrorToStdout())             # in quiet mode
 
     @property
     def dir_path(self):
@@ -113,8 +112,8 @@ class TubeUp(object):
             if d['status'] == 'finished':
                 msg = 'Downloaded %s' % d['filename']
 
-                log.debug(d)
-                log.info(msg)
+                self.logger.debug(d)
+                self.logger.info(msg)
                 if self.verbose:
                     print('\n%s' % d)
                     print(msg)
@@ -123,7 +122,7 @@ class TubeUp(object):
                 # TODO: Complete the error message
                 msg = 'Error when downloading the video'
 
-                log.error(msg)
+                self.logger.error(msg)
                 if self.verbose:
                     print(msg)
 
@@ -203,8 +202,7 @@ class TubeUp(object):
             # Warns on out of date youtube-dl script, helps debugging for
             # youtube-dl devs
             'call_home': False,
-            'logger': (LogErrorToStdout() if self.verbose
-                       else log),
+            'logger': self.logger,
             'progress_hooks': [ydl_progress_hook]
         }
 
@@ -270,7 +268,7 @@ class TubeUp(object):
             msg = ('`internetarchive` configuration file is not configured'
                    ' properly.')
 
-            log.error(msg)
+            self.logger.error(msg)
             if self.verbose:
                 print(msg)
             raise Exception(msg)
