@@ -79,16 +79,14 @@ class TubeUpTests(unittest.TestCase):
     def test_generate_ydl_options(self):
         result = self.tu.generate_ydl_options(mocked_ydl_progress_hook)
 
-        download_path = os.path.join(
-            os.path.expanduser('~/.tubeup'), DOWNLOAD_DIR_NAME)
-
         expected_result = {
             'outtmpl': os.path.join(
-                download_path, '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
             'download_archive': os.path.join(self.tu.dir_path['root'],
                                              '.ytdlarchive'),
             'restrictfilenames': True,
             'verbose': False,
+            'quiet': True,
             'progress_with_newline': True,
             'forcetitle': True,
             'continuedl': True,
@@ -116,16 +114,14 @@ class TubeUpTests(unittest.TestCase):
         result = self.tu.generate_ydl_options(
             mocked_ydl_progress_hook, proxy_url='http://proxytest.com:8080')
 
-        download_path = os.path.join(
-            os.path.expanduser('~/.tubeup'), DOWNLOAD_DIR_NAME)
-
         expected_result = {
             'outtmpl': os.path.join(
-                download_path, '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
             'download_archive': os.path.join(self.tu.dir_path['root'],
                                              '.ytdlarchive'),
             'restrictfilenames': True,
             'verbose': False,
+            'quiet': True,
             'progress_with_newline': True,
             'forcetitle': True,
             'continuedl': True,
@@ -155,16 +151,53 @@ class TubeUpTests(unittest.TestCase):
             mocked_ydl_progress_hook, ydl_username='testUsername',
             ydl_password='testPassword')
 
-        download_path = os.path.join(
-            os.path.expanduser('~/.tubeup'), DOWNLOAD_DIR_NAME)
-
         expected_result = {
             'outtmpl': os.path.join(
-                download_path, '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
             'download_archive': os.path.join(self.tu.dir_path['root'],
                                              '.ytdlarchive'),
             'restrictfilenames': True,
             'verbose': False,
+            'quiet': True,
+            'progress_with_newline': True,
+            'forcetitle': True,
+            'continuedl': True,
+            'retries': 9001,
+            'fragment_retries': 9001,
+            'forcejson': True,
+            'writeinfojson': True,
+            'writedescription': True,
+            'writethumbnail': True,
+            'writeannotations': True,
+            'writesubtitles': True,
+            'allsubtitles': True,
+            'ignoreerrors': True,
+            'fixup': 'warn',
+            'nooverwrites': True,
+            'consoletitle': True,
+            'prefer_ffmpeg': True,
+            'call_home': False,
+            'logger': log,
+            'progress_hooks': [mocked_ydl_progress_hook],
+            'username': 'testUsername',
+            'password': 'testPassword'}
+
+        self.assertEqual(result, expected_result)
+
+    def test_generate_ydl_options_with_verbose_mode(self):
+        tu = TubeUp(verbose=True)
+        result = tu.generate_ydl_options(
+            mocked_ydl_progress_hook, ydl_username='testUsername',
+            ydl_password='testPassword')
+
+        expected_result = {
+            'outtmpl': os.path.join(
+                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+            'download_archive': os.path.join(self.tu.dir_path['root'],
+                                             '.ytdlarchive'),
+            'restrictfilenames': True,
+            'verbose': True,
+            'quiet': False,
             'progress_with_newline': True,
             'forcetitle': True,
             'continuedl': True,
