@@ -135,13 +135,47 @@ class TubeUp(object):
                 # if necessary.
                 info_dict = ydl.extract_info(url)
 
-                filename_without_ext = os.path.splitext(
-                    ydl.prepare_filename(info_dict))[0]
+                downloaded_files_basename.update(
+                    self.create_basenames_from_ydl_info_dict(ydl, info_dict)
+                )
 
-                file_basename = re.sub(r'(\.f\d+)', '', filename_without_ext)
-                downloaded_files_basename.add(file_basename)
+        self.logger.debug(
+            'Basenames obtained from url (%s): %s'
+            % (url, downloaded_files_basename))
 
         return downloaded_files_basename
+
+    def create_basenames_from_ydl_info_dict(self, ydl, info_dict):
+        """
+        Create basenames from YoutubeDL info_dict.
+
+        :param ydl:        A `youtube_dl.YoutubeDL` instance.
+        :param info_dict:  A ydl info_dict that will be used to create
+                           the basenames.
+        :return:           A set that contains basenames that created from
+                           the `info_dict`.
+        """
+        info_type = info_dict.get('_type', 'video')
+        self.logger.debug('Creating basenames from ydl info dict with type %s'
+                          % info_type)
+
+        filenames = set()
+
+        if info_type == 'playlist':
+            # Iterate and get the filenames through the playlist
+            for video in info_dict['entries']:
+                filenames.add(ydl.prepare_filename(video))
+        else:
+            filenames.add(ydl.prepare_filename(info_dict))
+
+        basenames = set()
+
+        for filename in filenames:
+            filename_without_ext = os.path.splitext(filename)[0]
+            file_basename = re.sub(r'(\.f\d+)', '', filename_without_ext)
+            basenames.add(file_basename)
+
+        return basenames
 
     def generate_ydl_options(self,
                              ydl_progress_hook,

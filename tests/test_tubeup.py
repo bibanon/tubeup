@@ -9,6 +9,8 @@ import glob
 from logging import Logger
 from tubeup.TubeUp import TubeUp, DOWNLOAD_DIR_NAME
 from tubeup.utils import LogErrorToStdout
+from youtube_dl import YoutubeDL
+from .constants import info_dict_playlist, info_dict_video
 
 
 current_path = os.path.dirname(os.path.realpath(__file__))
@@ -86,6 +88,35 @@ class TubeUpTests(unittest.TestCase):
 
         self.assertEqual(soundcloud_colltype, 'opensource_audio')
         self.assertEqual(another_colltype, 'opensource_movies')
+
+    def test_create_basenames_from_ydl_info_dict_video(self):
+        ydl = YoutubeDL()
+        result = self.tu.create_basenames_from_ydl_info_dict(
+            ydl, info_dict_video)
+
+        expected_result = set(
+            ['Video and Blog Competition 2017 - Bank Indonesia & '
+             'NET TV #BIGoesToCampus-hlG3LeFaQwU'])
+
+        self.assertEqual(result, expected_result)
+
+    def test_create_basenames_from_ydl_info_dict_playlist(self):
+        ydl = YoutubeDL()
+        result = self.tu.create_basenames_from_ydl_info_dict(
+            ydl, info_dict_playlist)
+
+        expected_result = set([
+            'Live Streaming Rafid Aslam-7gjgkH5iPaE',
+            'Live Streaming Rafid Aslam-q92kxPm-pqM',
+            'Cara Membuat Laptop Menjadi Hotspot WiFi Dengan CMD-YjFwMSDNphM',
+            '[CSO] Defeat Boss in Dead End With Thanatos 7-EEm6MwXLse0',
+            'Cara Bermain Minecraft Multiplayer Dengan LAN-g2vTZ2ka-tM',
+            'Live Streaming Rafid Aslam-AXhuSS5_9YU',
+            'Cara Membuat Disk Baru di Komputer-KDOygJnK7Sw',
+            'Cara Mendownload Lewat Torrent-cC-9RghkvXs']
+        )
+
+        self.assertEqual(result, expected_result)
 
     def test_generate_ydl_options(self):
         result = self.tu.generate_ydl_options(mocked_ydl_progress_hook)
