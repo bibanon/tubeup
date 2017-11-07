@@ -380,7 +380,7 @@ class TubeUpTests(unittest.TestCase):
                              'Nature;Mountain;'),
                  'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
                  'licenseurl': '',
-                 'scanner': 'Internet Archive Python library 1.7.3'})
+                 'scanner': 'Internet Archive Python library 1.7.4'})
 
             self.assertEqual(expected_result, result)
 
@@ -442,6 +442,6 @@ class TubeUpTests(unittest.TestCase):
                              'Nature;Mountain;'),
                  'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
                  'licenseurl': '',
-                 'scanner': 'Internet Archive Python library 1.7.3'})]
+                 'scanner': 'Internet Archive Python library 1.7.4'})]
 
             self.assertEqual(expected_result, result)
