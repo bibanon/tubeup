@@ -18,9 +18,6 @@ from urllib.parse import urlparse
 DOWNLOAD_DIR_NAME = 'downloads'
 
 
-log = getLogger(__name__)
-
-
 class TubeUp(object):
 
     def __init__(self,
@@ -42,6 +39,8 @@ class TubeUp(object):
         self.dir_path = dir_path
         self.verbose = verbose
         self.ia_config_path = ia_config_path
+        self.logger = (getLogger(__name__) if self.verbose  # Just print errors
+                       else LogErrorToStdout())             # in quiet mode
 
     @property
     def dir_path(self):
@@ -113,8 +112,8 @@ class TubeUp(object):
             if d['status'] == 'finished':
                 msg = 'Downloaded %s' % d['filename']
 
-                log.debug(d)
-                log.info(msg)
+                self.logger.debug(d)
+                self.logger.info(msg)
                 if self.verbose:
                     print('\n%s' % d)
                     print(msg)
@@ -123,7 +122,7 @@ class TubeUp(object):
                 # TODO: Complete the error message
                 msg = 'Error when downloading the video'
 
-                log.error(msg)
+                self.logger.error(msg)
                 if self.verbose:
                     print(msg)
 
@@ -136,13 +135,47 @@ class TubeUp(object):
                 # if necessary.
                 info_dict = ydl.extract_info(url)
 
-                filename_without_ext = os.path.splitext(
-                    ydl.prepare_filename(info_dict))[0]
+                downloaded_files_basename.update(
+                    self.create_basenames_from_ydl_info_dict(ydl, info_dict)
+                )
 
-                file_basename = re.sub(r'(\.f\d+)', '', filename_without_ext)
-                downloaded_files_basename.add(file_basename)
+        self.logger.debug(
+            'Basenames obtained from url (%s): %s'
+            % (url, downloaded_files_basename))
 
         return downloaded_files_basename
+
+    def create_basenames_from_ydl_info_dict(self, ydl, info_dict):
+        """
+        Create basenames from YoutubeDL info_dict.
+
+        :param ydl:        A `youtube_dl.YoutubeDL` instance.
+        :param info_dict:  A ydl info_dict that will be used to create
+                           the basenames.
+        :return:           A set that contains basenames that created from
+                           the `info_dict`.
+        """
+        info_type = info_dict.get('_type', 'video')
+        self.logger.debug('Creating basenames from ydl info dict with type %s'
+                          % info_type)
+
+        filenames = set()
+
+        if info_type == 'playlist':
+            # Iterate and get the filenames through the playlist
+            for video in info_dict['entries']:
+                filenames.add(ydl.prepare_filename(video))
+        else:
+            filenames.add(ydl.prepare_filename(info_dict))
+
+        basenames = set()
+
+        for filename in filenames:
+            filename_without_ext = os.path.splitext(filename)[0]
+            file_basename = re.sub(r'(\.f\d+)', '', filename_without_ext)
+            basenames.add(file_basename)
+
+        return basenames
 
     def generate_ydl_options(self,
                              ydl_progress_hook,
@@ -175,6 +208,7 @@ class TubeUp(object):
                                              '.ytdlarchive'),
 
             'restrictfilenames': True,
+            'quiet': not self.verbose,
             'verbose': self.verbose,
             'progress_with_newline': True,
             'forcetitle': True,
@@ -203,8 +237,7 @@ class TubeUp(object):
             # Warns on out of date youtube-dl script, helps debugging for
             # youtube-dl devs
             'call_home': False,
-            'logger': (LogErrorToStdout() if self.verbose
-                       else log),
+            'logger': self.logger,
             'progress_hooks': [ydl_progress_hook]
         }
 
@@ -270,7 +303,7 @@ class TubeUp(object):
             msg = ('`internetarchive` configuration file is not configured'
                    ' properly.')
 
-            log.error(msg)
+            self.logger.error(msg)
             if self.verbose:
                 print(msg)
             raise Exception(msg)

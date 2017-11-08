@@ -64,10 +64,10 @@ def main():
     if debug_mode:
         # Display log messages.
         root = logging.getLogger()
-        root.setLevel(logging.INFO)
+        root.setLevel(logging.DEBUG)
 
         ch = logging.StreamHandler(sys.stdout)
-        ch.setLevel(logging.INFO)
+        ch.setLevel(logging.DEBUG)
         formatter = logging.Formatter(
             '\033[92m[DEBUG]\033[0m %(asctime)s - %(name)s - %(levelname)s - '
             '%(message)s')
