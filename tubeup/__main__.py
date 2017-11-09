@@ -18,18 +18,17 @@
 """tubeup - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
 
 Usage:
-  tubeup <url>... [--metadata=<key:value>...]
-  tubeup <url> [--username <user>] [--password <pass>]
-  tubeup <url> [--proxy <prox>]
-  tubeup <url> -q | --quiet
-  tubeup <url> -d | --debug
+  tubeup <url>... [--username <user>] [--password <pass>]
+                  [--metadata=<key:value>...]
+                  [--proxy <prox>]
+                  [--quiet] [--debug]
   tubeup -h | --help
 
 Arguments:
   <url>                         Youtube-dl compatible URL to download.
                                 Check Youtube-dl documentation for a list
                                 of compatible websites.
-  -m, --metadata=<key:value>    Custom metadata to add to the archive.org
+  --metadata=<key:value>        Custom metadata to add to the archive.org
                                 item.
 
 Options:
@@ -37,8 +36,8 @@ Options:
   --proxy <prox>    Use a proxy while uploading.
   --username <user> Provide a username, for sites like Nico Nico Douga.
   --password <pass> Provide a password, for sites like Nico Nico Douga.
-  -q --quiet        Just print errors.
-  -d --debug        Print all logs to stdout.
+  --quiet           Just print errors.
+  --debug           Print all logs to stdout.
 """
 
 import sys
