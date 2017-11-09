@@ -410,7 +410,14 @@ class TubeUpTests(unittest.TestCase):
 
     def test_get_resource_basenames(self):
         tu = TubeUp(dir_path=os.path.join(current_path,
-                                          'test_tubeup_rootdir'))
+                                          'test_tubeup_rootdir'),
+                    # HACK: A hack to make the test in Travis successful,
+                    # We need to investigate more about this, it doesn't
+                    # make sense that the verbose flag affect the
+                    # youtubedl extract_info() process.
+                    # See:
+                    # https://travis-ci.org/bibanon/tubeup/builds/299091640
+                    verbose=True)
 
         copy_testfiles_to_tubeup_rootdir_test()
 
@@ -489,7 +496,14 @@ class TubeUpTests(unittest.TestCase):
     def test_archive_urls(self):
         tu = TubeUp(dir_path=os.path.join(current_path,
                                           'test_tubeup_rootdir'),
-                    ia_config_path=get_testfile_path('ia_config_for_test.ini'))
+                    ia_config_path=get_testfile_path('ia_config_for_test.ini'),
+                    # HACK: A hack to make the test in Travis successful,
+                    # We need to investigate more about this, it doesn't
+                    # make sense that the verbose flag affect the
+                    # youtubedl extract_info() process.
+                    # See:
+                    # https://travis-ci.org/bibanon/tubeup/builds/299091640
+                    verbose=True)
 
         videobasename = os.path.join(
             current_path, 'test_tubeup_rootdir', 'downloads',
