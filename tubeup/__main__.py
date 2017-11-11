@@ -18,27 +18,31 @@
 """tubeup - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
 
 Usage:
-  tubeup <url>... [--metadata=<key:value>...]
-  tubeup <url> [--username <user>] [--password <pass>]
-  tubeup <url> [--proxy <prox>]
-  tubeup <url> -q | --quiet
-  tubeup <url> -d | --debug
+  tubeup <url>... [--username <user>] [--password <pass>]
+                  [--metadata=<key:value>...]
+                  [--proxy <prox>]
+                  [--quiet] [--debug]
+                  [--use-download-archive]
   tubeup -h | --help
 
 Arguments:
   <url>                         Youtube-dl compatible URL to download.
                                 Check Youtube-dl documentation for a list
                                 of compatible websites.
-  -m, --metadata=<key:value>    Custom metadata to add to the archive.org
+  --metadata=<key:value>        Custom metadata to add to the archive.org
                                 item.
 
 Options:
-  -h --help         Show this screen.
-  --proxy <prox>    Use a proxy while uploading.
-  --username <user> Provide a username, for sites like Nico Nico Douga.
-  --password <pass> Provide a password, for sites like Nico Nico Douga.
-  -q --quiet        Just print errors.
-  -d --debug        Print all logs to stdout.
+  -h --help                 Show this screen.
+  --proxy <prox>            Use a proxy while uploading.
+  --username <user>         Provide a username, for sites like Nico Nico Douga.
+  --password <pass>         Provide a password, for sites like Nico Nico Douga.
+  --use-download-archive    Record the video url to the download archive.
+                            This will download only videos not listed in
+                            the archive file. Record the IDs of all
+                            downloaded videos in it.
+  --quiet                   Just print errors.
+  --debug                   Print all logs to stdout.
 """
 
 import sys
@@ -60,14 +64,15 @@ def main():
     password = args['--password']
     quiet_mode = args['--quiet']
     debug_mode = args['--debug']
+    use_download_archive = args['--use-download-archive']
 
     if debug_mode:
         # Display log messages.
         root = logging.getLogger()
-        root.setLevel(logging.INFO)
+        root.setLevel(logging.DEBUG)
 
         ch = logging.StreamHandler(sys.stdout)
-        ch.setLevel(logging.INFO)
+        ch.setLevel(logging.DEBUG)
         formatter = logging.Formatter(
             '\033[92m[DEBUG]\033[0m %(asctime)s - %(name)s - %(levelname)s - '
             '%(message)s')
@@ -80,7 +85,8 @@ def main():
 
     try:
         for identifier, meta in tu.archive_urls(URLs, metadata, proxy_url,
-                                                username, password):
+                                                username, password,
+                                                use_download_archive):
             print('\n:: Upload Finished. Item information:')
             print('Title: %s' % meta['title'])
             print('Upload URL: https://archive.org/details/%s\n' % identifier)
