@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # tubeup.py - Download a video using youtube-dl and upload to the Internet Archive with metadata
 
-# Copyright (C) 2017 Bibliotheca Anonoma
+# Copyright (C) 2018 Bibliotheca Anonoma
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
