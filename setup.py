@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='tubeup',
-    version='0.0.13',
+    version='0.0.14',
     url='https://github.com/bibanon/tubeup',
     license='GPL 3',
     author='Bibliotheca Anonoma',
@@ -17,7 +17,7 @@ setup(
         ],
     },
     install_requires=[
-        'internetarchive==1.7.6',
+        'internetarchive',
         'docopt==0.6.2',
         'youtube-dl',
     ]
