@@ -48,6 +48,8 @@ Options:
 import sys
 import docopt
 import logging
+import traceback
+
 import internetarchive
 import internetarchive.cli
 
@@ -91,6 +93,13 @@ def main():
             print('Title: %s' % meta['title'])
             print('Upload URL: https://archive.org/details/%s\n' % identifier)
     except Exception:
+        print('\n\033[91m'  # Start red color text
+              'An exception just occured, if you found this '
+              "exception isn't related with any of your connection problem, "
+              'please report this issue to '
+              'https://github.com/bibanon/tubeup/issues')
+        traceback.print_exc()
+        print('\033[0m')  # End the red color text
         sys.exit(1)
 
 
