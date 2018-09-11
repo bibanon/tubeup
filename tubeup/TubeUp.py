@@ -284,15 +284,19 @@ class TubeUp(object):
 
         # Delete empty description file
         description_file_path = videobasename + '.description'
-        if (vid_meta['description'] == '' or
-                check_is_file_empty(description_file_path)):
-            os.remove(videobasename + '.description')
+        if (os.path.exists(description_file_path) and
+            (('description' in vid_meta and
+             vid_meta['description'] == '') or
+                check_is_file_empty(description_file_path))):
+            os.remove(description_file_path)
 
         # Delete empty annotations.xml file so it isn't uploaded
-        if (('annotations' in vid_meta and
+        annotations_file_path = videobasename + '.annotations.xml'
+        if (os.path.exists(annotations_file_path) and
+            (('annotations' in vid_meta and
              vid_meta['annotations'] in {'', EMPTY_ANNOTATION_FILE}) or
-                check_is_file_empty(description_file_path)):
-            os.remove(videobasename + '.annotations.xml')
+                check_is_file_empty(annotations_file_path))):
+            os.remove(annotations_file_path)
 
         # Upload all files with videobase name: e.g. video.mp4,
         # video.info.json, video.srt, etc.
