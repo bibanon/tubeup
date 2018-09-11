@@ -19,3 +19,9 @@ class UtilsTest(unittest.TestCase):
 
         self.assertFalse(check_is_file_empty('testfilenotempty.txt'))
         os.remove('testfilenotempty.txt')
+
+    def test_check_is_file_empty_when_file_doesnt_exist(self):
+        with self.assertRaisesRegex(
+                FileNotFoundError,
+                r"^Path 'file_that_doesnt_exist.txt' doesn't exist$"):
+            check_is_file_empty('file_that_doesnt_exist.txt')

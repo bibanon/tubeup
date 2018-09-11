@@ -12,7 +12,10 @@ def check_is_file_empty(filepath):
     :param filepath:  Path of a file that will be checked.
     :return:          True if the file empty.
     """
-    return os.path.exists(filepath) and os.stat(filepath).st_size == 0
+    if os.path.exists(filepath):
+        return os.stat(filepath).st_size == 0
+    else:
+        raise FileNotFoundError("Path '%s' doesn't exist" % filepath)
 
 
 class LogErrorToStdout(object):
