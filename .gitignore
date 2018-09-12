@@ -4,3 +4,4 @@ downloads/
 **/*.pyc
 .coverage
 *.egg-info
+.cache/
