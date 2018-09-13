@@ -140,9 +140,9 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 - [Matt Hazinski](https://github.com/matthazinski) who forked emijrps work in 2015 with numerous improvements of his own.
 - Antonizoon for switching the script to library calls rather than functioning as an external script, and many small improvements.
 - Small PRs from various people, both in and out of BibAnon.
-- vxbinaca for stabilizing downloads/uploads in `youtube-dl` / `internetarchive` library calls, cleansing itme output, subtitles ingestion, and numerous small improvements over time.
-- [Jake Johnson](https://github.com/jjjake) of the Internet Archive for adding variable collections ability as a flag, switching Tubeup from a script to PyPi repository, ISO-compiant item dates, fixing what others couldn't, and many improvements.
-- [Refeed](https://github.com/refeed) for re-basing the code to OOP, turning Tubeup it's self into a library. and adding download and upload bar graphs.
+- vxbinaca for stabilizing downloads/uploads in `youtube-dl`/`internetarchive` library calls, cleansing item output, subtitles collection, and numerous small improvements over time.
+- [Jake Johnson](https://github.com/jjjake) of the Internet Archive for adding variable collections ability as a flag, switching Tubeup from a script to PyPi repository, ISO-compliant item dates, fixing what others couldn't, and many improvements.
+- [Refeed](https://github.com/refeed) for re-basing the code to OOP, turning Tubeup it's self into a library. and adding download and upload bar graphs, and squashing bugs.
 
 ## License (GPLv3)
 
