@@ -124,7 +124,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'outtmpl': os.path.join(
-                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(extractor)s-%(id)s.%(ext)s'),
             'restrictfilenames': True,
             'verbose': False,
             'quiet': True,
@@ -158,7 +158,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'outtmpl': os.path.join(
-                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(extractor)s-%(id)s.%(ext)s'),
             'restrictfilenames': True,
             'verbose': False,
             'quiet': True,
@@ -191,7 +191,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'outtmpl': os.path.join(
-                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(extractor)s-%(id)s.%(ext)s'),
             'restrictfilenames': True,
             'verbose': False,
             'quiet': True,
@@ -226,7 +226,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'outtmpl': os.path.join(
-                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(extractor)s-%(id)s.%(ext)s'),
             'restrictfilenames': True,
             'verbose': False,
             'quiet': True,
@@ -263,7 +263,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'outtmpl': os.path.join(
-                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(extractor)s-%(id)s.%(ext)s'),
             'restrictfilenames': True,
             'verbose': True,
             'quiet': False,
@@ -294,7 +294,7 @@ class TubeUpTests(unittest.TestCase):
 
     def test_create_archive_org_metadata_from_youtubedl_meta(self):
         with open(get_testfile_path(
-                'Mountain_3_-_Video_Background_HD_1080p-6iRV8liah8A.info.json')
+                'youtube-6iRV8liah8A.info.json')
                 ) as f:
             vid_meta = json.load(f)
 
@@ -325,13 +325,13 @@ class TubeUpTests(unittest.TestCase):
                         'free videos;Creative Commons videos;free movies '
                         'online;youtube;HD;1080p;Amazing Nature;Mountain;'),
             'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-            'licenseurl': ''}
+            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/'}
 
         self.assertEqual(expected_result, result)
 
     def test_create_archive_org_metadata_from_youtubedl_meta_no_uploader(self):
         with open(get_testfile_path(
-                'Mountain_3_-_Video_Background_HD_1080p-6iRV8liah8A.info_no_'
+                'youtube-6iRV8liah8A.info_no_'
                 'uploader.json')
         ) as f:
             vid_meta = json.load(f)
@@ -363,13 +363,13 @@ class TubeUpTests(unittest.TestCase):
                         'free videos;Creative Commons videos;free movies '
                         'online;youtube;HD;1080p;Amazing Nature;Mountain;'),
             'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-            'licenseurl': ''}
+            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/'}
 
         self.assertEqual(expected_result, result)
 
     def test_create_archive_org_metadata_from_youtubedl_meta_no_date(self):
         with open(get_testfile_path(
-                'Mountain_3_-_Video_Background_HD_1080p-6iRV8liah8A.'
+                'youtube-6iRV8liah8A.'
                 'info_no_date.json')
         ) as f:
             vid_meta = json.load(f)
@@ -404,7 +404,7 @@ class TubeUpTests(unittest.TestCase):
                         'free videos;Creative Commons videos;free movies '
                         'online;youtube;HD;1080p;Amazing Nature;Mountain;'),
             'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-            'licenseurl': ''}
+            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/'}
 
         self.assertEqual(expected_result, result)
 
@@ -426,7 +426,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {os.path.join(
             current_path, 'test_tubeup_rootdir', 'downloads',
-            'Mountain_3_-_Video_Background_HD_1080p-6iRV8liah8A')}
+            'youtube-6iRV8liah8A')}
 
         self.assertEqual(expected_result, result)
 
@@ -439,7 +439,7 @@ class TubeUpTests(unittest.TestCase):
 
         videobasename = os.path.join(
             current_path, 'test_tubeup_rootdir', 'downloads',
-            'Mountain_3_-_Video_Background_HD_1080p-6iRV8liah8A')
+            'youtube-6iRV8liah8A')
 
         copy_testfiles_to_tubeup_rootdir_test()
 
@@ -488,7 +488,7 @@ class TubeUpTests(unittest.TestCase):
                              'free movies online;youtube;HD;1080p;Amazing '
                              'Nature;Mountain;'),
                  'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-                 'licenseurl': '',
+                 'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
                  'scanner': 'Internet Archive Python library 1.8.1'})
 
             self.assertEqual(expected_result, result)
@@ -507,7 +507,7 @@ class TubeUpTests(unittest.TestCase):
 
         videobasename = os.path.join(
             current_path, 'test_tubeup_rootdir', 'downloads',
-            'Mountain_3_-_Video_Background_HD_1080p-6iRV8liah8A')
+            'youtube-6iRV8liah8A')
 
         copy_testfiles_to_tubeup_rootdir_test()
 
@@ -557,7 +557,7 @@ class TubeUpTests(unittest.TestCase):
                              'free movies online;youtube;HD;1080p;Amazing '
                              'Nature;Mountain;'),
                  'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-                 'licenseurl': '',
+                 'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
                  'scanner': 'Internet Archive Python library 1.8.1'})]
 
             self.assertEqual(expected_result, result)
