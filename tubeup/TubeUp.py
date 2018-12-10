@@ -209,7 +209,7 @@ class TubeUp(object):
         """
         ydl_opts = {
             'outtmpl': os.path.join(self.dir_path['downloads'],
-                                    '%(title)s-%(id)s.%(ext)s'),
+                                    '%(extractor)s-%(id)s.%(ext)s'),
             'restrictfilenames': True,
             'quiet': not self.verbose,
             'verbose': self.verbose,
