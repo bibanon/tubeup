@@ -342,7 +342,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'mediatype': 'movies',
-            'creator': 'tubeup.py',
+            'creator': 'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg',
             'collection': 'opensource_movies',
             'title': 'Mountain 3 - Video Background HD 1080p',
             'description': ('Mountain 3 - Video Background HD 1080p\n'
@@ -355,7 +355,7 @@ class TubeUpTests(unittest.TestCase):
                             '6iRV8liah8A">https://www.youtube.com/watch?v='
                             '6iRV8liah8A</a><br/>Uploader: <a href="http://ww'
                             'w.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg">'
-                            'tubeup.py</a>'),
+                            'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg</a>'),
             'date': '2015-01-05',
             'year': '2015',
             'subject': ('Youtube;video;Entertainment;Video Background;Footage;'
