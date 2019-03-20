@@ -276,9 +276,6 @@ class TubeUp(object):
         itemname = ('%s-%s' % (vid_meta['extractor'],
                                vid_meta['display_id']))
 
-        # Replace illegal characters within identifer
-        itemname = re.sub('\W+', '-', itemname)
-
         metadata = self.create_archive_org_metadata_from_youtubedl_meta(
             vid_meta)
 
