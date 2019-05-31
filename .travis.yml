@@ -1,9 +1,13 @@
 language: python
 python:
-  - "3.3"
-  - "3.4"
   - "3.5"
   - "3.6"
+  # - "3.3" # deactivated because internetarchive's setup script is broken in this
+            # version of Python
+            # https://travis-ci.org/bibanon/tubeup/jobs/538770585#L528
+  # - "3.4" # deactivated because `requests_mock` (in test-requirements.txt)
+            # is broken due one of its dependencies (`requests`)
+            # https://travis-ci.org/bibanon/tubeup/jobs/538770586#L723
 
 install:
   - python setup.py install

@@ -21,7 +21,7 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 
 ## Installation
 
-1. Install `avconv` or `ffmpeg`, depending on what your distro prefers. Also install pip3 and git. 
+1. Install `avconv` or `ffmpeg`, depending on what your distro prefers. Also install pip3 and git.
    The script prefers ffmpeg if found but will work with just libav. To install ffmpeg in ubuntu have
    the Universe repository enabled.
 
@@ -31,7 +31,7 @@ For Debian/Ubuntu:
    sudo apt-get install libav-tools ffmpeg python3-pip git
 ```
 
-2. Use pip3 to install the required python3 packages. 
+2. Use pip3 to install the required python3 packages.
    At the minimum Python 3.4.2 and up is required, as 3.2 will not work.
 
 ```
@@ -41,7 +41,7 @@ For Debian/Ubuntu:
 Perodically upgrade tubeup and it's dependencies by running:
 
 ```
-   sudo -H pip3 install -U tubeup 
+   sudo -H pip3 install -U tubeup
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.

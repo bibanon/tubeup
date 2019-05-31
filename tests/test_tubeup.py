@@ -1,6 +1,7 @@
 import unittest
 import os
 import shutil
+import internetarchive
 import json
 import time
 import requests_mock
@@ -14,6 +15,9 @@ from .constants import info_dict_playlist, info_dict_video
 
 
 current_path = os.path.dirname(os.path.realpath(__file__))
+
+INTERNET_ARCHIVE_VERSION = 'Internet Archive Python library {0}'.format(
+    internetarchive.__version__)
 
 
 def get_testfile_path(name):
@@ -325,7 +329,7 @@ class TubeUpTests(unittest.TestCase):
                         'free videos;Creative Commons videos;free movies '
                         'online;youtube;HD;1080p;Amazing Nature;Mountain;'),
             'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-            'licenseurl': ''}
+            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/'}
 
         self.assertEqual(expected_result, result)
 
@@ -342,7 +346,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'mediatype': 'movies',
-            'creator': 'tubeup.py',
+            'creator': 'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg',
             'collection': 'opensource_movies',
             'title': 'Mountain 3 - Video Background HD 1080p',
             'description': ('Mountain 3 - Video Background HD 1080p\n'
@@ -355,7 +359,8 @@ class TubeUpTests(unittest.TestCase):
                             '6iRV8liah8A">https://www.youtube.com/watch?v='
                             '6iRV8liah8A</a><br/>Uploader: <a href="http://ww'
                             'w.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg">'
-                            'tubeup.py</a>'),
+                            'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZ'
+                            'HQ9XDg</a>'),
             'date': '2015-01-05',
             'year': '2015',
             'subject': ('Youtube;video;Entertainment;Video Background;Footage;'
@@ -363,7 +368,7 @@ class TubeUpTests(unittest.TestCase):
                         'free videos;Creative Commons videos;free movies '
                         'online;youtube;HD;1080p;Amazing Nature;Mountain;'),
             'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-            'licenseurl': ''}
+            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/'}
 
         self.assertEqual(expected_result, result)
 
@@ -404,7 +409,7 @@ class TubeUpTests(unittest.TestCase):
                         'free videos;Creative Commons videos;free movies '
                         'online;youtube;HD;1080p;Amazing Nature;Mountain;'),
             'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-            'licenseurl': ''}
+            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/'}
 
         self.assertEqual(expected_result, result)
 
@@ -488,8 +493,8 @@ class TubeUpTests(unittest.TestCase):
                              'free movies online;youtube;HD;1080p;Amazing '
                              'Nature;Mountain;'),
                  'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-                 'licenseurl': '',
-                 'scanner': 'Internet Archive Python library 1.8.1'})
+                 'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
+                 'scanner': INTERNET_ARCHIVE_VERSION})
 
             self.assertEqual(expected_result, result)
 
@@ -557,7 +562,7 @@ class TubeUpTests(unittest.TestCase):
                              'free movies online;youtube;HD;1080p;Amazing '
                              'Nature;Mountain;'),
                  'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-                 'licenseurl': '',
-                 'scanner': 'Internet Archive Python library 1.8.1'})]
+                 'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
+                 'scanner': INTERNET_ARCHIVE_VERSION})]
 
             self.assertEqual(expected_result, result)
