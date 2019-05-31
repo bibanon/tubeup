@@ -277,7 +277,7 @@ class TubeUp(object):
                                vid_meta['display_id']))
 
         # Replace illegal characters within identifer
-        itemname = re.sub('\W+', '-', itemname)
+        itemname = re.sub(r'\W+', '-', itemname)
 
         metadata = self.create_archive_org_metadata_from_youtubedl_meta(
             vid_meta)
@@ -375,9 +375,9 @@ class TubeUp(object):
     def determine_licenseurl(vid_meta):
         """
         Determine licenseurl for an url
-        
-        :param vid_meta:  
-        :return:          
+
+        :param vid_meta:
+        :return:
         """
         licenseurl = ''
         if 'license' in vid_meta and vid_meta['license']:
@@ -448,17 +448,17 @@ class TubeUp(object):
         if 'tags' in vid_meta:  # some video services don't have tags
             for tag in vid_meta['tags']:
                 tags_string += '%s;' % tag
-        
-        #license
+
+        # license
         licenseurl = TubeUp.determine_licenseurl(vid_meta)
-        
+
         # if there is no description don't upload the empty .description file
         description_text = vid_meta.get('description', '')
 
         description = ('{0} <br/><br/>Source: <a href="{1}">{2}</a>'
                        '<br/>Uploader: <a href="{3}">{4}</a>').format(
             description_text, videourl, videourl, uploader_url, uploader)
-        
+
         metadata = dict(
             mediatype=('audio' if collection == 'opensource_audio'
                        else 'movies'),
