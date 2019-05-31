@@ -35,7 +35,7 @@ For Debian/Ubuntu:
    At the minimum Python 3.4.2 and up is required, as 3.2 will not work.
 
 ```
-   sudo -H python 3.4 -m pip install -U pip tubeup
+   sudo -H python3.4 -m pip install -U pip tubeup
 ```
 
 Perodically upgrade tubeup and it's dependencies by running:
@@ -54,6 +54,7 @@ Perodically upgrade tubeup and it's dependencies by running:
 
 You will be prompted for your login credentials for the Internet Archive account you use.
 
+One configured you're ready to go.
 
 5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Dailymotion, [anything supported by youtube-dl.](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs.
 
