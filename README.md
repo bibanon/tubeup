@@ -28,20 +28,20 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 For Debian/Ubuntu:
 
 ```
-   sudo apt-get install libav-tools ffmpeg python3-pip git
+   sudo apt-get install libav-tools ffmpeg python3-pip git && sudo apt remove youtube-dl
 ```
 
 2. Use pip3 to install the required python3 packages.
    At the minimum Python 3.4.2 and up is required, as 3.2 will not work.
 
 ```
-   sudo -H pip3 install -U pip tubeup
+   sudo -H python 3.4 -m pip install -U pip tubeup
 ```
 
 Perodically upgrade tubeup and it's dependencies by running:
 
 ```
-   sudo -H pip3 install -U tubeup
+   sudo -H python3.4 pip install -U tubeup youtube-dl internetarchive
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
