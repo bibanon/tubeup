@@ -1,7 +1,9 @@
 language: python
+dist: xenial
 python:
   - "3.5"
   - "3.6"
+  - "3.7"
   # - "3.3" # deactivated because internetarchive's setup script is broken in this
             # version of Python
             # https://travis-ci.org/bibanon/tubeup/jobs/538770585#L528
