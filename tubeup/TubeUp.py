@@ -470,6 +470,10 @@ class TubeUp(object):
             year=upload_year,
             subject=tags_string,
             originalurl=videourl,
-            licenseurl=licenseurl)
+            licenseurl=licenseurl,
+
+            # Set 'scanner' metadata pair to allow tracking of TubeUp
+            # powered uploads, per request from archive.org
+            scanner='TubeUp Video Stream Mirroring Application')
 
         return metadata
