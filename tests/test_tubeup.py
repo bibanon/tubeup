@@ -19,7 +19,6 @@ current_path = os.path.dirname(os.path.realpath(__file__))
 SCANNER = 'TubeUp Video Stream Mirroring Application {}'.format(__version__)
 
 
-
 def get_testfile_path(name):
     return os.path.join(current_path, 'test_tubeup_files', name)
 
