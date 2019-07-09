@@ -1,7 +1,6 @@
 import unittest
 import os
 import shutil
-import internetarchive
 import json
 import time
 import requests_mock
@@ -10,14 +9,14 @@ import glob
 from logging import Logger
 from tubeup.TubeUp import TubeUp, DOWNLOAD_DIR_NAME
 from tubeup.utils import LogErrorToStdout
+from tubeup import __version__
 from youtube_dl import YoutubeDL
 from .constants import info_dict_playlist, info_dict_video
 
 
 current_path = os.path.dirname(os.path.realpath(__file__))
 
-INTERNET_ARCHIVE_VERSION = 'Internet Archive Python library {0}'.format(
-    internetarchive.__version__)
+SCANNER = 'TubeUp Video Stream Mirroring Application {}'.format(__version__)
 
 
 def get_testfile_path(name):
@@ -329,7 +328,8 @@ class TubeUpTests(unittest.TestCase):
                         'free videos;Creative Commons videos;free movies '
                         'online;youtube;HD;1080p;Amazing Nature;Mountain;'),
             'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/'}
+            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
+            'scanner': SCANNER}
 
         self.assertEqual(expected_result, result)
 
@@ -368,7 +368,8 @@ class TubeUpTests(unittest.TestCase):
                         'free videos;Creative Commons videos;free movies '
                         'online;youtube;HD;1080p;Amazing Nature;Mountain;'),
             'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/'}
+            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
+            'scanner': SCANNER}
 
         self.assertEqual(expected_result, result)
 
@@ -409,7 +410,8 @@ class TubeUpTests(unittest.TestCase):
                         'free videos;Creative Commons videos;free movies '
                         'online;youtube;HD;1080p;Amazing Nature;Mountain;'),
             'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
-            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/'}
+            'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
+            'scanner': SCANNER}
 
         self.assertEqual(expected_result, result)
 
@@ -494,7 +496,7 @@ class TubeUpTests(unittest.TestCase):
                              'Nature;Mountain;'),
                  'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
                  'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
-                 'scanner': INTERNET_ARCHIVE_VERSION})
+                 'scanner': SCANNER})
 
             self.assertEqual(expected_result, result)
 
@@ -563,6 +565,6 @@ class TubeUpTests(unittest.TestCase):
                              'Nature;Mountain;'),
                  'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
                  'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
-                 'scanner': INTERNET_ARCHIVE_VERSION})]
+                 'scanner': SCANNER})]
 
             self.assertEqual(expected_result, result)
