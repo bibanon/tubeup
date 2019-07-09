@@ -1,9 +1,16 @@
 from setuptools import setup
+import re
 
+
+_version_re = re.compile(r'__version__\s+=\s+(.*)')
+
+with open('tubeup/__init__.py', 'rb') as f:
+    version = str(ast.literal_eval(_version_re.search(
+        f.read().decode('utf-8')).group(1)))
 
 setup(
     name='tubeup',
-    version='0.0.16',
+    version=version,
     url='https://github.com/bibanon/tubeup',
     license='GPL 3',
     author='Bibliotheca Anonoma',

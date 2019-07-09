@@ -24,6 +24,7 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
   tubeup -h | --help
+  tubeup -v | --version
 
 Arguments:
   <url>                         Youtube-dl compatible URL to download.
@@ -54,11 +55,12 @@ import internetarchive
 import internetarchive.cli
 
 from tubeup.TubeUp import TubeUp
+from tubeup import __version__
 
 
 def main():
     # Parse arguments from file docstring
-    args = docopt.docopt(__doc__)
+    args = docopt.docopt(__doc__, version=__version__)
 
     URLs = args['<url>']
     proxy_url = args['--proxy']
