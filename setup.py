@@ -1,5 +1,6 @@
 from setuptools import setup
 import re
+import ast
 
 
 _version_re = re.compile(r'__version__\s+=\s+(.*)')
