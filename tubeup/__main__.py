@@ -24,7 +24,7 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
   tubeup -h | --help
-  tubeup -v | --version
+  tubeup --version
 
 Arguments:
   <url>                         Youtube-dl compatible URL to download.
