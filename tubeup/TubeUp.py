@@ -14,6 +14,8 @@ from .utils import (check_is_file_empty, EMPTY_ANNOTATION_FILE,
 from logging import getLogger
 from urllib.parse import urlparse
 
+from tubeup import __version__
+
 
 DOWNLOAD_DIR_NAME = 'downloads'
 
@@ -474,6 +476,6 @@ class TubeUp(object):
 
             # Set 'scanner' metadata pair to allow tracking of TubeUp
             # powered uploads, per request from archive.org
-            scanner='TubeUp Video Stream Mirroring Application')
+            scanner='TubeUp Video Stream Mirroring Application {}'.format(__version__))
 
         return metadata
