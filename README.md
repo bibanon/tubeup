@@ -129,7 +129,7 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 
 **If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it** Talk to the collection owner or staff if you need assistance with this.
 
-**Currently, Internet Archive policy is that video content uploaded outside of sanctioned archival operations will not be included in search results (but is still accessible directly with the item's URL). This is subject to change at any time.**
+**Currently, Internet Archive policy is that video content uploaded outside of sanctioned archival operations will not be included in search results (but is still accessible directly with the item's URL). This is subject to change at any time, and is entirely at the discretion of the Internet Archive.**
 
 ## Troubleshooting
 
