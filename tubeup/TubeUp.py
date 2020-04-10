@@ -4,13 +4,13 @@ import re
 import glob
 import time
 import json
+import logging
 import internetarchive
 
 from internetarchive.config import parse_config_file
 from datetime import datetime
 from youtube_dl import YoutubeDL
-from .utils import (check_is_file_empty, EMPTY_ANNOTATION_FILE,
-                    LogErrorToStdout)
+from .utils import (check_is_file_empty, EMPTY_ANNOTATION_FILE)
 from logging import getLogger
 from urllib.parse import urlparse
 
@@ -41,8 +41,11 @@ class TubeUp(object):
         self.dir_path = dir_path
         self.verbose = verbose
         self.ia_config_path = ia_config_path
-        self.logger = (getLogger(__name__) if self.verbose  # Just print errors
-                       else LogErrorToStdout())             # in quiet mode
+        self.logger = getLogger(__name__)
+
+        # Just print errors in quiet mode
+        if not self.verbose:
+            self.logger.setLevel(logging.ERROR)
 
     @property
     def dir_path(self):

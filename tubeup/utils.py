@@ -16,14 +16,3 @@ def check_is_file_empty(filepath):
         return os.stat(filepath).st_size == 0
     else:
         raise FileNotFoundError("Path '%s' doesn't exist" % filepath)
-
-
-class LogErrorToStdout(object):
-    def debug(self, msg):
-        pass
-
-    def warning(self, msg):
-        pass
-
-    def error(self, msg):
-        print(msg)
