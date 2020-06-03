@@ -447,8 +447,11 @@ class TubeUp(object):
 
         if 'categories' in vid_meta:
             # add categories as tags as well, if they exist
-            for category in vid_meta['categories']:
-                tags_string += '%s;' % category
+            try:
+                for category in vid_meta['categories']:
+                    tags_string += '%s;' % category
+            except:
+                print ("No categories found.")
 
         if 'tags' in vid_meta:  # some video services don't have tags
             for tag in vid_meta['tags']:
