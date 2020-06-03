@@ -44,7 +44,7 @@ class TubeUp(object):
         self.ia_config_path = ia_config_path
         self.logger = getLogger(__name__)
         if output_template is None:
-            self.output_template = '%(title)s-%(id)s.%(ext)s'
+            self.output_template = '%(id)s.%(ext)s'
         else:
             self.output_template = output_template
 
