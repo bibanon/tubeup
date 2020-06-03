@@ -23,6 +23,7 @@ Usage:
                   [--proxy <prox>]
                   [--quiet] [--debug]
                   [--use-download-archive]
+                  [--output <output>]
   tubeup -h | --help
   tubeup --version
 
@@ -44,6 +45,7 @@ Options:
                             downloaded videos in it.
   --quiet                   Just print errors.
   --debug                   Print all logs to stdout.
+  --output <output>         Youtube-dl output template.
 """
 
 import sys
@@ -85,7 +87,8 @@ def main():
 
     metadata = internetarchive.cli.argparser.get_args_dict(args['--metadata'])
 
-    tu = TubeUp(verbose=not quiet_mode)
+    tu = TubeUp(verbose=not quiet_mode,
+                output_template=args['--output'])
 
     try:
         for identifier, meta in tu.archive_urls(URLs, metadata, proxy_url,

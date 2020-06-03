@@ -25,7 +25,8 @@ class TubeUp(object):
     def __init__(self,
                  verbose=False,
                  dir_path='~/.tubeup',
-                 ia_config_path=None):
+                 ia_config_path=None,
+                 output_template=None):
         """
         `tubeup` is a tool to archive YouTube by downloading the videos and
         uploading it back to the archive.org.
@@ -42,6 +43,10 @@ class TubeUp(object):
         self.verbose = verbose
         self.ia_config_path = ia_config_path
         self.logger = getLogger(__name__)
+        if output_template is None:
+            self.output_template = '%(title)s-%(id)s.%(ext)s'
+        else:
+            self.output_template = output_template
 
         # Just print errors in quiet mode
         if not self.verbose:
@@ -192,7 +197,8 @@ class TubeUp(object):
                              proxy_url=None,
                              ydl_username=None,
                              ydl_password=None,
-                             use_download_archive=False):
+                             use_download_archive=False,
+                             ydl_output_template=None):
         """
         Generate a dictionary that contains options that will be used
         by youtube_dl.
@@ -214,7 +220,7 @@ class TubeUp(object):
         """
         ydl_opts = {
             'outtmpl': os.path.join(self.dir_path['downloads'],
-                                    '%(title)s-%(id)s.%(ext)s'),
+                                    self.output_template),
             'restrictfilenames': True,
             'quiet': not self.verbose,
             'verbose': self.verbose,
