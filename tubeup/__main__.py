@@ -95,7 +95,7 @@ def main():
                                                 username, password,
                                                 use_download_archive):
             print('\n:: Upload Finished. Item information:')
-            print('Title: %s' % meta['title'])
+            print('Title: %s'.encode('utf-8') % meta['title'].encode('utf-8'))
             print('Upload URL: https://archive.org/details/%s\n' % identifier)
     except Exception:
         print('\n\033[91m'  # Start red color text
