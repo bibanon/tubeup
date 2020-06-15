@@ -129,6 +129,17 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 
 **If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it** Talk to the collection owner or staff if you need assistance with this.
 
+## Privacy disclaimer
+As apart of the metadata collection process, youtube-dl (a dependency of Tubeup) prints out the full file location of the video file.
+
+Example:
+
+```
+"_filename": "/home/USER/.tubeup/downloads/VIDEO.mp4"
+```
+
+This is apart of the metadata process by youtube-dl and that one string is apart of the JSON metadata uploaded to Archive.org. it is located in each items `.info,.json` file. This cannot be controlled by us as it is a function of youtube-dl. 
+
 ## Troubleshooting
 
 * Obviously, if someone else uploaded the video to the Internet Archive, you will get a permissions error. We don't want duplicates, do we?
@@ -147,7 +158,7 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 
 ## License (GPLv3)
 
-Copyright (C) 2016 Bibliotheca Anonoma
+Copyright (C) 2020 Bibliotheca Anonoma
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
