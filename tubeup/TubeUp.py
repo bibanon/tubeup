@@ -252,7 +252,8 @@ class TubeUp(object):
             # youtube-dl devs
             'call_home': False,
             'logger': self.logger,
-            'progress_hooks': [ydl_progress_hook]
+            'progress_hooks': [ydl_progress_hook],
+            'cookiefile':'.tubeup/cookies.txt'
         }
 
         if proxy_url is not None:
@@ -288,7 +289,7 @@ class TubeUp(object):
                                vid_meta['display_id']))
 
         # Replace illegal characters within identifer
-        itemname = re.sub(r'\W+', '-', itemname)
+        itemname = re.sub('[^0-9A-Za-z_-]+', '-', itemname)
 
         metadata = self.create_archive_org_metadata_from_youtubedl_meta(
             vid_meta)
