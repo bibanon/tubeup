@@ -130,7 +130,7 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 **If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it** Talk to the collection owner or staff if you need assistance with this.
 
 ## Privacy disclaimer
-As apart of the metadata collection process, youtube-dl (a dependency of Tubeup) prints out the full file location of the video file.
+As apart of the metadata collection process, youtube-dl (a dependency of Tubeup) prints out the full file location of the video file as well as the external IP address of the machine mirroring the video.
 
 Example:
 
@@ -138,7 +138,9 @@ Example:
 "_filename": "/home/USER/.tubeup/downloads/VIDEO.mp4"
 ```
 
-This is apart of the metadata process by youtube-dl and that one string is apart of the JSON metadata uploaded to Archive.org. it is located in each items `.info,.json` file. This cannot be controlled by us as it is a function of youtube-dl. 
+This is apart of the metadata process by youtube-dl. That one string is apart of the JSON metadata uploaded to Archive.org and is availble to the public. It is located in each items `.info,.json` file. 
+
+If you do not feel comfortable with this, send a pull request that reliably removes both IPv6/6 addresses and the filepath, or do not use Tubeup. 
 
 ## Troubleshooting
 
