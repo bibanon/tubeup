@@ -462,7 +462,7 @@ class TubeUp(object):
         if 'tags' in vid_meta and if 'tags' != null:  # some video services don't have tags
             for tag in vid_meta['tags']:
                 tags_string += '%s;' % tag
-        else if 'tags' == null:
+        elif 'tags' == null:
             tags_string += '%s;' % vid_meta['id']
             tags_string += '%s;' % 'video'
 
