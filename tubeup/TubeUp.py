@@ -458,7 +458,7 @@ class TubeUp(object):
                     tags_string += '%s;' % category
             except:
                 print ("No categories found.")
-                
+
         if 'tags' in vid_meta: # some video services don't have tags
             try:
                 if 'tags' in vid_meta is None:
