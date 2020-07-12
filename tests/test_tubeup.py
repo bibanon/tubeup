@@ -8,7 +8,6 @@ import glob
 
 from logging import Logger
 from tubeup.TubeUp import TubeUp, DOWNLOAD_DIR_NAME
-from tubeup.utils import LogErrorToStdout
 from tubeup import __version__
 from youtube_dl import YoutubeDL
 from .constants import info_dict_playlist, info_dict_video
@@ -72,11 +71,6 @@ class TubeUpTests(unittest.TestCase):
 
         # Clean the test directory
         shutil.rmtree(root_path, ignore_errors=True)
-
-    def test_tubeup_attribute_logger_when_quiet_mode(self):
-        # self.tu is already `TubeUp` instance with quiet mode, so we don't
-        # create a new instance here.
-        self.assertIsInstance(self.tu.logger, LogErrorToStdout)
 
     def test_tubeup_attribute_logger_when_verbose_mode(self):
         tu = TubeUp(verbose=True)
