@@ -121,7 +121,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'outtmpl': os.path.join(
-                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(id)s.%(ext)s'),
             'restrictfilenames': True,
             'verbose': False,
             'quiet': True,
@@ -155,7 +155,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'outtmpl': os.path.join(
-                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(id)s.%(ext)s'),
             'restrictfilenames': True,
             'verbose': False,
             'quiet': True,
@@ -188,7 +188,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'outtmpl': os.path.join(
-                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(id)s.%(ext)s'),
             'restrictfilenames': True,
             'verbose': False,
             'quiet': True,
@@ -223,7 +223,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'outtmpl': os.path.join(
-                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(id)s.%(ext)s'),
             'restrictfilenames': True,
             'verbose': False,
             'quiet': True,
@@ -260,7 +260,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'outtmpl': os.path.join(
-                self.tu.dir_path['downloads'], '%(title)s-%(id)s.%(ext)s'),
+                self.tu.dir_path['downloads'], '%(id)s.%(ext)s'),
             'restrictfilenames': True,
             'verbose': True,
             'quiet': False,
