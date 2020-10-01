@@ -19,7 +19,7 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 * **internetarchive** - A Python library used to upload videos with their metadata to the Internet Archive.
 * **jsonpatch** - For JSON things.
 
-## Installation
+## Setup and Installation
 
 1. Install `avconv` or `ffmpeg`, depending on what your distro prefers. Also install pip3 and git.
    The script prefers ffmpeg if found but will work with just libav. To install ffmpeg in ubuntu have
