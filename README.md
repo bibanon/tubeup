@@ -15,7 +15,7 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 
 * **Python 3** - This script requires python3, which has better integration with Unicode strings.
 * **docopt** - The usage documentation can specify command line arguments and options.
-* **youtube-dl** - Used to download the videos.
+* **youtube-dlc** - Used to download the videos.
 * **internetarchive** - A Python library used to upload videos with their metadata to the Internet Archive.
 * **jsonpatch** - For JSON things.
 
