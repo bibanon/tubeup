@@ -3,7 +3,7 @@ Tubeup - a multi-video service to Archive.org uploader
 
 [![Build Status](https://travis-ci.org/bibanon/tubeup.svg?branch=master)](https://travis-ci.org/bibanon/tubeup)
 
-`tubeup` uses youtube-dl to download a Youtube video (or [any other provider supported by youtube-dl](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md)), and then uploads it with all metadata to the Internet Archive.
+`tubeup` uses youtube-dlc to download a Youtube video (or [any other provider supported by youtube-dlc](https://github.com/blackjack4494/yt-dlc/blob/master/docs/supportedsites.md)), and then uploads it with all metadata to the Internet Archive using the python module internetarchive.
 
 It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/wiki) to archive entire Youtube accounts and playlists to the Internet Archive.
 
@@ -11,7 +11,7 @@ It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/
 
 This script strongly recommends Linux or some sort of POSIX system (such as Mac OS X).
 
-If you are using Windows, we recommend that you run this script in `c9.io`, which gives you a full Linux development environment with 5GBs of space, on the cloud. It may be possible to run this script on Windows + Python3 with great difficulty, but we don't recommend it.
+Alternativly you should be able to get away with using Windows Terminal / WSL2.
 
 * **Python 3** - This script requires python3, which has better integration with Unicode strings.
 * **docopt** - The usage documentation can specify command line arguments and options.
@@ -28,20 +28,20 @@ If you are using Windows, we recommend that you run this script in `c9.io`, whic
 For Debian/Ubuntu:
 
 ```
-   sudo apt-get install libav-tools ffmpeg python3-pip git && sudo apt remove youtube-dl
+   sudo apt-get install libav-tools ffmpeg python3-pip git && sudo apt remove youtube-dlc
 ```
 
 2. Use pip3 to install the required python3 packages.
-   At the minimum Python 3.4.2 and up is required, as 3.2 will not work.
+   At the minimum Python 3.4.2 and up is required (latest Python preffered), as 3.2 will not work.
 
 ```
-   sudo -H python3.4 -m pip install -U pip tubeup
+   sudo -H python3.8 -m pip install -U pip tubeup
 ```
 
 Perodically upgrade tubeup and it's dependencies by running:
 
 ```
-   sudo -H python3.4 pip install -U tubeup youtube-dl internetarchive
+   sudo -H python3.8 -m pip install -U tubeup youtube-dlc internetarchive
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
@@ -54,9 +54,9 @@ Perodically upgrade tubeup and it's dependencies by running:
 
 You will be prompted for your login credentials for the Internet Archive account you use.
 
-One configured you're ready to go.
+Once configured to upload, you're ready to go.
 
-5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Dailymotion, [anything supported by youtube-dl.](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs.
+5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Dailymotion, [anything supported by youtube-dlc.](https://github.com/blackjack4494/yt-dlc/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs.
 
 ```
    tubeup <url>
@@ -69,7 +69,7 @@ One configured you're ready to go.
 ## Usage
 
 ```
-tubeup - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
+tubeup - Download a video with Youtube-dlc, then upload to Internet Archive, passing all metadata.
 
 Usage:
   tubeup <url>... [--metadata=<key:value>...]
@@ -81,8 +81,8 @@ Usage:
   tubeup -h | --help
 
 Arguments:
-  <url>                         Youtube-dl compatible URL to download.
-                                Check Youtube-dl documentation for a list
+  <url>                         Youtube-dlc compatible URL to download.
+                                Check Youtube-dlc documentation for a list
                                 of compatible websites.
   -m, --metadata=<key:value>    Custom metadata to add to the archive.org
                                 item.
