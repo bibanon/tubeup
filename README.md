@@ -111,7 +111,7 @@ You can specify a different collection with the `--metadata` flag:
 ```
 
 Any arbitrary metadta can be added to the item, with a few exceptions.
-You can learn more about archive.org metadata [here](http://internetarchive.readthedocs.io/en/latest/metadata.html).
+You can learn more about archive.org metadata [here](https://archive.org/services/docs/api/metadata-schema/).
 
 ### Collections
 
