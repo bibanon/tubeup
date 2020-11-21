@@ -72,19 +72,20 @@ Once configured to upload, you're ready to go.
 tubeup - Download a video with Youtube-dlc, then upload to Internet Archive, passing all metadata.
 
 Usage:
-  tubeup <url>... [--metadata=<key:value>...]
-  tubeup <url> [--username <user>] [--password <pass>]
-  tubeup <url> [--proxy <prox>]
-  tubeup <url> --use-download-archive
-  tubeup <url> -q | --quiet
-  tubeup <url> -d | --debug
+  tubeup <url>... [--username <user>] [--password <pass>]
+                  [--metadata=<key:value>...]
+                  [--proxy <prox>]
+                  [--quiet] [--debug]
+                  [--use-download-archive]
+                  [--output <output>]
   tubeup -h | --help
+  tubeup --version
 
 Arguments:
   <url>                         Youtube-dlc compatible URL to download.
                                 Check Youtube-dlc documentation for a list
                                 of compatible websites.
-  -m, --metadata=<key:value>    Custom metadata to add to the archive.org
+  --metadata=<key:value>        Custom metadata to add to the archive.org
                                 item.
 
 Options:
@@ -96,8 +97,10 @@ Options:
                             This will download only videos not listed in
                             the archive file. Record the IDs of all
                             downloaded videos in it.
-  -q --quiet                Just print errors.
-  -d --debug                Print all logs to stdout.
+  --quiet                   Just print errors.
+  --debug                   Print all logs to stdout.
+  --output <output>         Youtube-dlc output template.
+
 ```
 
 ## Metadata

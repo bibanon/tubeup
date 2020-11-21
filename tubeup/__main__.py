@@ -15,7 +15,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-"""tubeup - Download a video with Youtube-dl, then upload to Internet Archive, passing all metadata.
+"""tubeup - Download a video with Youtube-dlc, then upload to Internet Archive, passing all metadata.
 
 Usage:
   tubeup <url>... [--username <user>] [--password <pass>]
@@ -28,8 +28,8 @@ Usage:
   tubeup --version
 
 Arguments:
-  <url>                         Youtube-dl compatible URL to download.
-                                Check Youtube-dl documentation for a list
+  <url>                         Youtube-dlc compatible URL to download.
+                                Check Youtube-dlc documentation for a list
                                 of compatible websites.
   --metadata=<key:value>        Custom metadata to add to the archive.org
                                 item.
@@ -45,7 +45,7 @@ Options:
                             downloaded videos in it.
   --quiet                   Just print errors.
   --debug                   Print all logs to stdout.
-  --output <output>         Youtube-dl output template.
+  --output <output>         Youtube-dlc output template.
 """
 
 import sys
