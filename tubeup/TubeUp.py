@@ -475,6 +475,8 @@ class TubeUp(object):
 
         # if there is no description don't upload the empty .description file
         description_text = vid_meta.get('description', '')
+        # archive.org does not display raw newlines
+        description_text = re.sub('\r?\n', '<br>', description_text)
 
         description = ('{0} <br/><br/>Source: <a href="{1}">{2}</a>'
                        '<br/>Uploader: <a href="{3}">{4}</a>').format(

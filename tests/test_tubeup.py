@@ -310,10 +310,10 @@ class TubeUpTests(unittest.TestCase):
             'creator': 'Video Background',
             'collection': 'opensource_movies',
             'title': 'Mountain 3 - Video Background HD 1080p',
-            'description': ('Mountain 3 - Video Background HD 1080p\n'
+            'description': ('Mountain 3 - Video Background HD 1080p<br>'
                             'If you use this video please put credits to my '
-                            'channel in description:\nhttps://www.youtube.com'
-                            '/channel/UCWpsozCMdAnfI16rZHQ9XDg\n© Don\'t '
+                            'channel in description:<br>https://www.youtube.com'
+                            '/channel/UCWpsozCMdAnfI16rZHQ9XDg<br>© Don\'t '
                             'forget to SUBSCRIBE, LIKE, COMMENT and RATE. '
                             'Hope you all enjoy! <br/><br/>Source: '
                             '<a href="https://www.youtube.com/watch?v='
@@ -349,10 +349,10 @@ class TubeUpTests(unittest.TestCase):
             'creator': 'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg',
             'collection': 'opensource_movies',
             'title': 'Mountain 3 - Video Background HD 1080p',
-            'description': ('Mountain 3 - Video Background HD 1080p\n'
+            'description': ('Mountain 3 - Video Background HD 1080p<br>'
                             'If you use this video please put credits to my '
-                            'channel in description:\nhttps://www.youtube.com'
-                            '/channel/UCWpsozCMdAnfI16rZHQ9XDg\n© Don\'t '
+                            'channel in description:<br>https://www.youtube.com'
+                            '/channel/UCWpsozCMdAnfI16rZHQ9XDg<br>© Don\'t '
                             'forget to SUBSCRIBE, LIKE, COMMENT and RATE. '
                             'Hope you all enjoy! <br/><br/>Source: '
                             '<a href="https://www.youtube.com/watch?v='
@@ -392,10 +392,10 @@ class TubeUpTests(unittest.TestCase):
             'creator': 'Video Background',
             'collection': 'opensource_movies',
             'title': 'Mountain 3 - Video Background HD 1080p',
-            'description': ('Mountain 3 - Video Background HD 1080p\n'
+            'description': ('Mountain 3 - Video Background HD 1080p<br>'
                             'If you use this video please put credits to my '
-                            'channel in description:\nhttps://www.youtube.com'
-                            '/channel/UCWpsozCMdAnfI16rZHQ9XDg\n© Don\'t '
+                            'channel in description:<br>https://www.youtube.com'
+                            '/channel/UCWpsozCMdAnfI16rZHQ9XDg<br>© Don\'t '
                             'forget to SUBSCRIBE, LIKE, COMMENT and RATE. '
                             'Hope you all enjoy! <br/><br/>Source: '
                             '<a href="https://www.youtube.com/watch?v='
@@ -476,10 +476,10 @@ class TubeUpTests(unittest.TestCase):
                  'creator': 'Video Background',
                  'collection': 'opensource_movies',
                  'title': 'Mountain 3 - Video Background HD 1080p',
-                 'description': ('Mountain 3 - Video Background HD 1080p\nIf '
+                 'description': ('Mountain 3 - Video Background HD 1080p<br>If '
                                  'you use this video please put credits to my'
-                                 ' channel in description:\nhttps://www.youtub'
-                                 'e.com/channel/UCWpsozCMdAnfI16rZHQ9XDg\n© D'
+                                 ' channel in description:<br>https://www.youtub'
+                                 'e.com/channel/UCWpsozCMdAnfI16rZHQ9XDg<br>© D'
                                  'on\'t forget to SUBSCRIBE, LIKE, COMMENT an'
                                  'd RATE. Hope you all enjoy! <br/><br/>Sourc'
                                  'e: <a href="https://www.youtube.com/watch?v'
@@ -545,10 +545,10 @@ class TubeUpTests(unittest.TestCase):
                  'creator': 'Video Background',
                  'collection': 'opensource_movies',
                  'title': 'Mountain 3 - Video Background HD 1080p',
-                 'description': ('Mountain 3 - Video Background HD 1080p\nIf '
+                 'description': ('Mountain 3 - Video Background HD 1080p<br>If '
                                  'you use this video please put credits to my'
-                                 ' channel in description:\nhttps://www.youtub'
-                                 'e.com/channel/UCWpsozCMdAnfI16rZHQ9XDg\n© D'
+                                 ' channel in description:<br>https://www.youtub'
+                                 'e.com/channel/UCWpsozCMdAnfI16rZHQ9XDg<br>© D'
                                  'on\'t forget to SUBSCRIBE, LIKE, COMMENT an'
                                  'd RATE. Hope you all enjoy! <br/><br/>Sourc'
                                  'e: <a href="https://www.youtube.com/watch?v'
