@@ -5,10 +5,9 @@ import json
 import time
 import requests_mock
 import glob
+import logging
 
-from logging import Logger
 from tubeup.TubeUp import TubeUp, DOWNLOAD_DIR_NAME
-from tubeup.utils import LogErrorToStdout
 from tubeup import __version__
 from youtube_dl import YoutubeDL
 from .constants import info_dict_playlist, info_dict_video
@@ -76,11 +75,12 @@ class TubeUpTests(unittest.TestCase):
     def test_tubeup_attribute_logger_when_quiet_mode(self):
         # self.tu is already `TubeUp` instance with quiet mode, so we don't
         # create a new instance here.
-        self.assertIsInstance(self.tu.logger, LogErrorToStdout)
+        self.assertIsInstance(self.tu.logger, logging.Logger)
+        self.assertEqual(self.tu.logger.level, logging.ERROR)
 
     def test_tubeup_attribute_logger_when_verbose_mode(self):
         tu = TubeUp(verbose=True)
-        self.assertIsInstance(tu.logger, Logger)
+        self.assertIsInstance(tu.logger, logging.Logger)
 
     def test_determine_collection_type(self):
         soundcloud_colltype = self.tu.determine_collection_type(
