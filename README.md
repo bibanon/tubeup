@@ -133,7 +133,7 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 **If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it** Talk to the collection owner or staff if you need assistance with this.
 
 ## Privacy disclaimer
-As apart of the metadata collection process, youtube-dl (a dependency of Tubeup) prints out the full file location of the video file as well as the external IP address of the machine mirroring the video.
+As apart of the metadata collection process, youtube-dlc (a dependency of Tubeup) prints out the full file location of the video file as well as the external IP address of the machine mirroring the video.
 
 Example:
 
