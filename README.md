@@ -28,7 +28,7 @@ Alternativly you should be able to get away with using Windows Terminal / WSL2.
 For Debian/Ubuntu:
 
 ```
-   sudo apt-get install libav-tools ffmpeg python3-pip git && sudo apt remove youtube-dlc
+   sudo apt-get install libav-tools ffmpeg python3-pip git && sudo apt remove youtube-dl
 ```
 
 2. Use pip3 to install the required python3 packages.
@@ -56,7 +56,7 @@ You will be prompted for your login credentials for the Internet Archive account
 
 Once configured to upload, you're ready to go.
 
-5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Dailymotion, [anything supported by youtube-dlc.](https://github.com/blackjack4494/yt-dlc/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs.
+5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Vimeo, Twitch, Dailymotion, [anything supported by youtube-dlc.](https://github.com/blackjack4494/yt-dlc/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs.
 
 ```
    tubeup <url>
