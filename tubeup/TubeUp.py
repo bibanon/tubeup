@@ -321,10 +321,11 @@ class TubeUp(object):
             metadata.update(custom_meta)
 
         if write_metadata:
+            csv_metadata = dict(identifier=itemname, **metadata)
             with open('%s.csv' % itemname, 'w', encoding='utf-8', newline='') as f:
-                w = csv.DictWriter(f, metadata.keys())
+                w = csv.DictWriter(f, csv_metadata.keys())
                 w.writeheader()
-                w.writerow(metadata)
+                w.writerow(csv_metadata)
 
         # Parse internetarchive configuration file.
         parsed_ia_s3_config = parse_config_file(self.ia_config_path)[1]['s3']
