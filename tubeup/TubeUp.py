@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+import csv
 import glob
 import time
 import json
@@ -270,7 +271,7 @@ class TubeUp(object):
 
         return ydl_opts
 
-    def upload_ia(self, videobasename, custom_meta=None):
+    def upload_ia(self, videobasename, custom_meta=None, write_metadata=False):
         """
         Upload video to archive.org.
 
@@ -319,6 +320,12 @@ class TubeUp(object):
         if custom_meta:
             metadata.update(custom_meta)
 
+        if write_metadata:
+            with open('%s.csv' % itemname, 'w', encoding='utf-8', newline='') as f:
+                w = csv.DictWriter(f, metadata.keys())
+                w.writeheader()
+                w.writerow(metadata)
+
         # Parse internetarchive configuration file.
         parsed_ia_s3_config = parse_config_file(self.ia_config_path)[1]['s3']
         s3_access_key = parsed_ia_s3_config['access']
@@ -342,7 +349,7 @@ class TubeUp(object):
 
     def archive_urls(self, urls, custom_meta=None, proxy=None,
                      ydl_username=None, ydl_password=None,
-                     use_download_archive=False):
+                     use_download_archive=False, write_metadata=False):
         """
         Download and upload videos from youtube_dl supported sites to
         archive.org
@@ -360,6 +367,8 @@ class TubeUp(object):
                                       This will download only videos not listed in
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
+        :param write_metadata:        Write CSV metadata for each item uploaded
+                                      to archive.org.
         :return:                      Tuple containing identifier and metadata of the
                                       file that has been uploaded to archive.org.
         """
@@ -367,7 +376,7 @@ class TubeUp(object):
             urls, proxy, ydl_username, ydl_password, use_download_archive)
 
         for basename in downloaded_file_basenames:
-            identifier, meta = self.upload_ia(basename, custom_meta)
+            identifier, meta = self.upload_ia(basename, custom_meta, write_metadata)
             yield identifier, meta
 
     @staticmethod

@@ -78,6 +78,7 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
+                  [--write-metadata]
   tubeup -h | --help
   tubeup --version
 
@@ -100,6 +101,7 @@ Options:
   --quiet                   Just print errors.
   --debug                   Print all logs to stdout.
   --output <output>         Youtube-dlc output template.
+  --write-metadata          Write item metadata as CSV to a file.
 
 ```
 
@@ -113,8 +115,9 @@ You can specify a different collection with the `--metadata` flag:
    tubeup --metadata=collection:opensource_audio <url>
 ```
 
-Any arbitrary metadta can be added to the item, with a few exceptions.
+Any arbitrary metadata can be added to the item, with a few exceptions.
 You can learn more about archive.org metadata [here](https://archive.org/services/docs/api/metadata-schema/).
+The resulting metadata may be exported to CSV files by specifying the `--write-metadata` flag.
 
 ### Collections
 

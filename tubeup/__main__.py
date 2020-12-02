@@ -24,6 +24,7 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
+                  [--write-metadata]
   tubeup -h | --help
   tubeup --version
 
@@ -46,6 +47,7 @@ Options:
   --quiet                   Just print errors.
   --debug                   Print all logs to stdout.
   --output <output>         Youtube-dlc output template.
+  --write-metadata          Write item metadata as CSV to a file.
 """
 
 import sys
@@ -71,6 +73,7 @@ def main():
     quiet_mode = args['--quiet']
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
+    write_metadata = args['--write-metadata']
 
     if debug_mode:
         # Display log messages.
@@ -93,7 +96,8 @@ def main():
     try:
         for identifier, meta in tu.archive_urls(URLs, metadata, proxy_url,
                                                 username, password,
-                                                use_download_archive):
+                                                use_download_archive,
+                                                write_metadata):
             print('\n:: Upload Finished. Item information:')
             print('Title: %s' % meta['title'])
             print('Upload URL: https://archive.org/details/%s\n' % identifier)
