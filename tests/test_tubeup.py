@@ -554,9 +554,11 @@ class TubeUpTests(unittest.TestCase):
                                  '<br>'
                                  '▷ Also, do not forget to Subscribe to my channel. Thanks! '
                                  '<br/><br/>Source: <a '
-                                 'href="https://www.youtube.com/watch?v=KdsN9YhkDrY">https://www.youtube.com/watch?v=KdsN9YhkDrY</a><br/>Uploader: '
+                                 'href="https://www.youtube.com/watch?v=KdsN9YhkDrY">'
+                                 'https://www.youtube.com/watch?v=KdsN9YhkDrY</a><br/>Uploader: '
                                  '<a '
-                                 'href="http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg">RelaxingWorld</a>'
+                                 'href="http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg">'
+                                 'RelaxingWorld</a>'
                                  ),
                  'date': '2016-06-25',
                  'year': '2016',

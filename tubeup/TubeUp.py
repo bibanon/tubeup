@@ -452,10 +452,10 @@ class TubeUp(object):
             try:
                 for category in vid_meta['categories']:
                     tags_string += '%s;' % category
-            except:
-                print ("No categories found.")
+            except Exception:
+                print("No categories found.")
 
-        if 'tags' in vid_meta: # some video services don't have tags
+        if 'tags' in vid_meta:  # some video services don't have tags
             try:
                 if 'tags' in vid_meta is None:
                     tags_string += '%s;' % vid_meta['id']
@@ -463,8 +463,8 @@ class TubeUp(object):
                 else:
                     for tag in vid_meta['tags']:
                         tags_string += '%s;' % tag
-            except:
-                print ("Unable to process tags successfully.")
+            except Exception:
+                print("Unable to process tags successfully.")
 
         # license
         licenseurl = TubeUp.determine_licenseurl(vid_meta)
