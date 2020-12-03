@@ -17,8 +17,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python setup.py install
-        pip install flake8==3.4.1
+        pip install flake8
 
     - name: Lint with flake8
       run: flake8
