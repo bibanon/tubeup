@@ -6,6 +6,7 @@ import time
 import json
 import logging
 import internetarchive
+import fileinput
 
 from internetarchive.config import parse_config_file
 from datetime import datetime
@@ -280,7 +281,15 @@ class TubeUp(object):
         :return:               A tuple containing item name and metadata used
                                when uploading to archive.org.
         """
+        ipRegex = r'((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)((^|\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){2})(^|\.(25[0-4]|2[0-4]\d|1\d\d|[1-9]\d|[1-9])))|(0\.0\.0\.0)|(([0-9a-fA-F]{1,4}%3A){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}%3A){1,7}%3A|([0-9a-fA-F]{1,4}%3A){1,6}%3A[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}%3A){1,5}(%3A[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}%3A){1,4}(%3A[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}%3A){1,3}(%3A[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}%3A){1,2}(%3A[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}%3A((%3A[0-9a-fA-F]{1,4}){1,6})|%3A((%3A[0-9a-fA-F]{1,4}){1,7}|%3A)|fe80%3A(%3A[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|%3A%3A(ffff(%3A0{1,4}){0,1}%3A){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}%3A){1,4}%3A((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))'
+
         json_metadata_filepath = videobasename + '.info.json'
+
+        # Replace IP addresses from info.json file with 0.0.0.0
+        with fileinput.FileInput(json_metadata_filepath, inplace=True) as file:
+            for line in file:
+                print(re.sub(ipRegex, '0.0.0.0', line), end='')
+
         with open(json_metadata_filepath) as f:
             vid_meta = json.load(f)
 
