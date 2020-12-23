@@ -285,10 +285,10 @@ class TubeUp(object):
 
         json_metadata_filepath = videobasename + '.info.json'
 
-        # Replace IP addresses from info.json file with 0.0.0.0
+        # Replace IP addresses from info.json file with REDACTED
         with fileinput.FileInput(json_metadata_filepath, inplace=True) as file:
             for line in file:
-                print(re.sub(ipRegex, '0.0.0.0', line), end='')
+                print(re.sub(ipRegex, 'REDACTED', line), end='')
 
         with open(json_metadata_filepath) as f:
             vid_meta = json.load(f)
