@@ -391,23 +391,19 @@ class TubeUp(object):
         :return:
         """
         licenseurl = ''
+        licenses = {
+            "Creative Commons Attribution license (reuse allowed)":"https://creativecommons.org/licenses/by/3.0/",
+            "Attribution-NonCommercial-ShareAlike": "https://creativecommons.org/licenses/by-nc-sa/2.0/",
+            "Attribution-NonCommercial": "https://creativecommons.org/licenses/by-nc/2.0/",
+            "Attribution-NonCommercial-NoDerivs": "https://creativecommons.org/licenses/by-nc-nd/2.0/",
+            "Attribution": "https://creativecommons.org/licenses/by/2.0/",
+            "Attribution-ShareAlike": "https://creativecommons.org/licenses/by-sa/2.0/",
+            "Attribution-NoDerivs": "https://creativecommons.org/licenses/by-nd/2.0/"    
+        }
+        
         if 'license' in vid_meta and vid_meta['license']:
-            if vid_meta['extractor'].lower() == 'youtube':
-                if vid_meta['license'] == 'Creative Commons Attribution license (reuse allowed)':
-                    licenseurl = 'https://creativecommons.org/licenses/by/3.0/'
-            elif vid_meta['extractor'].lower() == 'flickr':
-                if vid_meta['license'] == 'Attribution-NonCommercial-ShareAlike':
-                    licenseurl = 'https://creativecommons.org/licenses/by-nc-sa/2.0/'
-                elif vid_meta['license'] == 'Attribution-NonCommercial':
-                    licenseurl = 'https://creativecommons.org/licenses/by-nc/2.0/'
-                elif vid_meta['license'] == 'Attribution-NonCommercial-NoDerivs':
-                    licenseurl = 'https://creativecommons.org/licenses/by-nc-nd/2.0/'
-                elif vid_meta['license'] == 'Attribution':
-                    licenseurl = 'https://creativecommons.org/licenses/by/2.0/'
-                elif vid_meta['license'] == 'Attribution-ShareAlike':
-                    licenseurl = 'https://creativecommons.org/licenses/by-sa/2.0/'
-                elif vid_meta['license'] == 'Attribution-NoDerivs':
-                    licenseurl = 'https://creativecommons.org/licenses/by-nd/2.0/'
+            licenseurl = licenses.get(vid_meta['license'])
+        
         return licenseurl
 
     @staticmethod
