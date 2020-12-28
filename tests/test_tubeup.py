@@ -301,26 +301,13 @@ class TubeUpTests(unittest.TestCase):
                 'Mountain_3_-_Video_Background_HD_1080p-6iRV8liah8A.'
                 'info.json')
         ) as f:
-            vid_json = json.load(f)
-            expected_result = 'REDACTED'
             ipRegex = r'((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)((^|\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){2})(^|\.(25[0-4]|2[0-4]\d|1\d\d|[1-9]\d|[1-9])))|(0\.0\.0\.0)|(([0-9a-fA-F]{1,4}%3A){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}%3A){1,7}%3A|([0-9a-fA-F]{1,4}%3A){1,6}%3A[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}%3A){1,5}(%3A[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}%3A){1,4}(%3A[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}%3A){1,3}(%3A[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}%3A){1,2}(%3A[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}%3A((%3A[0-9a-fA-F]{1,4}){1,6})|%3A((%3A[0-9a-fA-F]{1,4}){1,7}|%3A)|fe80%3A(%3A[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|%3A%3A(ffff(%3A0{1,4}){0,1}%3A){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}%3A){1,4}%3A((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))'
+            expected_result = 'REDACTED'
 
-            for format in vid_json['formats']:
-                if 'manifest_url' in format:
-                    if not 'REDACTED' in format['manifest_url']:
-                        ip = re.findall(ipRegex, format['manifest_url'])
-
-                        self.assertEqual(expected_result, ip[0][0])
-                if 'fragment_base_url' in format:
-                    if not 'REDACTED' in format['fragment_base_url']:
-                        ip = re.findall(ipRegex, format['fragment_base_url'])
-
-                        self.assertEqual(expected_result, ip[0][0])
-                if 'url' in format:
-                    if not 'REDACTED' in format['url']:
-                        ip = re.findall(ipRegex, format['url'])
-
-                        self.assertEqual(expected_result, ip[0][0])
+            for line in f:
+                ipCheck = re.search(ipRegex, line)
+                if ipCheck:
+                    self.assertEqual(expected_result, ipCheck.groups()[0])
 
     def test_create_archive_org_metadata_from_youtubedl_meta(self):
         with open(get_testfile_path(
