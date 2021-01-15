@@ -27,6 +27,6 @@ setup(
     install_requires=[
         'internetarchive',
         'docopt==0.6.2',
-        'youtube-dlc',
+        'youtube-dl',
     ]
 )
