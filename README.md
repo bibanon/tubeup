@@ -1,4 +1,4 @@
-Tubeup - a multi-video service to Archive.org uploader
+Tubeup - a multi-VOD service to Archive.org uploader
 ==========================================
 
 [![Build Status](https://travis-ci.org/bibanon/tubeup.svg?branch=master)](https://travis-ci.org/bibanon/tubeup)
