@@ -3,7 +3,7 @@ Tubeup - a multi-VOD service to Archive.org uploader
 
 [![Build Status](https://travis-ci.org/bibanon/tubeup.svg?branch=master)](https://travis-ci.org/bibanon/tubeup)
 
-`tubeup` uses youtube-dlc to download a Youtube video (or [any other provider supported by youtube-dlc](https://github.com/blackjack4494/yt-dlc/blob/master/docs/supportedsites.md)), and then uploads it with all metadata to the Internet Archive using the python module internetarchive.
+`tubeup` uses youtube-dl to download a Youtube video (or [any other provider supported by youtube-dlc](https://github.com/rg3/youtube-dl/blob/master/docs/supportedsites.md)), and then uploads it with all metadata to the Internet Archive using the python module internetarchive.
 
 It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/wiki) to archive entire Youtube accounts and playlists to the Internet Archive.
 
@@ -15,7 +15,7 @@ Alternativly you should be able to get away with using Windows Terminal / WSL2.
 
 * **Python 3** - This script requires python3, which has better integration with Unicode strings.
 * **docopt** - The usage documentation can specify command line arguments and options.
-* **youtube-dlc** - Used to download the videos.
+* **youtube-dl** - Used to download the videos.
 * **internetarchive** - A Python library used to upload videos with their metadata to the Internet Archive.
 * **jsonpatch** - For JSON things.
 
@@ -41,7 +41,7 @@ For Debian/Ubuntu:
 Perodically upgrade tubeup and it's dependencies by running:
 
 ```
-   sudo -H python3.8 -m pip install -U tubeup youtube-dlc internetarchive
+   sudo -H python3.8 -m pip install -U tubeup youtube-dl internetarchive
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
@@ -56,7 +56,7 @@ You will be prompted for your login credentials for the Internet Archive account
 
 Once configured to upload, you're ready to go.
 
-5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Vimeo, Twitch, Dailymotion, [anything supported by youtube-dlc.](https://github.com/blackjack4494/yt-dlc/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs.
+5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Vimeo, Twitch, Dailymotion, [anything supported by youtube-dl.](https://github.com/blackjack4494/yt-dlc/blob/master/docs/supportedsites.md) For YouTube, this includes account URLs and playlist URLs.
 
 ```
    tubeup <url>
@@ -133,7 +133,7 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 **If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it** Talk to the collection owner or staff if you need assistance with this.
 
 ## Privacy disclaimer
-As apart of the metadata collection process, youtube-dlc (a dependency of Tubeup) prints out the full file location of the video file as well as the external IP address of the machine mirroring the video.
+As apart of the metadata collection process, youtube-dl (a dependency of Tubeup) prints out the full file location of the video file as well as the external IP address of the machine mirroring the video.
 
 Example:
 
