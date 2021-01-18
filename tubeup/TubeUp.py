@@ -392,18 +392,18 @@ class TubeUp(object):
         """
         licenseurl = ''
         licenses = {
-            "Creative Commons Attribution license (reuse allowed)":"https://creativecommons.org/licenses/by/3.0/",
+            "Creative Commons Attribution license (reuse allowed)": "https://creativecommons.org/licenses/by/3.0/",
             "Attribution-NonCommercial-ShareAlike": "https://creativecommons.org/licenses/by-nc-sa/2.0/",
             "Attribution-NonCommercial": "https://creativecommons.org/licenses/by-nc/2.0/",
             "Attribution-NonCommercial-NoDerivs": "https://creativecommons.org/licenses/by-nc-nd/2.0/",
             "Attribution": "https://creativecommons.org/licenses/by/2.0/",
             "Attribution-ShareAlike": "https://creativecommons.org/licenses/by-sa/2.0/",
-            "Attribution-NoDerivs": "https://creativecommons.org/licenses/by-nd/2.0/"    
+            "Attribution-NoDerivs": "https://creativecommons.org/licenses/by-nd/2.0/"
         }
-        
+
         if 'license' in vid_meta and vid_meta['license']:
             licenseurl = licenses.get(vid_meta['license'])
-        
+
         return licenseurl
 
     @staticmethod
