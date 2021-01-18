@@ -417,14 +417,7 @@ class TubeUpTests(unittest.TestCase):
 
     def test_get_resource_basenames(self):
         tu = TubeUp(dir_path=os.path.join(current_path,
-                                          'test_tubeup_rootdir'),
-                    # HACK: A hack to make the test in Travis successful,
-                    # We need to investigate more about this, it doesn't
-                    # make sense that the verbose flag affect the
-                    # youtubedl extract_info() process.
-                    # See:
-                    # https://travis-ci.org/bibanon/tubeup/builds/299091640
-                    verbose=True)
+                                          'test_tubeup_rootdir'))
 
         copy_testfiles_to_tubeup_rootdir_test()
 
@@ -503,14 +496,7 @@ class TubeUpTests(unittest.TestCase):
     def test_archive_urls(self):
         tu = TubeUp(dir_path=os.path.join(current_path,
                                           'test_tubeup_rootdir'),
-                    ia_config_path=get_testfile_path('ia_config_for_test.ini'),
-                    # HACK: A hack to make the test in Travis successful,
-                    # We need to investigate more about this, it doesn't
-                    # make sense that the verbose flag affect the
-                    # youtubedl extract_info() process.
-                    # See:
-                    # https://travis-ci.org/bibanon/tubeup/builds/299091640
-                    verbose=True)
+                    ia_config_path=get_testfile_path('ia_config_for_test.ini'))
 
         videobasename = os.path.join(
             current_path, 'test_tubeup_rootdir', 'downloads',
@@ -554,9 +540,11 @@ class TubeUpTests(unittest.TestCase):
                                  '<br>'
                                  '▷ Also, do not forget to Subscribe to my channel. Thanks! '
                                  '<br/><br/>Source: <a '
-                                 'href="https://www.youtube.com/watch?v=KdsN9YhkDrY">https://www.youtube.com/watch?v=KdsN9YhkDrY</a><br/>Uploader: '
+                                 'href="https://www.youtube.com/watch?v=KdsN9YhkDrY">'
+                                 'https://www.youtube.com/watch?v=KdsN9YhkDrY</a><br/>Uploader: '
                                  '<a '
-                                 'href="http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg">RelaxingWorld</a>'
+                                 'href="http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg">'
+                                 'RelaxingWorld</a>'
                                  ),
                  'date': '2016-06-25',
                  'year': '2016',

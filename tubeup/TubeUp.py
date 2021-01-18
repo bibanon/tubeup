@@ -392,18 +392,18 @@ class TubeUp(object):
         """
         licenseurl = ''
         licenses = {
-            "Creative Commons Attribution license (reuse allowed)":"https://creativecommons.org/licenses/by/3.0/",
+            "Creative Commons Attribution license (reuse allowed)": "https://creativecommons.org/licenses/by/3.0/",
             "Attribution-NonCommercial-ShareAlike": "https://creativecommons.org/licenses/by-nc-sa/2.0/",
             "Attribution-NonCommercial": "https://creativecommons.org/licenses/by-nc/2.0/",
             "Attribution-NonCommercial-NoDerivs": "https://creativecommons.org/licenses/by-nc-nd/2.0/",
             "Attribution": "https://creativecommons.org/licenses/by/2.0/",
             "Attribution-ShareAlike": "https://creativecommons.org/licenses/by-sa/2.0/",
-            "Attribution-NoDerivs": "https://creativecommons.org/licenses/by-nd/2.0/"    
+            "Attribution-NoDerivs": "https://creativecommons.org/licenses/by-nd/2.0/"
         }
-        
+
         if 'license' in vid_meta and vid_meta['license']:
             licenseurl = licenses.get(vid_meta['license'])
-        
+
         return licenseurl
 
     @staticmethod
@@ -452,10 +452,10 @@ class TubeUp(object):
             try:
                 for category in vid_meta['categories']:
                     tags_string += '%s;' % category
-            except:
-                print ("No categories found.")
+            except Exception:
+                print("No categories found.")
 
-        if 'tags' in vid_meta: # some video services don't have tags
+        if 'tags' in vid_meta:  # some video services don't have tags
             try:
                 if 'tags' in vid_meta is None:
                     tags_string += '%s;' % vid_meta['id']
@@ -463,8 +463,8 @@ class TubeUp(object):
                 else:
                     for tag in vid_meta['tags']:
                         tags_string += '%s;' % tag
-            except:
-                print ("Unable to process tags successfully.")
+            except Exception:
+                print("Unable to process tags successfully.")
 
         # license
         licenseurl = TubeUp.determine_licenseurl(vid_meta)
