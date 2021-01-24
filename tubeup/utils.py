@@ -1,8 +1,13 @@
 import os
+import re
 
 
 EMPTY_ANNOTATION_FILE = ('<?xml version="1.0" encoding="UTF-8" ?>'
                          '<document><annotations></annotations></document>')
+
+
+def sanitize_identifier(identifier, replacement='-'):
+    return re.sub(r'[^\w-]', replacement, identifier)
 
 
 def check_is_file_empty(filepath):

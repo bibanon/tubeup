@@ -1,9 +1,32 @@
 import unittest
 import os
-from tubeup.utils import check_is_file_empty
+from tubeup.utils import sanitize_identifier, check_is_file_empty
 
 
 class UtilsTest(unittest.TestCase):
+
+    def test_preserve_valid_identifiers(self):
+        valid = [
+            'youtube--QBwhSklJks',
+            'youtube-_--M04_mN-M',
+            'youtube-Xy2jZABDB40'
+        ]
+        clean = [sanitize_identifier(x) for x in valid]
+        self.assertListEqual(valid, clean)
+
+    def test_sanitize_bad_identifiers(self):
+        bad = [
+            'twitch:vod-v181464551',
+            'twitch:clips-1003820974',
+            'twitter:card-1192732384065708032'
+        ]
+        expect = [
+            'twitch-vod-v181464551',
+            'twitch-clips-1003820974',
+            'twitter-card-1192732384065708032'
+        ]
+        clean = [sanitize_identifier(x) for x in bad]
+        self.assertListEqual(expect, clean)
 
     def test_check_is_file_empty_when_file_is_empty(self):
         # Create a file for the test

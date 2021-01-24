@@ -10,7 +10,8 @@ import internetarchive
 from internetarchive.config import parse_config_file
 from datetime import datetime
 from youtube_dl import YoutubeDL
-from .utils import (check_is_file_empty, EMPTY_ANNOTATION_FILE)
+from .utils import (sanitize_identifier, check_is_file_empty,
+                    EMPTY_ANNOTATION_FILE)
 from logging import getLogger
 from urllib.parse import urlparse
 
@@ -288,7 +289,7 @@ class TubeUp(object):
                                vid_meta['display_id']))
 
         # Replace illegal characters within identifer
-        itemname = re.sub(r'[^\w-]', '-', itemname)
+        itemname = sanitize_identifier(itemname)
 
         metadata = self.create_archive_org_metadata_from_youtubedl_meta(
             vid_meta)
