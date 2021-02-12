@@ -424,7 +424,9 @@ class TubeUp(object):
         # Some video services don't tell you the uploader,
         # use our program's name in that case.
         try:
-            if 'uploader' in vid_meta and vid_meta['uploader']:
+            if vid_meta['extractor_key'] == 'TwitchClips' and 'creator' in vid_meta and vid_meta['creator']:
+                uploader = vid_meta['creator']
+            elif 'uploader' in vid_meta and vid_meta['uploader']:
                 uploader = vid_meta['uploader']
             elif 'uploader_url' in vid_meta and vid_meta['uploader_url']:
                 uploader = vid_meta['uploader_url']
