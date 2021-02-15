@@ -430,6 +430,33 @@ class TubeUpTests(unittest.TestCase):
 
         self.assertEqual(expected_result, result)
 
+    def test_create_archive_org_metadata_from_youtubedl_meta_twitch_clips(self):
+        with open(get_testfile_path(
+                'EA_Play_2016_Live_from_the_Novo_Theatre-42850523.info.json')
+                ) as f:
+            vid_meta = json.load(f)
+
+        result = TubeUp.create_archive_org_metadata_from_youtubedl_meta(
+            vid_meta
+        )
+
+        expected_result = {
+            'mediatype': 'movies',
+            'creator': 'EA',
+            'collection': 'opensource_movies',
+            'title': 'EA Play 2016 Live from the Novo Theatre',
+            'description': (' <br/><br/>Source: <a href="https://clips.twitch.tv/FaintLightGullWholeWheat">'
+                            'https://clips.twitch.tv/FaintLightGullWholeWheat</a><br/>Uploader: '
+                            '<a href="https://clips.twitch.tv/FaintLightGullWholeWheat">EA</a>'),
+            'date': '2016-06-12',
+            'year': '2016',
+            'subject': 'TwitchClips;video;',
+            'originalurl': 'https://clips.twitch.tv/FaintLightGullWholeWheat',
+            'licenseurl': '',
+            'scanner': SCANNER}
+
+        self.assertEqual(expected_result, result)
+
     def test_get_resource_basenames(self):
         tu = TubeUp(dir_path=os.path.join(current_path,
                                           'test_tubeup_rootdir'))
