@@ -237,6 +237,7 @@ class TubeUp(object):
             'writeannotations': True,
             'writesubtitles': True,
             'allsubtitles': True,
+            'source_address': '::', ##Force IPv6
             'ignoreerrors': True,  # Geo-blocked,
                                    # copyrighted/private/deleted
                                    # will be printed to STDOUT and channel
