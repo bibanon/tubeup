@@ -80,13 +80,16 @@ class TubeUp(object):
                                       DOWNLOAD_DIR_NAME)
         }
 
-    def get_resource_basenames(self, urls, proxy_url=None, ydl_username=None,
-                               ydl_password=None, use_download_archive=False):
+    def get_resource_basenames(self, urls,
+                               cookie_file=None, proxy_url=None,
+                               ydl_username=None, ydl_password=None,
+                               use_download_archive=False):
         """
         Get resource basenames from an url.
 
         :param urls:                  A list of urls that will be downloaded with
                                       youtubedl.
+        :param cookie_file:           A cookie file for YoutubeDL.
         :param proxy_url:             A proxy url for YoutubeDL.
         :param ydl_username:          Username that will be used to download the
                                       resources with youtube_dl.
@@ -141,7 +144,8 @@ class TubeUp(object):
                 if self.verbose:
                     print(msg)
 
-        ydl_opts = self.generate_ydl_options(ydl_progress_hook, proxy_url,
+        ydl_opts = self.generate_ydl_options(ydl_progress_hook,
+                                             cookie_file, proxy_url,
                                              ydl_username, ydl_password,
                                              use_download_archive)
 
@@ -195,6 +199,7 @@ class TubeUp(object):
 
     def generate_ydl_options(self,
                              ydl_progress_hook,
+                             cookie_file=None,
                              proxy_url=None,
                              ydl_username=None,
                              ydl_password=None,
@@ -255,6 +260,9 @@ class TubeUp(object):
             'logger': self.logger,
             'progress_hooks': [ydl_progress_hook]
         }
+
+        if cookie_file is not None:
+            ydl_opts['cookiefile'] = cookie_file
 
         if proxy_url is not None:
             ydl_opts['proxy'] = proxy_url
@@ -341,7 +349,8 @@ class TubeUp(object):
 
         return itemname, metadata
 
-    def archive_urls(self, urls, custom_meta=None, proxy=None,
+    def archive_urls(self, urls, custom_meta=None,
+                     cookie_file=None, proxy=None,
                      ydl_username=None, ydl_password=None,
                      use_download_archive=False):
         """
@@ -352,6 +361,7 @@ class TubeUp(object):
                                       to archive.org
         :param custom_meta:           A custom metadata that will be used when
                                       uploading the file with archive.org.
+        :param cookie_file:           A cookie file for YoutubeDL.
         :param proxy_url:             A proxy url for YoutubeDL.
         :param ydl_username:          Username that will be used to download the
                                       resources with youtube_dl.
@@ -365,7 +375,7 @@ class TubeUp(object):
                                       file that has been uploaded to archive.org.
         """
         downloaded_file_basenames = self.get_resource_basenames(
-            urls, proxy, ydl_username, ydl_password, use_download_archive)
+            urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive)
 
         for basename in downloaded_file_basenames:
             identifier, meta = self.upload_ia(basename, custom_meta)
