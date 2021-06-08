@@ -20,6 +20,7 @@
 Usage:
   tubeup <url>... [--username <user>] [--password <pass>]
                   [--metadata=<key:value>...]
+                  [--cookies=<filename>]
                   [--proxy <prox>]
                   [--quiet] [--debug]
                   [--use-download-archive]
@@ -65,6 +66,7 @@ def main():
     args = docopt.docopt(__doc__, version=__version__)
 
     URLs = args['<url>']
+    cookie_file = args['--cookies']
     proxy_url = args['--proxy']
     username = args['--username']
     password = args['--password']
@@ -91,7 +93,8 @@ def main():
                 output_template=args['--output'])
 
     try:
-        for identifier, meta in tu.archive_urls(URLs, metadata, proxy_url,
+        for identifier, meta in tu.archive_urls(URLs, metadata,
+                                                cookie_file, proxy_url,
                                                 username, password,
                                                 use_download_archive):
             print('\n:: Upload Finished. Item information:')
