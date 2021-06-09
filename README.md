@@ -22,9 +22,8 @@ Alternativly you should be able to get away with using Windows Terminal / WSL2.
 
 ## Setup and Installation
 
-1. Install `avconv` or `ffmpeg`, depending on what your distro prefers. Also install pip3 and git.
-   The script prefers ffmpeg if found but will work with just libav. To install ffmpeg in ubuntu have
-   the Universe repository enabled.
+1. Install `ffmpeg` pip3 (typically `python3-pip`) and git.  
+   To install ffmpeg in ubuntu have the Universe repository enabled.
 
 For Debian/Ubuntu:
 
