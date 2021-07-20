@@ -128,12 +128,12 @@ Archive.org users can upload to to four open collections:
 Note that care should be taken when uploading entire channels.
 Read the appropraite section [in this guide](https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff](mailto:collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
 
-**Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the admins first before doing large uploads it's better to ask for guidence or help first than run afowl with the rules._
+**Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the admins first before doing large uploads it's better to ask for guidence or help first than run afoul of the rules._
 
 **If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it** Talk to the collection owner or staff if you need assistance with this.
 
 ## Privacy disclaimer
-As apart of the metadata collection process, youtube-dl (a dependency of Tubeup) prints out the full file location of the video file as well as the external IP address of the machine mirroring the video.
+As a part of the metadata collection process, youtube-dl (a dependency of Tubeup) prints out the full file location of the video file as well as the external IP address of the machine mirroring the video.
 
 Example:
 
@@ -141,25 +141,25 @@ Example:
 "_filename": "/home/USER/.tubeup/downloads/VIDEO.mp4"
 ```
 
-This is apart of the metadata process by youtube-dl. That one string is apart of the JSON metadata uploaded to Archive.org and is availble to the public. It is located in each items `.info,.json` file. 
+This is a part of the metadata process by youtube-dl. That one string is a part of the JSON metadata uploaded to Archive.org and is available to the public. It is located in each items `.info,.json` file. 
 
 If you do not feel comfortable with this, send a pull request that reliably removes both IPv6/6 addresses and the filepath, or do not use Tubeup. 
 
 ## Troubleshooting
 
 * Obviously, if someone else uploaded the video to the Internet Archive, you will get a permissions error. We don't want duplicates, do we?
-* Some videos are copyright blocked in certain countries. Use the proxy or torrenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countries to bypass geo-restrrictions.
+* Some videos are copyright blocked in certain countries. Use the proxy or torrenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countries to bypass geo-restrictions.
 * Upload taking forever? Getting s3 throttling on upload? Tubeup has specifically been tailored to wait the longest possible time before failing, and we've never seen a S3 outage that outlasted the insane wait times set in Tubeup.
 
 ## Major Credits
 
 - [emijrp](https://github.com/emijrp/) who wrote the original [youtube2internetarchive.py](https://code.google.com/p/emijrp/source/browse/trunk/scrapers/youtube2internetarchive.py) in 2012
-- [Matt Hazinski](https://github.com/matthazinski) who forked emijrps work in 2015 with numerous improvements of his own.
+- [Matt Hazinski](https://github.com/matthazinski) who forked emijrp's work in 2015 with numerous improvements of his own.
 - Antonizoon for switching the script to library calls rather than functioning as an external script, and many small improvements.
 - Small PRs from various people, both in and out of BibAnon.
 - vxbinaca for stabilizing downloads/uploads in `youtube-dl`/`internetarchive` library calls, cleansing item output, subtitles collection, and numerous small improvements over time.
 - [Jake Johnson](https://github.com/jjjake) of the Internet Archive for adding variable collections ability as a flag, switching Tubeup from a script to PyPi repository, ISO-compliant item dates, fixing what others couldn't, and many improvements.
-- [Refeed](https://github.com/refeed) for re-basing the code to OOP, turning Tubeup it's self into a library. and adding download and upload bar graphs, and squashing bugs.
+- [Refeed](https://github.com/refeed) for re-basing the code to OOP, turning Tubeup itself into a library. and adding download and upload bar graphs, and squashing bugs.
 
 ## License (GPLv3)
 
