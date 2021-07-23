@@ -297,7 +297,8 @@ class TubeUp(object):
                                vid_meta['display_id']))
 
         # Exit if video download did not complete, don't upload .part files to IA
-        if '.part' in filenames.values():
+        partial_downloaded_video_extension = '.part'
+        if partial_downloaded_video_extension in filenames.values():
           msg = 'Video download incomplete, re-attempt archival attempt.'
           raise Exception(msg)
         
