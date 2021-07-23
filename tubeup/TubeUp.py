@@ -298,9 +298,9 @@ class TubeUp(object):
 
         # Exit if video download did not complete, don't upload .part files to IA
         if glob.glob(videobasename + '*.part'):
-          msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
-          raise Exception(msg)
-        
+            msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
+            raise Exception(msg)
+
         # Replace illegal characters within identifer
         itemname = sanitize_identifier(itemname)
 
