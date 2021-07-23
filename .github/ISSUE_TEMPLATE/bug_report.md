@@ -26,6 +26,13 @@ Carefully read and work through this check list in order to prevent the most com
 Provide the complete verbose output of tubeup that clearly demonstrates the problem.
 Copy the WHOLE output and insert it below. Also include the URL parameter you are providing to tubeup.
 
+**Dependency versions**
+
+Please provide version information from core dependencies:
+
+ia --version
+youtube-dl --version
+
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
