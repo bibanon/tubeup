@@ -23,7 +23,7 @@ Carefully read and work through this check list in order to prevent the most com
 
 Please provide version information from core dependencies:
 
-ia --version
+`ia --version`
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
