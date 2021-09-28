@@ -9,6 +9,8 @@ assignees: ''
 
 **Checklist**
 
+# If you just delete all this text and post a issue it will be closed on sight.
+
 Carefully read and work through this check list in order to prevent the most common mistakes and misuse of tubeup, put x into all relevant boxes (like this [x])
 
 - [ ] I have fully updated tubeup, youtube-dl and internetarchive along with their associated dependencies.
