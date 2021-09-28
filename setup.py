@@ -25,8 +25,8 @@ setup(
         ],
     },
     install_requires=[
-        'internetarchive',
+        'internetarchive==2.0.3',
         'docopt==0.6.2',
-        'youtube-dl',
+        'yt-dlp',
     ]
 )
