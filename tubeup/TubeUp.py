@@ -9,7 +9,7 @@ import internetarchive
 
 from internetarchive.config import parse_config_file
 from datetime import datetime
-from youtube_dl import YoutubeDL
+from yt_dlp import YoutubeDL
 from .utils import (sanitize_identifier, check_is_file_empty,
                     EMPTY_ANNOTATION_FILE)
 from logging import getLogger
