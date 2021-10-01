@@ -235,7 +235,7 @@ class TubeUp(object):
             'continuedl': True,
             'retries': 9001,
             'fragment_retries': 9001,
-            'forcejson': True,
+            'forcejson': False,
             'writeinfojson': True,
             'writedescription': True,
             'writethumbnail': True,
