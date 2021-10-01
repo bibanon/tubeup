@@ -9,7 +9,7 @@ import logging
 
 from tubeup.TubeUp import TubeUp, DOWNLOAD_DIR_NAME
 from tubeup import __version__
-from youtube_dl import YoutubeDL
+from yt_dlp import YoutubeDL
 from .constants import info_dict_playlist, info_dict_video
 
 
