@@ -109,14 +109,14 @@ class TubeUpTests(unittest.TestCase):
             ydl, info_dict_playlist)
 
         expected_result = set([
-            'Live Streaming Rafid Aslam-7gjgkH5iPaE',
-            'Live Streaming Rafid Aslam-q92kxPm-pqM',
-            'Cara Membuat Laptop Menjadi Hotspot WiFi Dengan CMD-YjFwMSDNphM',
-            '[CSO] Defeat Boss in Dead End With Thanatos 7-EEm6MwXLse0',
-            'Cara Bermain Minecraft Multiplayer Dengan LAN-g2vTZ2ka-tM',
-            'Live Streaming Rafid Aslam-AXhuSS5_9YU',
-            'Cara Membuat Disk Baru di Komputer-KDOygJnK7Sw',
-            'Cara Mendownload Lewat Torrent-cC-9RghkvXs']
+            'Live Streaming Rafid Aslam [7gjgkH5iPaE]',
+            'Live Streaming Rafid Aslam [q92kxPm-pqM]',
+            'Cara Membuat Laptop Menjadi Hotspot WiFi Dengan CMD [YjFwMSDNphM]',
+            '[CSO] Defeat Boss in Dead End With Thanatos 7 [EEm6MwXLse0]',
+            'Cara Bermain Minecraft Multiplayer Dengan LAN [g2vTZ2ka-tM]',
+            'Live Streaming Rafid Aslam [AXhuSS5_9YU]',
+            'Cara Membuat Disk Baru di Komputer [KDOygJnK7Sw]',
+            'Cara Mendownload Lewat Torrent-cC [9RghkvXs]']
         )
 
         self.assertEqual(result, expected_result)
