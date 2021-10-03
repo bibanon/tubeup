@@ -116,7 +116,7 @@ class TubeUpTests(unittest.TestCase):
             'Cara Bermain Minecraft Multiplayer Dengan LAN [g2vTZ2ka-tM]',
             'Live Streaming Rafid Aslam [AXhuSS5_9YU]',
             'Cara Membuat Disk Baru di Komputer [KDOygJnK7Sw]',
-            'Cara Mendownload Lewat Torrent-cC [9RghkvXs]']
+            'Cara Mendownload Lewat Torrent [cC-9RghkvXs]']
         )
 
         self.assertEqual(result, expected_result)
