@@ -99,7 +99,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = set(
             ['Video and Blog Competition 2017 - Bank Indonesia & '
-             'NET TV #BIGoesToCampus-hlG3LeFaQwU'])
+             'NET TV #BIGoesToCampus [hlG3LeFaQwU]'])
 
         self.assertEqual(result, expected_result)
 
