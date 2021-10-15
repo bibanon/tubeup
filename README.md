@@ -101,7 +101,7 @@ Options:
   --quiet                   Just print errors.
   --debug                   Print all logs to stdout.
   --output <output>         Youtube-dlc output template.
-  --write-comments          Retrieve video comments.
+  --write-comments          Retrieve video comments to be placed in the infojson.
 
 ```
 
