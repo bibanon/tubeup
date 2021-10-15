@@ -78,6 +78,7 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
+                  [--write-comments]
   tubeup -h | --help
   tubeup --version
 
@@ -100,6 +101,7 @@ Options:
   --quiet                   Just print errors.
   --debug                   Print all logs to stdout.
   --output <output>         Youtube-dlc output template.
+  --write-comments          Retrieve video comments.
 
 ```
 
@@ -115,6 +117,10 @@ You can specify a different collection with the `--metadata` flag:
 
 Any arbitrary metadta can be added to the item, with a few exceptions.
 You can learn more about archive.org metadata [here](https://archive.org/services/docs/api/metadata-schema/).
+
+## Video comments
+
+Retrieving video comments is slow and turned off by default. This functionality can be enabled using the `--write-comments` flag.
 
 ### Collections
 
