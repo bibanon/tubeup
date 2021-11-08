@@ -38,7 +38,7 @@ For Debian/Ubuntu:
    sudo -H python3.8 -m pip install -U pip tubeup
 ```
 
-Perodically upgrade tubeup and it's dependencies by running:
+Perodically upgrade tubeup and its dependencies by running:
 
 ```
    sudo -H python3.8 -m pip install -U tubeup yt-dlp internetarchive
@@ -62,7 +62,7 @@ Once configured to upload, you're ready to go.
    tubeup <url>
 ```
 
-6. Each archived video gets it's own Archive.org item. Check out what you've uploaded at
+6. Each archived video gets its own Archive.org item. Check out what you've uploaded at
 
    `http://archive.org/details/@yourusername`.
 
