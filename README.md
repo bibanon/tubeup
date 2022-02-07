@@ -1,8 +1,7 @@
 Tubeup - a multi-VOD service to Archive.org uploader
 ==========================================
 
-![Unit Tests](https://github.com/bibanon/tubeup/workflows/Unit%20Tests/badge.svg)
-![Lint](https://github.com/bibanon/tubeup/workflows/Lint/badge.svg)
+[![Build Status](https://codezero.bluflametech.com/badge/project-61.svg)](https://codezero.bluflametech.com/projects/61)
 
 `tubeup` uses yt-dlp to download a Youtube video (or [any other provider supported by YTDL-P](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md)), and then uploads it with all metadata to the Internet Archive using the python module internetarchive.
 

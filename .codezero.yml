@@ -1,0 +1,27 @@
+lang:
+  python: 3.9
+events:
+  git_branch: any
+  git_pr: any
+ops:
+  lint:
+    - "Lint Setup":
+        path: ''
+        script: sudo pip3 install flake8
+    - Lint:
+        path: ''
+        script: flake8
+  test:
+    - "Test Setup":
+        path: ''
+        script: |
+          sudo python3 setup.py install
+          sudo python3 -m pip install -r test-requirements.txt
+    - Test:
+        path: ''
+        script: pytest --cov
+stages:
+  - Validate:
+      ops:
+        - lint
+        - test
