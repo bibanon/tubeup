@@ -596,7 +596,7 @@ class TubeUpTests(unittest.TestCase):
                              'Amazing Nature;youtube;HD;1080p;Creative Commons Videos;'
                              'relaxing music;Ramadan;'),
                  'originalurl': 'https://www.youtube.com/watch?v=KdsN9YhkDrY',
-                 'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
+                 'licenseurl': '',
                  'scanner': SCANNER})]
 
             self.assertEqual(expected_result, result)
