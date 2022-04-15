@@ -297,7 +297,7 @@ class TubeUp(object):
                                when uploading to archive.org.
         """
         json_metadata_filepath = videobasename + '.info.json'
-        with open(json_metadata_filepath) as f:
+        with open(json_metadata_filepath, 'r', encoding='utf-8') as f:
             vid_meta = json.load(f)
 
         itemname = ('%s-%s' % (vid_meta['extractor'],
