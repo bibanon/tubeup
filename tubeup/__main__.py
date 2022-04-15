@@ -25,6 +25,7 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
+                  [--get-comments]
   tubeup -h | --help
   tubeup --version
 
@@ -47,6 +48,7 @@ Options:
   --quiet                   Just print errors.
   --debug                   Print all logs to stdout.
   --output <output>         Youtube-dlc output template.
+  --get-comments            Scrape video comments.
 """
 
 import sys
@@ -73,6 +75,7 @@ def main():
     quiet_mode = args['--quiet']
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
+    get_comments = args['--get-comments']
 
     if debug_mode:
         # Display log messages.
@@ -90,7 +93,8 @@ def main():
     metadata = internetarchive.cli.argparser.get_args_dict(args['--metadata'])
 
     tu = TubeUp(verbose=not quiet_mode,
-                output_template=args['--output'])
+                output_template=args['--output'],
+                get_comments=get_comments)
 
     try:
         for identifier, meta in tu.archive_urls(URLs, metadata,
