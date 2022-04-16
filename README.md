@@ -28,20 +28,20 @@ Alternativly you should be able to get away with using Windows Terminal / WSL2.
 For Debian/Ubuntu:
 
 ```
-   sudo apt-get install libav-tools ffmpeg python3-pip git && sudo apt remove yt-dlp
+   sudo apt install ffmpeg python3-pip git && sudo apt remove yt-dlc youtube-dl yt-dlp
 ```
 
 2. Use pip3 to install the required python3 packages.
    At the minimum Python 3.4.2 and up is required (latest Python preffered), as 3.2 will not work.
 
 ```
-   sudo -H python3.8 -m pip install -U pip tubeup
+   sudo -H python3 -m pip install -U pip tubeup
 ```
 
 Perodically upgrade tubeup and its dependencies by running:
 
 ```
-   sudo -H python3.8 -m pip install -U tubeup yt-dlp internetarchive
+   sudo -H python3 -m pip install -U tubeup yt-dlp internetarchive
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
@@ -69,21 +69,24 @@ Once configured to upload, you're ready to go.
 ## Usage
 
 ```
-tubeup - Download a video with Youtube-dlc, then upload to Internet Archive, passing all metadata.
+tubeup - Download a video with yt-dlp, then upload to Internet Archive, passing all metadata.
 
+```
 Usage:
   tubeup <url>... [--username <user>] [--password <pass>]
                   [--metadata=<key:value>...]
+                  [--cookies=<filename>]
                   [--proxy <prox>]
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
   tubeup -h | --help
   tubeup --version
+```
 
 Arguments:
-  <url>                         Youtube-dlc compatible URL to download.
-                                Check Youtube-dlc documentation for a list
+  <url>                         yt-dlp compatible URL to download.
+                                Check yt-dlp documentation for a list
                                 of compatible websites.
   --metadata=<key:value>        Custom metadata to add to the archive.org
                                 item.
@@ -99,7 +102,7 @@ Options:
                             downloaded videos in it.
   --quiet                   Just print errors.
   --debug                   Print all logs to stdout.
-  --output <output>         Youtube-dlc output template.
+  --output <output>         yt-dlp output template.
 
 ```
 
