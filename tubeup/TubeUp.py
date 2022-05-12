@@ -248,7 +248,8 @@ class TubeUp(object):
             'writethumbnail': True,
             'writeannotations': True,
             'writesubtitles': True,
-            'allsubtitles': True,
+            'subtitleslangs': all,
+            'writeautomaticsub': False,
             'ignoreerrors': True,  # Geo-blocked,
                                    # copyrighted/private/deleted
                                    # will be printed to STDOUT and channel
