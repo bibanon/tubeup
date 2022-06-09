@@ -139,19 +139,6 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 
 **If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it** Talk to the collection owner or staff if you need assistance with this.
 
-## Privacy disclaimer
-As a part of the metadata collection process, yt-dlp (a dependency of Tubeup) prints out the full file location of the video file as well as the external IP address of the machine mirroring the video.
-
-Example:
-
-```
-"_filename": "/home/USER/.tubeup/downloads/VIDEO.mp4"
-```
-
-This is a part of the metadata process by yt-dlp. That one string is a part of the JSON metadata uploaded to Archive.org and is available to the public. It is located in each items `.info,.json` file. 
-
-If you do not feel comfortable with this, send a pull request that reliably removes both IPv6/6 addresses and the filepath, or do not use Tubeup. 
-
 ## Troubleshooting
 
 * Obviously, if someone else uploaded the video to the Internet Archive, you will get a permissions error. We don't want duplicates, do we?
