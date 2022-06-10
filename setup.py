@@ -25,7 +25,7 @@ setup(
         ],
     },
     install_requires=[
-        'internetarchive==2.0.3',
+        'internetarchive>2.0.3',
         'docopt==0.6.2',
         'yt-dlp',
     ]
