@@ -341,7 +341,7 @@ class TubeUp(object):
             metadata.update(custom_meta)
 
         # Parse internetarchive configuration file.
-        parsed_ia_s3_config = parse_config_file(self.ia_config_path)[1]['s3']
+        parsed_ia_s3_config = parse_config_file(self.ia_config_path)[2]['s3']
         s3_access_key = parsed_ia_s3_config['access']
         s3_secret_key = parsed_ia_s3_config['secret']
 
