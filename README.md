@@ -79,9 +79,6 @@ Once configured to upload, you're ready to go.
 ## Usage
 
 ```
-tubeup - Download a video with yt-dlp, then upload to Internet Archive, passing all metadata.
-
-```
 Usage:
   tubeup <url>... [--username <user>] [--password <pass>]
                   [--metadata=<key:value>...]
@@ -93,7 +90,7 @@ Usage:
   tubeup -h | --help
   tubeup --version
 ```
-
+```
 Arguments:
   <url>                         yt-dlp compatible URL to download.
                                 Check yt-dlp documentation for a list
