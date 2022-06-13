@@ -35,13 +35,13 @@ For Debian/Ubuntu:
    At the minimum Python 3.4.2 and up is required (latest Python preffered), as 3.2 will not work.
 
 ```
-   sudo -H python3 -m pip install -U pip tubeup
+   python3 -m pip install -U pip tubeup
 ```
 
 Perodically upgrade tubeup and its dependencies by running:
 
 ```
-   sudo -H python3 -m pip install -U tubeup yt-dlp internetarchive
+   python3 -m pip install -U tubeup yt-dlp internetarchive
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
@@ -65,6 +65,16 @@ Once configured to upload, you're ready to go.
 6. Each archived video gets its own Archive.org item. Check out what you've uploaded at
 
    `http://archive.org/details/@yourusername`.
+   
+## Windows Setup
+
+1. Install WSL2, pick a distrobution of your choice. Ubuntu is popular and well-supported.
+2. Use Windows Terminal by Microsoft to interact with the WSL2 instance
+3. Fully update the Linux installation with your package manager of choice (`sudo apt update ; sudo apt upgrade').
+4. Install python `pip`.
+5. Install `ffmpeg`.
+6. Install Tubeup using steps 4-6 in the Linux configutation guide above, configuring `internetarchive` for your Archive.org account.
+7. Periodically update your Linux packages and pip packages.
 
 ## Usage
 
