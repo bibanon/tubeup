@@ -88,6 +88,7 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
+                  [--get-comments]
   tubeup -h | --help
   tubeup --version
 ```
