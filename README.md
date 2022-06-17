@@ -70,7 +70,8 @@ Once configured to upload, you're ready to go.
 
 1. Install WSL2, pick a distrobution of your choice. Ubuntu is popular and well-supported.
 2. Use Windows Terminal by Microsoft to interact with the WSL2 instance
-3. Fully update the Linux installation with your package manager of choice (`sudo apt update ; sudo apt upgrade').
+3. Fully update the Linux installation with your package manager of choice 
+   ```sudo apt update ; sudo apt upgrade```
 4. Install python `pip`.
 5. Install `ffmpeg`.
 6. Install Tubeup using steps 4-6 in the Linux configutation guide above, configuring `internetarchive` for your Archive.org account.
