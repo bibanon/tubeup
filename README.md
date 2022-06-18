@@ -68,7 +68,7 @@ Once configured to upload, you're ready to go.
    
 ## Windows Setup
 
-1. Install WSL2, pick a distrobution of your choice. Ubuntu is popular and well-supported.
+1. Install WSL2, pick a distrobution of your choice. Ubuntu is popular and well-supported. You can use Python for Windows and install pip and tubeup there, however tubeup is better built for Linux, and tubeup on Windows most notably does not delete uploaded files, making clutter.
 2. Use Windows Terminal by Microsoft to interact with the WSL2 instance
 3. Fully update the Linux installation with your package manager of choice 
    ```sudo apt update ; sudo apt upgrade```
@@ -76,6 +76,20 @@ Once configured to upload, you're ready to go.
 5. Install `ffmpeg`.
 6. Install Tubeup using steps 4-6 in the Linux configutation guide above, configuring `internetarchive` for your Archive.org account.
 7. Periodically update your Linux packages and pip packages.
+## Android Setup
+0. Installing everything needed for Tubeup will use about half a gigabyte. Ensure you have enough storage before proceeding. We recommend using a computer, but some people only own a phone and/or tablet
+1. Download and install the latest version of Termux from GitHub.
+2. Type "pkg install python" and click y. 
+3. Type "pip install tubeup" and wait
+4. Type "ia config" and login to the archive
+5. Now you can use tubeup on Android. 
+## chromeOS Setup
+0. Adding Linux to Chromebook takes a few gigabytes. Check if you have enough storage first.
+1. Add Linux on chromeOS via settings, development, Linux
+2. Open terminal
+3. Type "pip install tubeup" and wait
+4. Type "ia config" and login to the archive
+5. Now you can use tubeup on your Chromebook, Chromebox, Chromebase, Chromeblet, or Chromebook. 
 
 ## Usage
 
