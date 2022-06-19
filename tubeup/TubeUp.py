@@ -338,7 +338,7 @@ class TubeUp(object):
         # Upload the item to the Internet Archive
         item = internetarchive.get_item(itemname)
         if item.exists:
-            return itemname, vid_meta, 0
+            return itemname, vid_meta, 1
 
         if custom_meta:
             metadata.update(custom_meta)
@@ -362,7 +362,7 @@ class TubeUp(object):
                     verbose=self.verbose, access_key=s3_access_key,
                     secret_key=s3_secret_key)
 
-        return itemname, metadata, 1
+        return itemname, metadata, 0
 
     def archive_urls(self, urls, custom_meta=None,
                      cookie_file=None, proxy=None,
