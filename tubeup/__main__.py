@@ -98,9 +98,9 @@ def main():
 
     try:
         for identifier, meta, item_exists in tu.archive_urls(URLs, metadata,
-                                                cookie_file, proxy_url,
-                                                username, password,
-                                                use_download_archive):
+                                                             cookie_file, proxy_url,
+                                                             username, password,
+                                                             use_download_archive):
             if item_exists:
                 print("\n:: Item already exists. Not uploading.")
                 print('Title: %s' % meta['title'])

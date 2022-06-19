@@ -537,7 +537,7 @@ class TubeUpTests(unittest.TestCase):
                  'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
                  'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
                  'scanner': SCANNER},
-                 1)
+                1)
 
             self.assertEqual(expected_result, result)
 
