@@ -104,7 +104,7 @@ def main():
             if item_exists:
                 print("\n:: Item already exists. Not uploading.")
                 print('Title: %s' % meta['title'])
-                print('Video URL: %s\n' % meta['url'])
+                print('Video URL: %s\n' % meta['webpage_url'])
             else:
                 print('\n:: Upload Finished. Item information:')
                 print('Title: %s' % meta['title'])
