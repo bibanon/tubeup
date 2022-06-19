@@ -336,7 +336,7 @@ class TubeUp(object):
         files_to_upload = glob.glob(videobasename + '*')
 
         # Upload the item to the Internet Archive
-        parsed_config = parse_config_file(self.ia_config_path)
+        parsed_config = parse_config_file(self.ia_config_path)[2]
         logged_in_user = unquote(parsed_config['cookies']['logged-in-user'].split(';')[0])
         item = internetarchive.get_item(itemname)
         if item.exists and not item.metadata["uploader"] == logged_in_user:
@@ -346,7 +346,7 @@ class TubeUp(object):
             metadata.update(custom_meta)
 
         # Parse internetarchive configuration file.
-        parsed_ia_s3_config = parsed_config[2]['s3']
+        parsed_ia_s3_config = parsed_config['s3']
         s3_access_key = parsed_ia_s3_config['access']
         s3_secret_key = parsed_ia_s3_config['secret']
 
