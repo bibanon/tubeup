@@ -337,7 +337,7 @@ class TubeUp(object):
         # Upload the item to the Internet Archive
         item = internetarchive.get_item(itemname)
         if item.exists:
-            return None, None
+            return None, vid_meta
 
         if custom_meta:
             metadata.update(custom_meta)
