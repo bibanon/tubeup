@@ -294,7 +294,8 @@ class TubeUp(object):
         :param custom_meta:    A custom meta, will be used by internetarchive
                                library when uploading to archive.org.
         :return:               A tuple containing item name and metadata used
-                               when uploading to archive.org.
+                               when uploading to archive.org and whether the item
+                               already exists.
         """
         json_metadata_filepath = videobasename + '.info.json'
         with open(json_metadata_filepath, 'r', encoding='utf-8') as f:
@@ -337,7 +338,7 @@ class TubeUp(object):
         # Upload the item to the Internet Archive
         item = internetarchive.get_item(itemname)
         if item.exists:
-            return None, vid_meta
+            return itemname, vid_meta, 0
 
         if custom_meta:
             metadata.update(custom_meta)
@@ -361,7 +362,7 @@ class TubeUp(object):
                     verbose=self.verbose, access_key=s3_access_key,
                     secret_key=s3_secret_key)
 
-        return itemname, metadata
+        return itemname, metadata, 1
 
     def archive_urls(self, urls, custom_meta=None,
                      cookie_file=None, proxy=None,
