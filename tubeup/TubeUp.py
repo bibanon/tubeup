@@ -109,6 +109,20 @@ class TubeUp(object):
         """
         downloaded_files_basename = set()
 
+        def check_if_ia_item_exists(infodict, url):
+            itemname = sanitize_identifier('%s-%s' % (infodict['extractor'],
+                                                      infodict['display_id']))
+
+            logged_in_user = unquote(parse_config_file(self.ia_config_path)[2]['cookies']['logged-in-user'].split(';')[0])
+            item = internetarchive.get_item(itemname)
+            if item.exists and item.metadata["uploader"] != logged_in_user:
+                print("\n:: Item already exists. Not downloading.")
+                print('Title: %s' % infodict['title'])
+                print('Video URL: %s\n' % infodict['webpage_url'])
+                return
+            ydl.extract_info(url)
+            downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, info_dict))
+
         def ydl_progress_hook(d):
             if d['status'] == 'downloading' and self.verbose:
                 if d.get('_total_bytes_str') is not None:
@@ -159,11 +173,13 @@ class TubeUp(object):
             for url in urls:
                 # Get the info dict of the url, it also download the resources
                 # if necessary.
-                info_dict = ydl.extract_info(url)
+                info_dict = ydl.extract_info(url, download=False)
 
-                downloaded_files_basename.update(
-                    self.create_basenames_from_ydl_info_dict(ydl, info_dict)
-                )
+                if info_dict.get('_type', 'video') == 'playlist':
+                    for entry in info_dict['entries']:
+                        check_if_ia_item_exists(entry, url)
+                else:
+                    check_if_ia_item_exists(info_dict, url)
 
         self.logger.debug(
             'Basenames obtained from url (%s): %s'
@@ -336,17 +352,13 @@ class TubeUp(object):
         files_to_upload = glob.glob(videobasename + '*')
 
         # Upload the item to the Internet Archive
-        parsed_config = parse_config_file(self.ia_config_path)[2]
-        logged_in_user = unquote(parsed_config['cookies']['logged-in-user'].split(';')[0])
         item = internetarchive.get_item(itemname)
-        if item.exists and not item.metadata["uploader"] == logged_in_user:
-            return itemname, vid_meta, 1
 
         if custom_meta:
             metadata.update(custom_meta)
 
         # Parse internetarchive configuration file.
-        parsed_ia_s3_config = parsed_config['s3']
+        parsed_ia_s3_config = parse_config_file(self.ia_config_path)[2]['s3']
         s3_access_key = parsed_ia_s3_config['access']
         s3_secret_key = parsed_ia_s3_config['secret']
 
@@ -393,7 +405,6 @@ class TubeUp(object):
         """
         downloaded_file_basenames = self.get_resource_basenames(
             urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive)
-
         for basename in downloaded_file_basenames:
             identifier, meta, item_exists = self.upload_ia(basename, custom_meta)
             yield identifier, meta, item_exists
