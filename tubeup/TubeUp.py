@@ -113,13 +113,33 @@ class TubeUp(object):
             itemname = sanitize_identifier('%s-%s' % (infodict['extractor'],
                                                       infodict['display_id']))
 
-            user = unquote(parse_config_file(self.ia_config_path)[2]['cookies']['logged-in-user'].split(';')[0])
+            # Get user cookie from the config file; it includes the email
+            # which we use to check if the uploader is actually us.
+            user = parse_config_file(self.ia_config_path)[2]['cookies']['logged-in-user']
+            # Check to see whether there is a logged-in-user cookie or not.
+            # If there isn't, raise an error before we try parsing it.
+            if user is None:
+                msg = ('`internetarchive` configuration file is not configured'
+                       ' properly.')
+
+                self.logger.error(msg)
+                if self.verbose:
+                    print(msg)
+                raise Exception(msg)
             item = internetarchive.get_item(itemname)
-            if item.exists and item.metadata["uploader"] != user:
-                print("\n:: Item already exists. Not downloading.")
-                print('Title: %s' % infodict['title'])
-                print('Video URL: %s\n' % infodict['webpage_url'])
-                return
+            if item.exists:
+                if item.metadata["uploader"] != unquote(user.split(';')[0]):
+                    print("\n:: Item already exists. Not downloading.")
+                    print('Title: %s' % infodict['title'])
+                    print('Video URL: %s\n' % infodict['webpage_url'])
+                    return
+                else:
+                    msg = ('Item already exists. However, since you are the'
+                           'owner of the item, we will continue uploading'
+                           'anyways.')
+                    self.logger.warning(msg)
+                    if self.verbose:
+                        print(msg)
             ydl.extract_info(url)
             downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, info_dict))
 
