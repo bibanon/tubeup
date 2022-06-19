@@ -101,7 +101,10 @@ def main():
                                                 cookie_file, proxy_url,
                                                 username, password,
                                                 use_download_archive):
-            print('\n:: Upload Finished. Item information:')
+            if (identifier, meta) == (None, None):
+                print("\n:: Item already exists. Not uploading.")
+            else:
+                print('\n:: Upload Finished. Item information:')
             print('Title: %s' % meta['title'])
             print('Upload URL: https://archive.org/details/%s\n' % identifier)
     except Exception:
