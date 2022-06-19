@@ -113,9 +113,9 @@ class TubeUp(object):
             itemname = sanitize_identifier('%s-%s' % (infodict['extractor'],
                                                       infodict['display_id']))
 
-            logged_in_user = unquote(parse_config_file(self.ia_config_path)[2]['cookies']['logged-in-user'].split(';')[0])
+            user = unquote(parse_config_file(self.ia_config_path)[2]['cookies']['logged-in-user'].split(';')[0])
             item = internetarchive.get_item(itemname)
-            if item.exists and item.metadata["uploader"] != logged_in_user:
+            if item.exists and item.metadata["uploader"] != user:
                 print("\n:: Item already exists. Not downloading.")
                 print('Title: %s' % infodict['title'])
                 print('Video URL: %s\n' % infodict['webpage_url'])
