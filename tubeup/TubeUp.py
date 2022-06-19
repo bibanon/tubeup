@@ -393,8 +393,8 @@ class TubeUp(object):
             urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive)
 
         for basename in downloaded_file_basenames:
-            identifier, meta = self.upload_ia(basename, custom_meta)
-            yield identifier, meta
+            identifier, meta, item_exists = self.upload_ia(basename, custom_meta)
+            yield identifier, meta, item_exists
 
     @staticmethod
     def determine_collection_type(url):
