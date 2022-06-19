@@ -97,16 +97,18 @@ def main():
                 get_comments=get_comments)
 
     try:
-        for identifier, meta in tu.archive_urls(URLs, metadata,
+        for identifier, meta, item_exists in tu.archive_urls(URLs, metadata,
                                                 cookie_file, proxy_url,
                                                 username, password,
                                                 use_download_archive):
-            if (identifier, meta) == (None, None):
+            if item_exists:
                 print("\n:: Item already exists. Not uploading.")
+                print('Title: %s' % meta['title'])
+                print('Video URL: %s\n' % meta['url'])
             else:
                 print('\n:: Upload Finished. Item information:')
-            print('Title: %s' % meta['title'])
-            print('Upload URL: https://archive.org/details/%s\n' % identifier)
+                print('Title: %s' % meta['title'])
+                print('Upload URL: https://archive.org/details/%s\n' % identifier)
     except Exception:
         print('\n\033[91m'  # Start red color text
               'An exception just occured, if you found this '
