@@ -469,7 +469,8 @@ class TubeUpTests(unittest.TestCase):
         copy_testfiles_to_tubeup_rootdir_test()
 
         result = tu.get_resource_basenames(
-            ['https://www.youtube.com/watch?v=KdsN9YhkDrY'])
+            ['https://www.youtube.com/watch?v=KdsN9YhkDrY'],
+            ignore_existing_item=True)
 
         expected_result = {os.path.join(
             current_path, 'test_tubeup_rootdir', 'downloads',

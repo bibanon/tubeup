@@ -89,7 +89,8 @@ class TubeUp(object):
     def get_resource_basenames(self, urls,
                                cookie_file=None, proxy_url=None,
                                ydl_username=None, ydl_password=None,
-                               use_download_archive=False):
+                               use_download_archive=False,
+                               ignore_existing_item=False):
         """
         Get resource basenames from an url.
 
@@ -105,9 +106,21 @@ class TubeUp(object):
                                       This will download only videos not listed in
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
+        :param ignore_existing_item:  Ignores the check for existing items on archive.org.
         :return:                      Set of videos basename that has been downloaded.
         """
         downloaded_files_basename = set()
+
+        def check_if_ia_item_exists(infodict, url):
+            itemname = sanitize_identifier('%s-%s' % (infodict['extractor'],
+                                                      infodict['display_id']))
+            item = internetarchive.get_item(itemname)
+            if item.exists:
+                print("\n:: Item already exists. Not downloading.")
+                print('Title: %s' % infodict['title'])
+                print('Video URL: %s\n' % infodict['webpage_url'])
+                return 1
+            return 0
 
         def ydl_progress_hook(d):
             if d['status'] == 'downloading' and self.verbose:
@@ -157,13 +170,23 @@ class TubeUp(object):
 
         with YoutubeDL(ydl_opts) as ydl:
             for url in urls:
-                # Get the info dict of the url, it also download the resources
-                # if necessary.
-                info_dict = ydl.extract_info(url)
+                if not ignore_existing_item:
+                    # Get the info dict of the url, it also download the resources
+                    # if necessary.
+                    info_dict = ydl.extract_info(url, download=False)
 
-                downloaded_files_basename.update(
-                    self.create_basenames_from_ydl_info_dict(ydl, info_dict)
-                )
+                    if info_dict.get('_type', 'video') == 'playlist':
+                        for entry in info_dict['entries']:
+                            if check_if_ia_item_exists(entry, url) < 1:
+                                ydl.extract_info(url)
+                                downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, entry))
+                    else:
+                        if check_if_ia_item_exists(info_dict, url) < 1:
+                            ydl.extract_info(url)
+                            downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, info_dict))
+                else:
+                    info_dict = ydl.extract_info(url)
+                    downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, info_dict))
 
         self.logger.debug(
             'Basenames obtained from url (%s): %s'
@@ -294,7 +317,8 @@ class TubeUp(object):
         :param custom_meta:    A custom meta, will be used by internetarchive
                                library when uploading to archive.org.
         :return:               A tuple containing item name and metadata used
-                               when uploading to archive.org.
+                               when uploading to archive.org and whether the item
+                               already exists.
         """
         json_metadata_filepath = videobasename + '.info.json'
         with open(json_metadata_filepath, 'r', encoding='utf-8') as f:
@@ -364,7 +388,8 @@ class TubeUp(object):
     def archive_urls(self, urls, custom_meta=None,
                      cookie_file=None, proxy=None,
                      ydl_username=None, ydl_password=None,
-                     use_download_archive=False):
+                     use_download_archive=False,
+                     ignore_existing_item=False):
         """
         Download and upload videos from youtube_dl supported sites to
         archive.org
@@ -383,12 +408,13 @@ class TubeUp(object):
                                       This will download only videos not listed in
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
+        :param ignore_existing_item:  Ignores the check for existing items on archive.org.
         :return:                      Tuple containing identifier and metadata of the
                                       file that has been uploaded to archive.org.
         """
         downloaded_file_basenames = self.get_resource_basenames(
-            urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive)
-
+            urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive,
+            ignore_existing_item)
         for basename in downloaded_file_basenames:
             identifier, meta = self.upload_ia(basename, custom_meta)
             yield identifier, meta
