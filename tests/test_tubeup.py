@@ -469,7 +469,8 @@ class TubeUpTests(unittest.TestCase):
         copy_testfiles_to_tubeup_rootdir_test()
 
         result = tu.get_resource_basenames(
-            ['https://www.youtube.com/watch?v=KdsN9YhkDrY'])
+            ['https://www.youtube.com/watch?v=KdsN9YhkDrY'],
+            ignore_existing_item=True)
 
         expected_result = {os.path.join(
             current_path, 'test_tubeup_rootdir', 'downloads',
@@ -536,8 +537,7 @@ class TubeUpTests(unittest.TestCase):
                              'Nature;Mountain;'),
                  'originalurl': 'https://www.youtube.com/watch?v=6iRV8liah8A',
                  'licenseurl': 'https://creativecommons.org/licenses/by/3.0/',
-                 'scanner': SCANNER},
-                0)
+                 'scanner': SCANNER})
 
             self.assertEqual(expected_result, result)
 
@@ -603,7 +603,6 @@ class TubeUpTests(unittest.TestCase):
                              'relaxing music;Ramadan;'),
                  'originalurl': 'https://www.youtube.com/watch?v=KdsN9YhkDrY',
                  'licenseurl': '',
-                 'scanner': SCANNER},
-                0)]
+                 'scanner': SCANNER})]
 
             self.assertEqual(expected_result, result)

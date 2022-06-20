@@ -26,6 +26,7 @@ Usage:
                   [--use-download-archive]
                   [--output <output>]
                   [--get-comments]
+                  [--ignore-existing-item]
   tubeup -h | --help
   tubeup --version
 
@@ -49,6 +50,7 @@ Options:
   --debug                   Print all logs to stdout.
   --output <output>         Youtube-dlc output template.
   --get-comments            Scrape video comments.
+  --ignore-existing-item    Don't check if an item already exists on archive.org
 """
 
 import sys
@@ -76,6 +78,7 @@ def main():
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
     get_comments = args['--get-comments']
+    ignore_existing_item = args['--ignore-existing-item']
 
     if debug_mode:
         # Display log messages.
@@ -97,18 +100,14 @@ def main():
                 get_comments=get_comments)
 
     try:
-        for identifier, meta, item_exists in tu.archive_urls(URLs, metadata,
-                                                             cookie_file, proxy_url,
-                                                             username, password,
-                                                             use_download_archive):
-            if item_exists:
-                print("\n:: Item already exists. Not uploading.")
-                print('Title: %s' % meta['title'])
-                print('Video URL: %s\n' % meta['webpage_url'])
-            else:
-                print('\n:: Upload Finished. Item information:')
-                print('Title: %s' % meta['title'])
-                print('Upload URL: https://archive.org/details/%s\n' % identifier)
+        for identifier, meta in tu.archive_urls(URLs, metadata,
+                                                cookie_file, proxy_url,
+                                                username, password,
+                                                use_download_archive,
+                                                ignore_existing_item):
+            print('\n:: Upload Finished. Item information:')
+            print('Title: %s' % meta['title'])
+            print('Upload URL: https://archive.org/details/%s\n' % identifier)
     except Exception:
         print('\n\033[91m'  # Start red color text
               'An exception just occured, if you found this '
