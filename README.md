@@ -32,7 +32,7 @@ For Debian/Ubuntu:
 ```
 
 2. Use pip3 to install the required python3 packages.
-   At the minimum Python 3.4.2 and up is required (latest Python preffered), as 3.2 will not work.
+   At a minimum Python 3.7.13 and up is required (latest Python preferred).
 
 ```
    python3 -m pip install -U pip tubeup
@@ -89,6 +89,7 @@ Usage:
                   [--use-download-archive]
                   [--output <output>]
                   [--get-comments]
+                  [--ignore-existing-item]
   tubeup -h | --help
   tubeup --version
 ```
@@ -105,6 +106,7 @@ Options:
   --proxy <prox>            Use a proxy while uploading.
   --username <user>         Provide a username, for sites like Nico Nico Douga.
   --password <pass>         Provide a password, for sites like Nico Nico Douga.
+  --ignore-existing-item    Skip archival operation if item already exists.
   --use-download-archive    Record the video url to the download archive.
                             This will download only videos not listed in
                             the archive file. Record the IDs of all
@@ -125,16 +127,16 @@ You can specify a different collection with the `--metadata` flag:
    tubeup --metadata=collection:opensource_audio <url>
 ```
 
-Any arbitrary metadta can be added to the item, with a few exceptions.
+Any arbitrary metadata can be added to the item, with a few exceptions.
 You can learn more about archive.org metadata [here](https://archive.org/services/docs/api/metadata-schema/).
 
 ## Video comments
 
-Retrieving video comments can be slow so is disabled by default. This functionality can be enabled using the `--get-comments` flag.
+Retrieving video comments can be slow, and as such is disabled by default. This functionality can be enabled using the `--get-comments` flag.
 
 ### Collections
 
-Archive.org users can upload to to four open collections:
+Archive.org users can upload to four open collections:
 
 * [Community Audio](https://archive.org/details/opensource_audio) where the identifier is `opensource_audio`.
 * [Community Software](https://archive.org/details/open_source_software)  where the identifier is `opensource_software`.
@@ -142,25 +144,25 @@ Archive.org users can upload to to four open collections:
 * [Community Video](https://archive.org/details/opensource_movies) where the identifier is `opensource_movies`.
 
 Note that care should be taken when uploading entire channels.
-Read the appropraite section [in this guide](https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff](mailto:collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example), they'll create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
+Read the appropraite section [in this guide](https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff](mailto:collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example). Internet Archive collections staff will either create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
 
-**Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the admins first before doing large uploads it's better to ask for guidence or help first than run afoul of the rules._
+**Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the Internet Archive admins first before doing large uploads; it's better to ask for guidence or help first than run afoul of the rules._
 
-**If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it** Talk to the collection owner or staff if you need assistance with this.
+**If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it.** Talk to the collection owner or staff if you need assistance with this.
 
 ## Troubleshooting
 
-* Obviously, if someone else uploaded the video to the Internet Archive, you will get a permissions error. We don't want duplicates, do we?
 * Some videos are copyright blocked in certain countries. Use the proxy or torrenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countries to bypass geo-restrictions.
 * Upload taking forever? Getting s3 throttling on upload? Tubeup has specifically been tailored to wait the longest possible time before failing, and we've never seen a S3 outage that outlasted the insane wait times set in Tubeup.
 
-## Major Credits
+## Major Credits (in no particular order)
 
 - [emijrp](https://github.com/emijrp/) who wrote the original [youtube2internetarchive.py](https://code.google.com/p/emijrp/source/browse/trunk/scrapers/youtube2internetarchive.py) in 2012
 - [Matt Hazinski](https://github.com/matthazinski) who forked emijrp's work in 2015 with numerous improvements of his own.
 - Antonizoon for switching the script to library calls rather than functioning as an external script, and many small improvements.
 - Small PRs from various people, both in and out of BibAnon.
 - vxbinaca for stabilizing downloads/uploads in `yt-dlp`/`internetarchive` library calls, cleansing item output, subtitles collection, and numerous small improvements over time.
+- mrpapersonic for adding logic to check if an item already exists in the Internet Archive and skips if already exists
 - [Jake Johnson](https://github.com/jjjake) of the Internet Archive for adding variable collections ability as a flag, switching Tubeup from a script to PyPi repository, ISO-compliant item dates, fixing what others couldn't, and many improvements.
 - [Refeed](https://github.com/refeed) for re-basing the code to OOP, turning Tubeup itself into a library. and adding download and upload bar graphs, and squashing bugs.
 
