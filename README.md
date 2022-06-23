@@ -106,7 +106,7 @@ Options:
   --proxy <prox>            Use a proxy while uploading.
   --username <user>         Provide a username, for sites like Nico Nico Douga.
   --password <pass>         Provide a password, for sites like Nico Nico Douga.
-  --ignore-existing-item    If item already archived, disregard and attempt to archive anyway.
+  --ignore-existing-item    Ignores the check for existing items on archive.org.
   --use-download-archive    Record the video url to the download archive.
                             This will download only videos not listed in
                             the archive file. Record the IDs of all
