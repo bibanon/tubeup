@@ -10,7 +10,7 @@ It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/
 
 ## Prerequisites
 
-This script strongly recommends Linux or some sort of POSIX system (such as Mac OS X).
+This script strongly recommends Linux or some sort of POSIX system (such as Mac OS X), preferably from a rented VPS and not your personal machine or phone.
 
 Alternativly you should be able to get away with using Windows Terminal / WSL2.
 
