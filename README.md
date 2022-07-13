@@ -68,7 +68,7 @@ Once configured to upload, you're ready to go.
    
 ## Docker
 
-Dockerized tubeup is provided by https://github.com/etnguyen03/docker-tubeup. Instructions are provided.
+Dockerized tubeup is provided by [etnguyen03/docker-tubeup](https://github.com/etnguyen03/docker-tubeup). Instructions are provided.
    
 ## Windows Setup
 
