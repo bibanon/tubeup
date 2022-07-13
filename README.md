@@ -66,6 +66,10 @@ Once configured to upload, you're ready to go.
 
    `http://archive.org/details/@yourusername`.
    
+## Docker
+
+Dockerized tubeup is provided by [etnguyen03/docker-tubeup](https://github.com/etnguyen03/docker-tubeup). Instructions are provided.
+   
 ## Windows Setup
 
 1. Install WSL2, pick a distrobution of your choice. Ubuntu is popular and well-supported.
