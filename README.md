@@ -28,7 +28,7 @@ Alternativly you should be able to get away with using Windows Terminal / WSL2.
 For Debian/Ubuntu:
 
 ```
-   sudo apt install ffmpeg python3-pip git && sudo apt remove yt-dlc youtube-dl yt-dlp
+   sudo apt install ffmpeg python3-pip git
 ```
 
 2. Use pip3 to install the required python3 packages.
