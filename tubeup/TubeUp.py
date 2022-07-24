@@ -427,7 +427,7 @@ class TubeUp(object):
         :param url:  URL that the collection type will be determined.
         :return:     String, name of a collection.
         """
-        if urlparse(url).netloc == 'soundcloud.com':
+        if urlparse(url).netloc == 'soundcloud.com, freesound.org, audiodraft.com':
             return 'opensource_audio'
         return 'opensource_movies'
 
