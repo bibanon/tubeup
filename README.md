@@ -41,7 +41,7 @@ For Debian/Ubuntu:
 Perodically upgrade tubeup and its dependencies by running:
 
 ```
-   python3 -m pip install -U tubeup yt-dlp internetarchive
+   python3 -m pip install -U tubeup
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
