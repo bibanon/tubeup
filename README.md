@@ -56,7 +56,7 @@ You will be prompted for your login credentials for the Internet Archive account
 
 Once configured to upload, you're ready to go.
 
-5. Start archiving a video by running the script on a URL. Or multiple URLs at once. Youtube, Vimeo, Twitch, Dailymotion, [anything supported by yt-dlp.](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md) For YouTube, this includes account URLs and playlist URLs.
+5. Start archiving a video by running the script on a URL. Or multiple URLs at once. [Anything supported by yt-dlp.](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md). Many sites are supported. For YouTube, this includes account URLs and playlist URLs.
 
 ```
    tubeup <url>
