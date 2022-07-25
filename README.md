@@ -12,7 +12,7 @@ It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/
 
 This script strongly recommends Linux or some sort of POSIX system (such as Mac OS X), preferably from a rented VPS and not your personal machine or phone.
 
-Alternativly you should be able to get away with using Windows Terminal / WSL2.
+WLS2 for Windows instructions below.
 
 * **Python 3** - This script requires python3, which has better integration with Unicode strings.
 * **docopt** - The usage documentation can specify command line arguments and options.
@@ -38,15 +38,9 @@ For Debian/Ubuntu:
    python3 -m pip install -U pip tubeup
 ```
 
-Perodically upgrade tubeup and its dependencies by running:
-
-```
-   python3 -m pip install -U tubeup
-```
-
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
 
-4. Configure internetarchive with your Internet Archive account.
+4. Configure `internetarchive` with your Internet Archive account.
 
 ```
    ia configure
@@ -65,7 +59,15 @@ Once configured to upload, you're ready to go.
 6. Each archived video gets its own Archive.org item. Check out what you've uploaded at
 
    `http://archive.org/details/@yourusername`.
-   
+
+
+Perodically upgrade `tubeup` and its dependencies by running:
+
+```
+   python3 -m pip install -U tubeup pip
+```
+
+
 ## Docker
 
 Dockerized tubeup is provided by [etnguyen03/docker-tubeup](https://github.com/etnguyen03/docker-tubeup). Instructions are provided.
