@@ -176,12 +176,16 @@ class TubeUp(object):
 
                     if info_dict.get('_type', 'video') == 'playlist':
                         for entry in info_dict['entries']:
+                            if ydl.in_download_archive(entry):
+                                continue
                             if check_if_ia_item_exists(entry) == 0:
                                 ydl.extract_info(entry['webpage_url'])
                                 downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, entry))
                             else:
                                 ydl.record_download_archive(entry)
                     else:
+                        if ydl.in_download_archive(entry):
+                            continue
                         if check_if_ia_item_exists(info_dict) == 0:
                             ydl.extract_info(url)
                             downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, info_dict))
