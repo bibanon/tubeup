@@ -184,7 +184,7 @@ class TubeUp(object):
                             else:
                                 ydl.record_download_archive(entry)
                     else:
-                        if ydl.in_download_archive(entry):
+                        if ydl.in_download_archive(info_dict):
                             continue
                         if check_if_ia_item_exists(info_dict) == 0:
                             ydl.extract_info(url)
