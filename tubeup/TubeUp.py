@@ -111,11 +111,11 @@ class TubeUp(object):
         """
         downloaded_files_basename = set()
 
-        def check_if_ia_item_exists(infodict, url):
+        def check_if_ia_item_exists(infodict):
             itemname = sanitize_identifier('%s-%s' % (infodict['extractor'],
                                                       infodict['display_id']))
             item = internetarchive.get_item(itemname)
-            if item.exists:
+            if item.exists and self.verbose:
                 print("\n:: Item already exists. Not downloading.")
                 print('Title: %s' % infodict['title'])
                 print('Video URL: %s\n' % infodict['webpage_url'])
@@ -171,19 +171,22 @@ class TubeUp(object):
         with YoutubeDL(ydl_opts) as ydl:
             for url in urls:
                 if not ignore_existing_item:
-                    # Get the info dict of the url, it also download the resources
-                    # if necessary.
+                    # Get the info dict of the url
                     info_dict = ydl.extract_info(url, download=False)
 
                     if info_dict.get('_type', 'video') == 'playlist':
                         for entry in info_dict['entries']:
-                            if check_if_ia_item_exists(entry, url) < 1:
-                                ydl.extract_info(url)
+                            if check_if_ia_item_exists(entry) == 0:
+                                ydl.extract_info(entry['webpage_url'])
                                 downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, entry))
+                            else:
+                                ydl.record_download_archive(entry)
                     else:
-                        if check_if_ia_item_exists(info_dict, url) < 1:
+                        if check_if_ia_item_exists(info_dict) == 0:
                             ydl.extract_info(url)
                             downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, info_dict))
+                        else:
+                            ydl.record_download_archive(info_dict)
                 else:
                     info_dict = ydl.extract_info(url)
                     downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, info_dict))
