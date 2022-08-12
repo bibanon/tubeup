@@ -359,7 +359,6 @@ class TubeUp(object):
             msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
             raise Exception(msg)
 
-
         # Replace illegal characters within identifer
         itemname = sanitize_identifier(itemname)
 
