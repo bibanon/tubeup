@@ -337,6 +337,28 @@ class TubeUp(object):
         if glob.glob(videobasename + '*.part'):
             msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
             raise Exception(msg)
+        if glob.glob(videobasename + '*.f303*'):
+            msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
+            raise Exception(msg)
+        if glob.glob(videobasename + '*.f302*'):
+            msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
+            raise Exception(msg)
+        if glob.glob(videobasename + '*.ytdl'):
+            msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
+            raise Exception(msg)
+        if glob.glob(videobasename + '*.f251*'):
+            msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
+            raise Exception(msg)
+        if glob.glob(videobasename + '*.248*'):
+            msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
+            raise Exception(msg)
+        if glob.glob(videobasename + '*.f247*'):
+            msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
+            raise Exception(msg)
+        if glob.glob(videobasename + '*.temp'):
+            msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
+            raise Exception(msg)
+
 
         # Replace illegal characters within identifer
         itemname = sanitize_identifier(itemname)
