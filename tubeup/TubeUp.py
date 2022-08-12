@@ -334,10 +334,11 @@ class TubeUp(object):
         itemname = ('%s-%s' % (vid_meta['extractor'],
                                vid_meta['display_id']))
 
-        # Exit if video download did not complete, don't upload .part files to IA
-        if glob.glob(videobasename + '*.part'):
+        # Exit if video download did not complete, don't upload to IA
+        if glob.glob(videobasename + '*.part', '*.ytdl', '*.f302*', '*.f303*', '*.f251*', '*.f248*', '*.f247*' ):
             msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
             raise Exception(msg)
+            
 
         # Replace illegal characters within identifer
         itemname = sanitize_identifier(itemname)
