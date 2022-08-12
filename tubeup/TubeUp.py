@@ -152,7 +152,6 @@ class TubeUp(object):
                 self.logger.debug(d)
                 self.logger.info(msg)
                 if self.verbose:
-                    print('\n%s' % d)
                     print(msg)
 
             if d['status'] == 'error':
