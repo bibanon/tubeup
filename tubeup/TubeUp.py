@@ -116,9 +116,9 @@ class TubeUp(object):
                                                       infodict['display_id']))
             item = internetarchive.get_item(itemname)
             if item.exists and self.verbose:
-                print("\n:: Item already exists. Not downloading.")
+                print("\n:: Item already exists. Not downloading and uploading.")
                 print('Title: %s' % infodict['title'])
-                print('Video URL: %s\n' % infodict['webpage_url'])
+                print('Original Video URL: %s\n' % infodict['webpage_url'])
                 return 1
             return 0
 
