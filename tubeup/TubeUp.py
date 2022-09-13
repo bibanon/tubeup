@@ -242,7 +242,7 @@ class TubeUp(object):
                              ydl_output_template=None):
         """
         Generate a dictionary that contains options that will be used
-        by youtube_dl.
+        by yt-dlp.
 
         :param ydl_progress_hook:     A function that will be called during the
                                       download process by youtube_dl.
