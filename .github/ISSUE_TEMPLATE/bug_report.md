@@ -13,7 +13,8 @@ assignees: ''
 
 Carefully read and work through this check list in order to prevent the most common mistakes and misuse of tubeup, put x into all relevant boxes (like this [x])
 
-- [ ] I have fully updated tubeup, youtube-dl and internetarchive along with their associated dependencies.
+- [ ] If downloading has failed, try downloading it using yt-dlp. If that doesn't work, [it's not a tubeup bug, its a yt-dlp issue, submit it here](https://github.com/yt-dlp/yt-dlp/issues). Make sure to also search those issues and provide a yt-dlp verbose log, not a tubeup one.
+- [ ] I have fully updated tubeup, yt-dlp, and internetarchive along with their associated dependencies.
 - [ ] I've checked that all provided URLs are alive and playable in a browser
 - [ ] I've checked that all URLs and arguments with special characters are properly quoted or escaped
 - [ ] I've searched the issues (closed or open) for similar bug reports including closed ones
