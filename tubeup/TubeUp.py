@@ -490,8 +490,6 @@ class TubeUp(object):
         except TypeError:  # apparently uploader is null as well
             uploader = 'tubeup.py'
 
-        uploader_url = vid_meta.get('uploader_url', videourl)
-
         try:  # some videos don't give an upload date
             d = datetime.strptime(vid_meta['upload_date'], '%Y%m%d')
             upload_date = d.isoformat().split('T')[0]
