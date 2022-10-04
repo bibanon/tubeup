@@ -534,10 +534,6 @@ class TubeUp(object):
         # archive.org does not display raw newlines
         description_text = re.sub('\r?\n', '<br>', description_text)
 
-        description = ('{0} <br/><br/>Source: <a href="{1}">{2}</a>'
-                       '<br/>Uploader: <a href="{3}">{4}</a>').format(
-            description_text, videourl, videourl, uploader_url, uploader)
-
         metadata = dict(
             mediatype=('audio' if collection == 'opensource_audio'
                        else 'movies'),
