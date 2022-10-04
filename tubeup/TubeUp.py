@@ -532,7 +532,7 @@ class TubeUp(object):
         if description_text is None:
             description_text = ''
         # archive.org does not display raw newlines
-        description_text = re.sub('\r?\n', '<br>', description_text)
+        description = re.sub('\r?\n', '<br>', description_text)
 
         metadata = dict(
             mediatype=('audio' if collection == 'opensource_audio'
