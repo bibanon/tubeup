@@ -70,15 +70,15 @@ def main():
     args = docopt.docopt(__doc__, version=__version__)
 
     URLs = args['<url>']
-    cookie_file = args['--cookies']
-    proxy_url = args['--proxy']
-    username = args['--username']
-    password = args['--password']
-    quiet_mode = args['--quiet']
-    debug_mode = args['--debug']
-    use_download_archive = args['--use-download-archive']
-    get_comments = args['--get-comments']
-    ignore_existing_item = args['--ignore-existing-item']
+    cookie_file = args['--cookies', '-o']
+    proxy_url = args['--proxy', '-y"]
+    username = args['--username', '-u']
+    password = args['--password', '-p']
+    quiet_mode = args['--quiet', '-q']
+    debug_mode = args['--debug', '-v']
+    use_download_archive = args['--use-download-archive', '-a']
+    get_comments = args['--get-comments', '-c']
+    ignore_existing_item = args['--ignore-existing-item', '-i']
 
     if debug_mode:
         # Display log messages.
