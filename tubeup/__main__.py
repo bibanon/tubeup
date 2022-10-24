@@ -71,7 +71,7 @@ def main():
 
     URLs = args['<url>']
     cookie_file = args['--cookies', '-o']
-    proxy_url = args['--proxy', '-y"]
+    proxy_url = args['--proxy', '-y']
     username = args['--username', '-u']
     password = args['--password', '-p']
     quiet_mode = args['--quiet', '-q']
