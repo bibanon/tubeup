@@ -170,8 +170,10 @@ class TubeUp(object):
         with YoutubeDL(ydl_opts) as ydl:
             for url in urls:
                 if not ignore_existing_item:
-                    # Get the info dict of the url
-                    info_dict = ydl.extract_info(url, download=False)
+                    # Get the info dict of the url, without getting comments
+                    ydl_opts["getcomments"] = False
+                    with YoutubeDL(ydl_opts) as ydl_nocomments:
+                        info_dict = ydl_nocomments.extract_info(url, download=False)
 
                     if info_dict.get('_type', 'video') == 'playlist':
                         for entry in info_dict['entries']:
