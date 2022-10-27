@@ -38,19 +38,19 @@ Arguments:
                                 item.
 
 Options:
-  -h --help                 Show this screen.
-  --proxy <prox>            Use a proxy while uploading.
-  --username <user>         Provide a username, for sites like Nico Nico Douga.
-  --password <pass>         Provide a password, for sites like Nico Nico Douga.
-  --use-download-archive    Record the video url to the download archive.
-                            This will download only videos not listed in
-                            the archive file. Record the IDs of all
-                            downloaded videos in it.
-  --quiet                   Just print errors.
-  --debug                   Print all logs to stdout.
-  --output <output>         Youtube-dlc output template.
-  --get-comments            Scrape video comments.
-  --ignore-existing-item    Don't check if an item already exists on archive.org
+  -h --help                    Show this screen.
+  -p --proxy <prox>            Use a proxy while uploading.
+  -u --username <user>         Provide a username, for sites like Nico Nico Douga.
+  -p --password <pass>         Provide a password, for sites like Nico Nico Douga.
+  -a --use-download-archive    Record the video url to the download archive.
+                               This will download only videos not listed in
+                               the archive file. Record the IDs of all
+                               downloaded videos in it.
+  -q --quiet                   Just print errors.
+  -d --debug                   Print all logs to stdout.
+  -o --output <output>         Youtube-dlc output template.
+  -c --get-comments            Scrape video comments.
+  -i --ignore-existing-item    Don't check if an item already exists on archive.org
 """
 
 import sys
@@ -70,15 +70,15 @@ def main():
     args = docopt.docopt(__doc__, version=__version__)
 
     URLs = args['<url>']
-    cookie_file = args['--cookies', '-o']
-    proxy_url = args['--proxy', '-y']
-    username = args['--username', '-u']
-    password = args['--password', '-p']
-    quiet_mode = args['--quiet', '-q']
-    debug_mode = args['--debug', '-v']
-    use_download_archive = args['--use-download-archive', '-a']
-    get_comments = args['--get-comments', '-c']
-    ignore_existing_item = args['--ignore-existing-item', '-i']
+    cookie_file = args['--cookies']
+    proxy_url = args['--proxy']
+    username = args['--username']
+    password = args['--password']
+    quiet_mode = args['--quiet']
+    debug_mode = args['--debug']
+    use_download_archive = args['--use-download-archive']
+    get_comments = args['--get-comments']
+    ignore_existing_item = args['--ignore-existing-item']
 
     if debug_mode:
         # Display log messages.
