@@ -136,10 +136,6 @@ You can specify a different collection with the `--metadata` flag:
 Any arbitrary metadata can be added to the item, with a few exceptions.
 You can learn more about archive.org metadata [here](https://archive.org/services/docs/api/metadata-schema/).
 
-## Video comments
-
-Retrieving video comments can be slow, and as such is disabled by default. This functionality can be enabled using the `--get-comments` flag.
-
 ### Collections
 
 Archive.org users can upload to four open collections:

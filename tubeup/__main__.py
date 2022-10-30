@@ -25,7 +25,6 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
-                  [--get-comments]
                   [--ignore-existing-item]
   tubeup -h | --help
   tubeup --version
@@ -49,7 +48,6 @@ Options:
   -q --quiet                   Just print errors.
   -d --debug                   Print all logs to stdout.
   -o --output <output>         Youtube-dlc output template.
-  -c --get-comments            Scrape video comments.
   -i --ignore-existing-item    Don't check if an item already exists on archive.org
 """
 
@@ -77,7 +75,6 @@ def main():
     quiet_mode = args['--quiet']
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
-    get_comments = args['--get-comments']
     ignore_existing_item = args['--ignore-existing-item']
 
     if debug_mode:
@@ -96,8 +93,7 @@ def main():
     metadata = internetarchive.cli.argparser.get_args_dict(args['--metadata'])
 
     tu = TubeUp(verbose=not quiet_mode,
-                output_template=args['--output'],
-                get_comments=get_comments)
+                output_template=args['--output'])
 
     try:
         for identifier, meta in tu.archive_urls(URLs, metadata,
