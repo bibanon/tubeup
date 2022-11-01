@@ -168,6 +168,8 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 - [Jake Johnson](https://github.com/jjjake) of the Internet Archive for adding variable collections ability as a flag, switching Tubeup from a script to PyPi repository, ISO-compliant item dates, fixing what others couldn't, and many improvements.
 - [Refeed](https://github.com/refeed) for re-basing the code to OOP, turning Tubeup itself into a library. and adding download and upload bar graphs, and squashing bugs.
 
+## Video comments
+Retrieving video comments is out of scope of tubeup, however it used to be supported. We strongly reccomend to use other tools to archive them. However, if you want to add comment support, please install version 0.0.33 and use the --get-comments flag. Please note that this version will indefinitely not ever get any further updates, and may break in the future without notice.
 ## License (GPLv3)
 
 Copyright (C) 2020 Bibliotheca Anonoma
