@@ -143,7 +143,7 @@ class TubeUp(object):
                 sys.stdout.flush()
 
             if d['status'] == 'finished':
-                msg = 'Downloaded %s' % d['filename']
+                msg = '\nDownloaded %s' % d['filename']
 
                 self.logger.debug(d)
                 self.logger.info(msg)
