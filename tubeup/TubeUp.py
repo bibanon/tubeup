@@ -255,6 +255,8 @@ class TubeUp(object):
         :return:                      A dictionary that contains options that will
                                       be used by youtube_dl.
         """
+        if get_comments is true
+          print("Support for --get-comments was removed in Tubeup 0.0.35 due to being out of scope and downloading comments twice, making it slow. Please use another solution to archive comments.")
         ydl_opts = {
             'outtmpl': os.path.join(self.dir_path['downloads'],
                                     self.output_template),
