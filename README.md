@@ -4,7 +4,7 @@ Tubeup - a multi-VOD service to Archive.org uploader
 ![Unit Tests](https://github.com/bibanon/tubeup/workflows/Unit%20Tests/badge.svg)
 ![Lint](https://github.com/bibanon/tubeup/workflows/Lint/badge.svg)
 
-`tubeup` uses yt-dlp to download a Youtube video (or [any other provider supported by YTDL-P](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md)), and then uploads it with all metadata to the Internet Archive using the python module internetarchive.
+`tubeup` uses yt-dlp to download a Youtube video (or [any other provider supported by yt-dlp](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md)), and then uploads it with all metadata to the Internet Archive using the python module internetarchive.
 
 It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/wiki) to archive entire Youtube accounts and playlists to the Internet Archive.
 
@@ -139,13 +139,13 @@ You can learn more about archive.org metadata [here](https://archive.org/service
 ### Collections
 
 Archive.org users can upload to four open collections:
-
+* Community Video, the default
 * [Community Audio](https://archive.org/details/opensource_audio) where the identifier is `opensource_audio`.
 * [Community Software](https://archive.org/details/open_source_software)  where the identifier is `opensource_software`.
 * [Community Texts](https://archive.org/details/opensource) where the identifier is `opensource`.
 * [Community Video](https://archive.org/details/opensource_movies) where the identifier is `opensource_movies`.
 
-Note that care should be taken when uploading entire channels.
+Note that care should be taken when uploading channels with a lot of videos in their entirety.
 Read the appropraite section [in this guide](https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff](mailto:collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example). Internet Archive collections staff will either create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
 
 **Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the Internet Archive admins first before doing large uploads; it's better to ask for guidence or help first than run afoul of the rules._
@@ -167,6 +167,7 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 - mrpapersonic for adding logic to check if an item already exists in the Internet Archive and skips if already exists
 - [Jake Johnson](https://github.com/jjjake) of the Internet Archive for adding variable collections ability as a flag, switching Tubeup from a script to PyPi repository, ISO-compliant item dates, fixing what others couldn't, and many improvements.
 - [Refeed](https://github.com/refeed) for re-basing the code to OOP, turning Tubeup itself into a library. and adding download and upload bar graphs, and squashing bugs.
+- [johtso](https://github.com/johtso) for adding support for comments, even tough it removed later and split off.
 
 ## Video comments
 Retrieving video comments is out of scope of tubeup, however it once was supported. We strongly reccomend to use other tools to archive them. Please note that versions including the command will indefinitely not ever get any further updates, and may break in the future without notice.
