@@ -198,7 +198,7 @@ class TubeUp(object):
 
     def create_basenames_from_ydl_info_dict(self, ydl, info_dict):
         """
-        Create basenames from YoutubeDL info_dict.
+        Create basenames from yt-dlp info_dict.
 
         :param ydl:        A `youtube_dl.YoutubeDL` instance.
         :param info_dict:  A ydl info_dict that will be used to create
