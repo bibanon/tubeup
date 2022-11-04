@@ -10,7 +10,7 @@ It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/
 
 ## Prerequisites
 
-This script strongly recommends Linux or some sort of POSIX system (such as Mac OS X), preferably from a rented VPS and not your personal machine or phone.
+This script strongly recommends Linux or some sort of POSIX system (such as macOS), preferably from a rented or self-hosted VPS and not your personal machine or phone, altough it is possible to do either. 
 
 WLS2 for Windows instructions below.
 
@@ -169,7 +169,7 @@ Read the appropraite section [in this guide](https://archive.org/about/faqs.php#
 - [Refeed](https://github.com/refeed) for re-basing the code to OOP, turning Tubeup itself into a library. and adding download and upload bar graphs, and squashing bugs.
 
 ## Video comments
-Retrieving video comments is out of scope of tubeup, however it used to be supported. We strongly reccomend to use other tools to archive them. However, if you want to add comment support, please install version 0.0.33 and use the --get-comments flag. Please note that this version will indefinitely not ever get any further updates, and may break in the future without notice.
+Retrieving video comments is out of scope of tubeup, however it once was supported. We strongly reccomend to use other tools to archive them. Please note that versions including the command will indefinitely not ever get any further updates, and may break in the future without notice.
 ## License (GPLv3)
 
 Copyright (C) 2020 Bibliotheca Anonoma
