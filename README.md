@@ -94,7 +94,6 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
-                  [--get-comments]
                   [--ignore-existing-item]
   tubeup -h | --help
   tubeup --version
