@@ -76,6 +76,7 @@ def main():
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
     ignore_existing_item = args['--ignore-existing-item']
+    get_comments = args['--ignore-existing-item']
 
     if debug_mode:
         # Display log messages.
