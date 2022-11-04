@@ -30,8 +30,8 @@ Usage:
   tubeup --version
 
 Arguments:
-  <url>                         Youtube-dlc compatible URL to download.
-                                Check Youtube-dlc documentation for a list
+  <url>                         yt-dlp compatible URL to download.
+                                Check yt-dlp documentation for a list
                                 of compatible websites.
   --metadata=<key:value>        Custom metadata to add to the archive.org
                                 item.
@@ -47,7 +47,7 @@ Options:
                                downloaded videos in it.
   -q --quiet                   Just print errors.
   -d --debug                   Print all logs to stdout.
-  -o --output <output>         Youtube-dlc output template.
+  -o --output <output>         yt-dlp output template.
   -i --ignore-existing-item    Don't check if an item already exists on archive.org
 """
 
