@@ -6,19 +6,15 @@ Tubeup - a multi-VOD service to Archive.org uploader
 
 `tubeup` uses yt-dlp to download a Youtube video (or [any other provider supported by YTDL-P](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md)), and then uploads it with all metadata to the Internet Archive using the python module internetarchive.
 
-It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/wiki) to archive entire Youtube accounts and playlists to the Internet Archive.
+It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/wiki) to archive single videos, playlists (see warning below about more than video uploads) or accounts Internet Archive.
 
 ## Prerequisites
 
 This script strongly recommends Linux or some sort of POSIX system (such as Mac OS X), preferably from a rented VPS and not your personal machine or phone.
 
-WLS2 for Windows instructions below.
-
-* **Python 3** - This script requires python3, which has better integration with Unicode strings.
-* **docopt** - The usage documentation can specify command line arguments and options.
-* **yt-dlp** - Used to download the videos.
-* **internetarchive** - A Python library used to upload videos with their metadata to the Internet Archive.
-* **jsonpatch** - For JSON things.
+Reccomended system specifications:
+- Linux bpx with the latest Python and `pip` installed
+- 2GB of RAM, 100GB of storage or much more for anything other than single short video mirroring.
 
 ## Setup and Installation
 
@@ -61,7 +57,7 @@ Once configured to upload, you're ready to go.
    `http://archive.org/details/@yourusername`.
 
 
-Perodically upgrade `tubeup` and its dependencies by running:
+Perodically *before* running, upgrade `tubeup` and its dependencies by running:
 
 ```
    python3 -m pip install -U tubeup pip
