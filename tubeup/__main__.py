@@ -25,7 +25,6 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
-                  [--get-comments]
                   [--ignore-existing-item]
   tubeup -h | --help
   tubeup --version
@@ -38,19 +37,18 @@ Arguments:
                                 item.
 
 Options:
-  -h --help                 Show this screen.
-  --proxy <prox>            Use a proxy while uploading.
-  --username <user>         Provide a username, for sites like Nico Nico Douga.
-  --password <pass>         Provide a password, for sites like Nico Nico Douga.
-  --use-download-archive    Record the video url to the download archive.
-                            This will download only videos not listed in
-                            the archive file. Record the IDs of all
-                            downloaded videos in it.
-  --quiet                   Just print errors.
-  --debug                   Print all logs to stdout.
-  --output <output>         Youtube-dlc output template.
-  --get-comments            Scrape video comments.
-  --ignore-existing-item    Don't check if an item already exists on archive.org
+  -h --help                    Show this screen.
+  -p --proxy <prox>            Use a proxy while uploading.
+  -u --username <user>         Provide a username, for sites like Nico Nico Douga.
+  -p --password <pass>         Provide a password, for sites like Nico Nico Douga.
+  -a --use-download-archive    Record the video url to the download archive.
+                               This will download only videos not listed in
+                               the archive file. Record the IDs of all
+                               downloaded videos in it.
+  -q --quiet                   Just print errors.
+  -d --debug                   Print all logs to stdout.
+  -o --output <output>         Youtube-dlc output template.
+  -i --ignore-existing-item    Don't check if an item already exists on archive.org
 """
 
 import sys
@@ -77,7 +75,6 @@ def main():
     quiet_mode = args['--quiet']
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
-    get_comments = args['--get-comments']
     ignore_existing_item = args['--ignore-existing-item']
 
     if debug_mode:
@@ -96,8 +93,7 @@ def main():
     metadata = internetarchive.cli.argparser.get_args_dict(args['--metadata'])
 
     tu = TubeUp(verbose=not quiet_mode,
-                output_template=args['--output'],
-                get_comments=get_comments)
+                output_template=args['--output'])
 
     try:
         for identifier, meta in tu.archive_urls(URLs, metadata,
@@ -107,7 +103,7 @@ def main():
                                                 ignore_existing_item):
             print('\n:: Upload Finished. Item information:')
             print('Title: %s' % meta['title'])
-            print('Upload URL: https://archive.org/details/%s\n' % identifier)
+            print('Item URL: https://archive.org/details/%s\n' % identifier)
     except Exception:
         print('\n\033[91m'  # Start red color text
               'An exception just occured, if you found this '

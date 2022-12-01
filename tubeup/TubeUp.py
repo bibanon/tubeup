@@ -27,8 +27,7 @@ class TubeUp(object):
                  verbose=False,
                  dir_path='~/.tubeup',
                  ia_config_path=None,
-                 output_template=None,
-                 get_comments=False):
+                 output_template=None):
         """
         `tubeup` is a tool to archive YouTube by downloading the videos and
         uploading it back to the archive.org.
@@ -42,8 +41,6 @@ class TubeUp(object):
                                 be used in uploading the file.
         :param output_template: A template string that will be used to
                                 generate the output filenames.
-        :param get_comments:    A boolean, True means that the comments will
-                                be scraped.
         """
         self.dir_path = dir_path
         self.verbose = verbose
@@ -53,7 +50,6 @@ class TubeUp(object):
             self.output_template = '%(id)s.%(ext)s'
         else:
             self.output_template = output_template
-        self.get_comments = get_comments
 
         # Just print errors in quiet mode
         if not self.verbose:
@@ -147,7 +143,7 @@ class TubeUp(object):
                 sys.stdout.flush()
 
             if d['status'] == 'finished':
-                msg = 'Downloaded %s' % d['filename']
+                msg = '\nDownloaded %s' % d['filename']
 
                 self.logger.debug(d)
                 self.logger.info(msg)
@@ -273,7 +269,6 @@ class TubeUp(object):
             'forcejson': False,
             'writeinfojson': True,
             'writedescription': True,
-            'getcomments': self.get_comments,
             'writethumbnail': True,
             'writeannotations': True,
             'writesubtitles': True,
