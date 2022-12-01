@@ -103,7 +103,7 @@ def main():
                                                 ignore_existing_item):
             print('\n:: Upload Finished. Item information:')
             print('Title: %s' % meta['title'])
-            print('Upload URL: https://archive.org/details/%s\n' % identifier)
+            print('Item URL: https://archive.org/details/%s\n' % identifier)
     except Exception:
         print('\n\033[91m'  # Start red color text
               'An exception just occured, if you found this '
