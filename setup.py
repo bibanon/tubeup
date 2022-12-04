@@ -28,6 +28,6 @@ setup(
         'internetarchive==3.0.2',
         'urllib3==1.26.13',
         'docopt==0.6.2',
-        'yt-dlp==2022.11.11',
+        'yt-dlp',
     ]
 )
