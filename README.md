@@ -10,16 +10,16 @@ It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/
 
 ## Prerequisites
 
-This script strongly recommends Linux or some sort of POSIX system (such as Mac OS X), preferably from a rented VPS and not your personal machine or phone.
+This script strongly recommends Linux or some sort of POSIX system (such as macOS), preferably from a rented VPS and not your personal machine or phone.
 
 Reccomended system specifications:
-- Linux VPS with the Python 3.8 or higher, and `pip` installed
+- Linux VPS with Python 3.8 or higher and `pip` installed
 - 2GB of RAM, 100GB of storage or much more for anything other than single short video mirroring. If your OS drive is too small, `symlink` it to something larger.
 
 ## Setup and Installation
 
-1. Install `ffmpeg` pip3 (typically `python3-pip`) and git.  
-   To install ffmpeg in ubuntu have the Universe repository enabled.
+1. Install `ffmpeg`, pip3 (typically `python3-pip`), and git.  
+   To install ffmpeg in Ubuntu, enable the Universe repository.
 
 For Debian/Ubuntu:
 
@@ -46,7 +46,7 @@ You will be prompted for your login credentials for the Internet Archive account
 
 Once configured to upload, you're ready to go.
 
-5. Start archiving a video by running the script on a URL. Or multiple URLs at once. [Anything supported by yt-dlp.](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md). Many sites are supported. For YouTube, this includes account URLs and playlist URLs.
+5. Start archiving a video by running the script on a URL (or multiple URLs) [supported by yt-dlp.](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md). For YouTube, this includes account URLs and playlist URLs.
 
 ```
    tubeup <url>
@@ -70,14 +70,13 @@ Dockerized tubeup is provided by [etnguyen03/docker-tubeup](https://github.com/e
    
 ## Windows Setup
 
-1. Install WSL2, pick a distrobution of your choice. Ubuntu is popular and well-supported.
-2. Use Windows Terminal by Microsoft to interact with the WSL2 instance
-3. Fully update the Linux installation with your package manager of choice 
+1. Install WSL2, pick a distribution of your choice. Ubuntu is popular and well-supported.
+2. Use Windows Terminal by Microsoft to interact with the WSL2 instance.
+3. Fully update the Linux installation with your package manager of choice.
    ```sudo apt update ; sudo apt upgrade```
-4. Install python `pip`.
-5. Install `ffmpeg`.
-6. Install Tubeup using steps 4-6 in the Linux configutation guide above, configuring `internetarchive` for your Archive.org account.
-7. Periodically update your Linux packages and pip packages.
+4. Install python `pip` and `ffmpeg`.
+5. Install Tubeup using steps 4-6 in the Linux configuration guide above and configuring `internetarchive` for your Archive.org account.
+6. Periodically update your Linux packages and pip packages.
 
 ## Usage
 
@@ -90,7 +89,6 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
-                  [--get-comments]
                   [--ignore-existing-item]
   tubeup -h | --help
   tubeup --version
@@ -102,21 +100,19 @@ Arguments:
                                 of compatible websites.
   --metadata=<key:value>        Custom metadata to add to the archive.org
                                 item.
-
 Options:
-  -h --help                 Show this screen.
-  --proxy <prox>            Use a proxy while uploading.
-  --username <user>         Provide a username, for sites like Nico Nico Douga.
-  --password <pass>         Provide a password, for sites like Nico Nico Douga.
-  --ignore-existing-item    Ignores the check for existing items on archive.org.
-  --use-download-archive    Record the video url to the download archive.
-                            This will download only videos not listed in
-                            the archive file. Record the IDs of all
-                            downloaded videos in it.
-  --quiet                   Just print errors.
-  --debug                   Print all logs to stdout.
-  --output <output>         yt-dlp output template.
-
+  -h --help                    Show this screen.
+  -p --proxy <prox>            Use a proxy while uploading.
+  -u --username <user>         Provide a username, for sites like Nico Nico Douga.
+  -p --password <pass>         Provide a password, for sites like Nico Nico Douga.
+  -a --use-download-archive    Record the video url to the download archive.
+                               This will download only videos not listed in
+                               the archive file. Record the IDs of all
+                               downloaded videos in it.
+  -q --quiet                   Just print errors.
+  -d --debug                   Print all logs to stdout.
+  -o --output <output>         yt-dlp output template.
+  -i --ignore-existing-item    Don't check if an item already exists on archive.org
 ```
 
 ## Metadata
@@ -142,7 +138,7 @@ Archive.org users can upload to four open collections:
 * [Community Video](https://archive.org/details/opensource_movies) where the identifier is `opensource_movies`.
 
 Note that care should be taken when uploading entire channels.
-Read the appropraite section [in this guide](https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff](mailto:collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example). Internet Archive collections staff will either create a collection for you or merge any uploaded items based on the Youtube uploader name that are already up into a new collection.
+Read the appropriate section [in this guide](https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff](mailto:collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example). Internet Archive collections staff will either create a collection for you or merge any uploaded items based on the YouTube uploader name that are already up into a new collection.
 
 **Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the Internet Archive admins first before doing large uploads; it's better to ask for guidence or help first than run afoul of the rules._
 
