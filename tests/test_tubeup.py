@@ -517,12 +517,7 @@ class TubeUpTests(unittest.TestCase):
                                  ' channel in description:<br>https://www.youtub'
                                  'e.com/channel/UCWpsozCMdAnfI16rZHQ9XDg<br>© D'
                                  'on\'t forget to SUBSCRIBE, LIKE, COMMENT an'
-                                 'd RATE. Hope you all enjoy! <br/><br/>Sourc'
-                                 'e: <a href="https://www.youtube.com/watch?v'
-                                 '=6iRV8liah8A">https://www.youtube.com/watch'
-                                 '?v=6iRV8liah8A</a><br/>Uploader: <a href="h'
-                                 'ttp://www.youtube.com/channel/UCWpsozCMdAnf'
-                                 'I16rZHQ9XDg">Video Background</a>'),
+                                 'd RATE. Hope you all enjoy!'),
                  'date': '2015-01-05',
                  'year': '2015',
                  'subject': ('Youtube;video;Entertainment;Video Background;'
