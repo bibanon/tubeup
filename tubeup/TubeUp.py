@@ -485,8 +485,6 @@ class TubeUp(object):
         except TypeError:  # apparently uploader is null as well
             uploader = 'tubeup.py'
 
-        uploader_url = vid_meta.get('uploader_url', videourl)
-
         try:  # some videos don't give an upload date
             d = datetime.strptime(vid_meta['upload_date'], '%Y%m%d')
             upload_date = d.isoformat().split('T')[0]
@@ -527,11 +525,7 @@ class TubeUp(object):
         if description_text is None:
             description_text = ''
         # archive.org does not display raw newlines
-        description_text = re.sub('\r?\n', '<br>', description_text)
-
-        description = ('{0} <br/><br/>Source: <a href="{1}">{2}</a>'
-                       '<br/>Uploader: <a href="{3}">{4}</a>').format(
-            description_text, videourl, videourl, uploader_url, uploader)
+        description = re.sub('\r?\n', '<br>', description_text)
 
         metadata = dict(
             mediatype=('audio' if collection == 'opensource_audio'
