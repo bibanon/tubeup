@@ -329,7 +329,7 @@ class TubeUp(object):
                                vid_meta['display_id']))
 
         # Exit if video download did not complete, don't upload .part files to IA
-        for ext in ['*.part', '*.f303*', '*.f302*', '*.ytdl', '*.f251*', '*.248*', '*.f247*', '*.temp']:
+        for ext in ['*.part', '*.f303.*', '*.f302.*', '*.ytdl', '*.f251.*', '*.248.*', '*.f247.*', '*.temp']:
             if glob.glob(videobasename + ext):
                 msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
                 raise Exception(msg)
@@ -543,5 +543,11 @@ class TubeUp(object):
             # Set 'scanner' metadata pair to allow tracking of TubeUp
             # powered uploads, per request from archive.org
             scanner='TubeUp Video Stream Mirroring Application {}'.format(__version__))
+
+        # add channel url if it exists
+        if 'uploader_url' in vid_meta:
+            metadata["channel"] = vid_meta["uploader_url"]
+        elif 'channel_url' in vid_meta:
+            metadata["channel"] = vid_meta["channel_url"]
 
         return metadata

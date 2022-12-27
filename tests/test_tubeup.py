@@ -307,6 +307,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'mediatype': 'movies',
+            'channel': 'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg',
             'creator': 'Video Background',
             'collection': 'opensource_movies',
             'title': 'Mountain 3 - Video Background HD 1080p',
@@ -355,6 +356,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'mediatype': 'movies',
+            'channel': 'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg',
             'creator': 'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg',
             'collection': 'opensource_movies',
             'title': 'Mountain 3 - Video Background HD 1080p',
@@ -392,6 +394,7 @@ class TubeUpTests(unittest.TestCase):
 
         expected_result = {
             'mediatype': 'movies',
+            'channel': 'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg',
             'creator': 'Video Background',
             'collection': 'opensource_movies',
             'title': 'Mountain 3 - Video Background HD 1080p',
@@ -490,6 +493,7 @@ class TubeUpTests(unittest.TestCase):
             expected_result = (
                 'youtube-6iRV8liah8A',
                 {'mediatype': 'movies',
+                 'channel': 'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg',
                  'creator': 'Video Background',
                  'collection': 'opensource_movies',
                  'title': 'Mountain 3 - Video Background HD 1080p',
@@ -548,6 +552,7 @@ class TubeUpTests(unittest.TestCase):
                 'youtube-KdsN9YhkDrY',
                 {'mediatype': 'movies',
                  'creator': 'RelaxingWorld',
+                 'channel': 'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg',
                  'collection': 'opensource_movies',
                  'title': 'Epic Ramadan - Video Background HD1080p',
                  'description': ('If you enjoy my work, please consider Subscribe to my NEW '
