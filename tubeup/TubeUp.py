@@ -302,8 +302,7 @@ class TubeUp(object):
 
         if proxy_url is not None:
             ydl_opts['proxy'] = proxy_url
-            ydl_opts['usenetrc'] = True
-            ydl_opts['format'] = ydl_option_format
+            ydl_opts['format'] = "bv*+ba/b"
 
         if ydl_username is not None:
             ydl_opts['username'] = ydl_username
