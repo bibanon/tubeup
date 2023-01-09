@@ -302,7 +302,7 @@ class TubeUp(object):
 
         if proxy_url is not None:
             ydl_opts['proxy'] = proxy_url
-            ydl_opts['format'] = "bv*+ba/b"
+            ydl_opts['format'] = "b[filesize<300M] / w"
 
         if ydl_username is not None:
             ydl_opts['username'] = ydl_username
