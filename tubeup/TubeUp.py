@@ -303,6 +303,7 @@ class TubeUp(object):
         if proxy_url is not None:
             ydl_opts['proxy'] = proxy_url
             ydl_opts['usenetrc'] = True
+            ydl_opts['format'] = ydl_option_format
 
         if ydl_username is not None:
             ydl_opts['username'] = ydl_username
@@ -312,7 +313,6 @@ class TubeUp(object):
 
         if ydl_option_format is not None:
             ydl_opts['format'] = ydl_option_format
-
 
         if use_download_archive:
             ydl_opts['download_archive'] = os.path.join(self.dir_path['root'],
