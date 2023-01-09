@@ -301,7 +301,6 @@ class TubeUp(object):
 
         if proxy_url is not None:
             ydl_opts['proxy'] = proxy_url
-#            ydl_opts['format'] = "bestvideo[height<=1280]+bestaudio"
 
         if ydl_username is not None:
             ydl_opts['username'] = ydl_username
