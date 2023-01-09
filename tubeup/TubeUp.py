@@ -238,7 +238,8 @@ class TubeUp(object):
                              ydl_username=None,
                              ydl_password=None,
                              use_download_archive=False,
-                             ydl_output_template=None):
+                             ydl_output_template=None,
+                             ydl_option_format=None):
         """
         Generate a dictionary that contains options that will be used
         by yt-dlp.
@@ -255,6 +256,7 @@ class TubeUp(object):
                                       This will download only videos not listed in
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
+        :param ydl_option_format:     youtube_dl option format
         :return:                      A dictionary that contains options that will
                                       be used by youtube_dl.
         """
@@ -306,6 +308,9 @@ class TubeUp(object):
 
         if ydl_password is not None:
             ydl_opts['password'] = ydl_password
+
+        if ydl_option_format is not None:
+            ydl_opts['format'] = ydl_option_format
 
         if use_download_archive:
             ydl_opts['download_archive'] = os.path.join(self.dir_path['root'],
@@ -394,7 +399,8 @@ class TubeUp(object):
                      cookie_file=None, proxy=None,
                      ydl_username=None, ydl_password=None,
                      use_download_archive=False,
-                     ignore_existing_item=False):
+                     ignore_existing_item=False,
+                     ydl_option_format=None):
         """
         Download and upload videos from youtube_dl supported sites to
         archive.org
@@ -414,12 +420,13 @@ class TubeUp(object):
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
+        :param ydl_option_format:     YoutubeDL option format.
         :return:                      Tuple containing identifier and metadata of the
                                       file that has been uploaded to archive.org.
         """
         downloaded_file_basenames = self.get_resource_basenames(
             urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive,
-            ignore_existing_item)
+            ignore_existing_item, ydl_option_format)
         for basename in downloaded_file_basenames:
             identifier, meta = self.upload_ia(basename, custom_meta)
             yield identifier, meta
