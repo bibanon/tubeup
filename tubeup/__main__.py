@@ -26,7 +26,7 @@ Usage:
                   [--use-download-archive]
                   [--output <output>]
                   [--ignore-existing-item]
-                  [--ydl_option_format]
+                  [--ydl-option-format]
   tubeup -h | --help
   tubeup --version
 
