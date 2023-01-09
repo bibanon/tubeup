@@ -26,7 +26,7 @@ Usage:
                   [--use-download-archive]
                   [--output <output>]
                   [--ignore-existing-item]
-                  [--ydl-option-format]
+                  [--ydl-option-format=<format>]
   tubeup -h | --help
   tubeup --version
 
@@ -50,7 +50,7 @@ Options:
   -d --debug                   Print all logs to stdout.
   -o --output <output>         Youtube-dlc output template.
   -i --ignore-existing-item    Don't check if an item already exists on archive.org
-  -f --ydl-option-format       Youtube-dlc option format
+  -f --ydl-option-format <format> Youtube-dlc option format
 """
 
 import sys
