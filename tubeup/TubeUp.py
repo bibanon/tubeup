@@ -311,6 +311,7 @@ class TubeUp(object):
 
         if ydl_option_format is not None:
             ydl_opts['format'] = ydl_option_format
+            'usenetrc': True
 
         if use_download_archive:
             ydl_opts['download_archive'] = os.path.join(self.dir_path['root'],
