@@ -86,7 +86,8 @@ class TubeUp(object):
                                cookie_file=None, proxy_url=None,
                                ydl_username=None, ydl_password=None,
                                use_download_archive=False,
-                               ignore_existing_item=False):
+                               ignore_existing_item=False,
+                               ydl_option_format=None):
         """
         Get resource basenames from an url.
 
@@ -103,6 +104,7 @@ class TubeUp(object):
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
+        :param ydl_option_format:     format option for YoutubeDL
         :return:                      Set of videos basename that has been downloaded.
         """
         downloaded_files_basename = set()
@@ -161,7 +163,8 @@ class TubeUp(object):
         ydl_opts = self.generate_ydl_options(ydl_progress_hook,
                                              cookie_file, proxy_url,
                                              ydl_username, ydl_password,
-                                             use_download_archive)
+                                             use_download_archive,
+                                             ydl_option_format)
 
         with YoutubeDL(ydl_opts) as ydl:
             for url in urls:

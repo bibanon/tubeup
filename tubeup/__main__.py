@@ -26,6 +26,7 @@ Usage:
                   [--use-download-archive]
                   [--output <output>]
                   [--ignore-existing-item]
+                  [--ydl_option_format]
   tubeup -h | --help
   tubeup --version
 
@@ -49,6 +50,7 @@ Options:
   -d --debug                   Print all logs to stdout.
   -o --output <output>         Youtube-dlc output template.
   -i --ignore-existing-item    Don't check if an item already exists on archive.org
+  -f --ydl-option-format       Youtube-dlc option format
 """
 
 import sys
@@ -76,6 +78,7 @@ def main():
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
     ignore_existing_item = args['--ignore-existing-item']
+    ydl_option_format = args['--ydl-option-format']
 
     if debug_mode:
         # Display log messages.
@@ -100,7 +103,8 @@ def main():
                                                 cookie_file, proxy_url,
                                                 username, password,
                                                 use_download_archive,
-                                                ignore_existing_item):
+                                                ignore_existing_item,
+                                                ydl_option_format):
             print('\n:: Upload Finished. Item information:')
             print('Title: %s' % meta['title'])
             print('Item URL: https://archive.org/details/%s\n' % identifier)
