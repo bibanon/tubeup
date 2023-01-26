@@ -505,7 +505,7 @@ class TubeUp(object):
                     tags_string += '%s;' % category
             except Exception:
                 print("No categories found.")
-                
+
         if 'location' in vid_meta:
             # add physical location as a tag as well, if it exists
             try:
