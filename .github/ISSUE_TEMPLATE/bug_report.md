@@ -14,6 +14,7 @@ assignees: ''
 Carefully read and work through this check list in order to prevent the most common mistakes and misuse of tubeup, put x into all relevant boxes (like this [x])
 
 - [ ] I have fully updated tubeup, youtube-dl and internetarchive along with their associated dependencies.
+- [ ] I m submitting the full and unredacted URL and console output (with the exception of site usernames and passwords). Hiding URLs will get issue closed.
 - [ ] I've checked that all provided URLs are alive and playable in a browser
 - [ ] I've checked that all URLs and arguments with special characters are properly quoted or escaped
 - [ ] I've searched the issues (closed or open) for similar bug reports including closed ones
