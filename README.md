@@ -156,7 +156,7 @@ Read the appropriate section [in this guide](https://archive.org/about/faqs.php#
 - Antonizoon for switching the script to library calls rather than functioning as an external script, and many small improvements.
 - Small PRs from various people, both in and out of BibAnon.
 - vxbinaca for stabilizing downloads/uploads in `yt-dlp`/`internetarchive` library calls, cleansing item output, subtitles collection, and numerous small improvements over time.
-- mrpapersonic for adding logic to check if an item already exists in the Internet Archive and skips if already exists
+- mrpapersonic for adding logic to check if an item already exists in the Internet Archive and if so skips ingestion.
 - [Jake Johnson](https://github.com/jjjake) of the Internet Archive for adding variable collections ability as a flag, switching Tubeup from a script to PyPi repository, ISO-compliant item dates, fixing what others couldn't, and many improvements.
 - [Refeed](https://github.com/refeed) for re-basing the code to OOP, turning Tubeup itself into a library. and adding download and upload bar graphs, and squashing bugs.
 
