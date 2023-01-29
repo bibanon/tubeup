@@ -331,7 +331,7 @@ class TubeUp(object):
         # Exit if video download did not complete, don't upload .part files to IA
         for ext in ['*.part', '*.f303.*', '*.f302.*', '*.ytdl', '*.f251.*', '*.248.*', '*.f247.*', '*.temp']:
             if glob.glob(videobasename + ext):
-                msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
+                msg = 'Video download incomplete, please re-run or delete video stubs in downloads folder, exiting...'
                 raise Exception(msg)
 
         # Replace illegal characters within identifer
