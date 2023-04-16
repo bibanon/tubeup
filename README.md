@@ -149,6 +149,14 @@ Read the appropriate section [in this guide](https://archive.org/about/faqs.php#
 * Some videos are copyright blocked in certain countries. Use the proxy or torrenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countries to bypass geo-restrictions.
 * Upload taking forever? Getting s3 throttling on upload? Tubeup has specifically been tailored to wait the longest possible time before failing, and we've never seen a S3 outage that outlasted the insane wait times set in Tubeup.
 
+## A note on live videos
+
+- [yt-dlp cannot do simultaneous downloads, cannot prioritize live video first on Youtube over live chat](https://github.com/bibanon/tubeup/discussions/283#discussioncomment-5625558), This couldn't be fixed unless for YT which is what most people use it for, except by disabling livechat ripping to start video ripping, but even if that solution was acceptable by building in a flag on our end that disables chats to get video (again unacceptable) thats canceled by the next problem....
+
+- [yt-dlp has a unacceptably high failure rate with `--live-from-start` is called](https://github.com/bibanon/tubeup/issues/186#issuecomment-1127698704), sometimes the result doesn't mux, and in Twitches case is incomplete and isn't supported by all extractors. This flag is actually considered experimental by yt-dlp maintainers and has been said is unsuitable for archival purposes.
+
+Do not use Tubeup to archive live Youtube (or any other site) video. We will not/cannot fix it, it's not even our problem, and any solutions are unpalitable since they involve more code complexity to be maintained ontop of having to disable livechat for one extractor only for live video.
+
 ## Major Credits (in no particular order)
 
 - [emijrp](https://github.com/emijrp/) who wrote the original [youtube2internetarchive.py](https://code.google.com/p/emijrp/source/browse/trunk/scrapers/youtube2internetarchive.py) in 2012
