@@ -517,6 +517,12 @@ class TubeUp(object):
             except Exception:
                 print("Unable to process tags successfully.")
 
+        # IA's subject field has a 255 bytes length limit, so we need to truncate tags_string
+        while len(tags_string.encode('utf-8')) > 255:
+            tags_list = tags_string.split(';')
+            tags_list.pop()
+            tags_string = ';'.join(tags_list)
+
         # license
         licenseurl = TubeUp.determine_licenseurl(vid_meta)
 
