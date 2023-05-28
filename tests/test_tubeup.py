@@ -440,6 +440,20 @@ class TubeUpTests(unittest.TestCase):
             'scanner': SCANNER}
 
         self.assertEqual(expected_result, result)
+    
+    def test_create_archive_org_metadata_from_youtubedl_meta_mass_of_tags(self):
+        with open(get_testfile_path(
+                'Mountain_3_-_Video_Background_HD_1080p-6iRV8liah8A.info.json')
+            ) as f:
+            vid_meta = json.load(f)
+
+        vid_meta['tags'] = [f't{i}' for i in range(0, 300)]
+
+        result = TubeUp.create_archive_org_metadata_from_youtubedl_meta(
+            vid_meta
+        )
+        
+        self.assertLessEqual(len(result['subject']), 255, msg='tags_string not truncated to <= 255 characters')
 
     def test_get_resource_basenames(self):
         tu = TubeUp(dir_path=os.path.join(current_path,
