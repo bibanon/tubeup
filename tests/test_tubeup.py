@@ -298,7 +298,7 @@ class TubeUpTests(unittest.TestCase):
     def test_create_archive_org_metadata_from_youtubedl_meta(self):
         with open(get_testfile_path(
                 'Mountain_3_-_Video_Background_HD_1080p-6iRV8liah8A.info.json')
-                ) as f:
+        ) as f:
             vid_meta = json.load(f)
 
         result = TubeUp.create_archive_org_metadata_from_youtubedl_meta(
@@ -332,7 +332,7 @@ class TubeUpTests(unittest.TestCase):
     def test_create_archive_org_metadata_from_youtubedl_meta_description_text_null(self):
         with open(get_testfile_path(
                 'description_text_null.json')
-                ) as f:
+        ) as f:
             vid_meta = json.load(f)
 
         result = TubeUp.create_archive_org_metadata_from_youtubedl_meta(
@@ -419,7 +419,7 @@ class TubeUpTests(unittest.TestCase):
     def test_create_archive_org_metadata_from_youtubedl_meta_twitch_clips(self):
         with open(get_testfile_path(
                 'EA_Play_2016_Live_from_the_Novo_Theatre-42850523.info.json')
-                ) as f:
+        ) as f:
             vid_meta = json.load(f)
 
         result = TubeUp.create_archive_org_metadata_from_youtubedl_meta(
@@ -444,7 +444,7 @@ class TubeUpTests(unittest.TestCase):
     def test_create_archive_org_metadata_from_youtubedl_meta_mass_of_tags(self):
         with open(get_testfile_path(
                 'Mountain_3_-_Video_Background_HD_1080p-6iRV8liah8A.info.json')
-                ) as f:
+        ) as f:
             vid_meta = json.load(f)
 
         vid_meta['tags'] = [f't{i}' for i in range(0, 300)]
@@ -453,7 +453,8 @@ class TubeUpTests(unittest.TestCase):
             vid_meta
         )
 
-        self.assertLessEqual(len(result['subject']), 255, msg='tags_string not truncated to <= 255 characters')
+        self.assertLessEqual(len(result['subject'].encode(encoding='utf-8')),
+                             255, msg='tags_string not truncated to <= 255 bytes')
 
     def test_get_resource_basenames(self):
         tu = TubeUp(dir_path=os.path.join(current_path,
