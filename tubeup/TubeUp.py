@@ -338,7 +338,7 @@ class TubeUp(object):
         # Exit if video download did not complete, don't upload .part files to IA
         for ext in ['*.part', '*.f303.*', '*.f302.*', '*.ytdl', '*.f251.*', '*.248.*', '*.f247.*', '*.temp']:
             if glob.glob(videobasename + ext):
-                msg = 'Video download incomplete, re-attempt archival attempt, exiting...'
+                msg = 'Video download incomplete, please re-run or delete video stubs in downloads folder, exiting...'
                 raise Exception(msg)
 
         # Replace illegal characters within identifer
@@ -525,6 +525,12 @@ class TubeUp(object):
                         tags_string += '%s;' % tag
             except Exception:
                 print("Unable to process tags successfully.")
+
+        # IA's subject field has a 255 bytes length limit, so we need to truncate tags_string
+        while len(tags_string.encode('utf-8')) > 255:
+            tags_list = tags_string.split(';')
+            tags_list.pop()
+            tags_string = ';'.join(tags_list)
 
         # license
         licenseurl = TubeUp.determine_licenseurl(vid_meta)

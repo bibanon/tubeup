@@ -13,7 +13,8 @@ assignees: ''
 
 Carefully read and work through this check list in order to prevent the most common mistakes and misuse of tubeup, put x into all relevant boxes (like this [x])
 
-- [ ] I have fully updated tubeup, youtube-dl and internetarchive along with their associated dependencies.
+- [ ] I have fully updated `tubeup`, `yt-dlp` and `internetarchive` along with their associated dependencies.
+- [ ] I've included the full and unredacted URL and console output (with the exception of site usernames and passwords, or IP addresses of the machine doing the download). Hiding URLs will get issue closed.
 - [ ] I've checked that all provided URLs are alive and playable in a browser
 - [ ] I've checked that all URLs and arguments with special characters are properly quoted or escaped
 - [ ] I've searched the issues (closed or open) for similar bug reports including closed ones
@@ -26,6 +27,7 @@ Carefully read and work through this check list in order to prevent the most com
 Please provide version information from core dependencies:
 
 `ia --version`
+`yt-dlp --version`
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
