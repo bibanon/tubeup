@@ -258,6 +258,7 @@ class TubeUp(object):
         ydl_opts = {
             'outtmpl': os.path.join(self.dir_path['downloads'],
                                     self.output_template),
+            'format': 'bestvideo*[ext=webm]+bestaudio/bestvideo*+bestaudio/best',
             'restrictfilenames': True,
             'quiet': not self.verbose,
             'verbose': self.verbose,
