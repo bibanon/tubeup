@@ -118,6 +118,18 @@ class TubeUp(object):
                 return 1
             return 0
 
+        def ydl_progress_each(url, entry):
+            if not entry:
+                self.logger.warning('Video "%s" is not available. Skipping.' % url)
+                return
+            if ydl.in_download_archive(entry):
+                return
+            if check_if_ia_item_exists(entry) == 0:
+                ydl.extract_info(url)
+                downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, entry))
+            else:
+                ydl.record_download_archive(entry)
+
         def ydl_progress_hook(d):
             if d['status'] == 'downloading' and self.verbose:
                 if d.get('_total_bytes_str') is not None:
@@ -171,21 +183,9 @@ class TubeUp(object):
 
                     if info_dict.get('_type', 'video') == 'playlist':
                         for entry in info_dict['entries']:
-                            if ydl.in_download_archive(entry):
-                                continue
-                            if check_if_ia_item_exists(entry) == 0:
-                                ydl.extract_info(entry['webpage_url'])
-                                downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, entry))
-                            else:
-                                ydl.record_download_archive(entry)
+                            ydl_progress_each(entry['webpage_url'], entry)
                     else:
-                        if ydl.in_download_archive(info_dict):
-                            continue
-                        if check_if_ia_item_exists(info_dict) == 0:
-                            ydl.extract_info(url)
-                            downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, info_dict))
-                        else:
-                            ydl.record_download_archive(info_dict)
+                        ydl_progress_each(url, info_dict)
                 else:
                     info_dict = ydl.extract_info(url)
                     downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, info_dict))
