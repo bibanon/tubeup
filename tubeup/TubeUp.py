@@ -120,7 +120,7 @@ class TubeUp(object):
 
         def ydl_progress_each(url, entry):
             if not entry:
-                self.logger.warning('[WARN] Video "%s" is not available. Skipping.' % url)
+                self.logger.warning('Video "%s" is not available. Skipping.' % url)
                 return
             if ydl.in_download_archive(entry):
                 return
