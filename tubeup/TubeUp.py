@@ -171,6 +171,8 @@ class TubeUp(object):
 
                     if info_dict.get('_type', 'video') == 'playlist':
                         for entry in info_dict['entries']:
+                            if not entry:
+                                continue
                             if ydl.in_download_archive(entry):
                                 continue
                             if check_if_ia_item_exists(entry) == 0:
@@ -179,6 +181,8 @@ class TubeUp(object):
                             else:
                                 ydl.record_download_archive(entry)
                     else:
+                        if not entry:
+                            continue
                         if ydl.in_download_archive(info_dict):
                             continue
                         if check_if_ia_item_exists(info_dict) == 0:
