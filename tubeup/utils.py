@@ -10,6 +10,14 @@ def sanitize_identifier(identifier, replacement='-'):
     return re.sub(r'[^\w-]', replacement, identifier)
 
 
+def get_itemname(infodict):
+    # Remove illegal characters in identifier
+    return sanitize_identifier('%s-%s' % (
+        infodict.get('extractor'),
+        infodict.get('display_id', infodict.get('id')),
+    ))
+
+
 def check_is_file_empty(filepath):
     """
     Check whether file is empty or not.

@@ -10,7 +10,7 @@ import internetarchive
 from internetarchive.config import parse_config_file
 from datetime import datetime
 from yt_dlp import YoutubeDL
-from .utils import (sanitize_identifier, check_is_file_empty,
+from .utils import (get_itemname, check_is_file_empty,
                     EMPTY_ANNOTATION_FILE)
 from logging import getLogger
 from urllib.parse import urlparse
