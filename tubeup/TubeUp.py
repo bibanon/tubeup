@@ -10,7 +10,7 @@ import internetarchive
 from internetarchive.config import parse_config_file
 from datetime import datetime
 from yt_dlp import YoutubeDL
-from .utils import (sanitize_identifier, check_is_file_empty,
+from .utils import (get_itemname, check_is_file_empty,
                     EMPTY_ANNOTATION_FILE)
 from logging import getLogger
 from urllib.parse import urlparse
@@ -108,15 +108,14 @@ class TubeUp(object):
         downloaded_files_basename = set()
 
         def check_if_ia_item_exists(infodict):
-            itemname = sanitize_identifier('%s-%s' % (infodict['extractor'],
-                                                      infodict['display_id']))
+            itemname = get_itemname(infodict)
             item = internetarchive.get_item(itemname)
             if item.exists and self.verbose:
                 print("\n:: Item already exists. Not downloading.")
                 print('Title: %s' % infodict['title'])
                 print('Video URL: %s\n' % infodict['webpage_url'])
-                return 1
-            return 0
+                return True
+            return False
 
         def ydl_progress_each(entry):
             if not entry:
@@ -124,7 +123,7 @@ class TubeUp(object):
                 return
             if ydl.in_download_archive(entry):
                 return
-            if check_if_ia_item_exists(entry) == 0:
+            if not check_if_ia_item_exists(entry):
                 ydl.extract_info(entry['webpage_url'])
                 downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, entry))
             else:
@@ -325,18 +324,13 @@ class TubeUp(object):
         with open(json_metadata_filepath, 'r', encoding='utf-8') as f:
             vid_meta = json.load(f)
 
-        itemname = ('%s-%s' % (vid_meta['extractor'],
-                               vid_meta['display_id']))
-
         # Exit if video download did not complete, don't upload .part files to IA
         for ext in ['*.part', '*.f303.*', '*.f302.*', '*.ytdl', '*.f251.*', '*.248.*', '*.f247.*', '*.temp']:
             if glob.glob(videobasename + ext):
                 msg = 'Video download incomplete, please re-run or delete video stubs in downloads folder, exiting...'
                 raise Exception(msg)
 
-        # Replace illegal characters within identifer
-        itemname = sanitize_identifier(itemname)
-
+        itemname = get_itemname(vid_meta)
         metadata = self.create_archive_org_metadata_from_youtubedl_meta(
             vid_meta)
 
