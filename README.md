@@ -28,7 +28,7 @@ For Debian/Ubuntu:
 ```
 
 2. Use pip3 to install the required python3 packages.
-   At a minimum Python 3.7.13 and up is required (latest Python preferred).
+   At a minimum Python 3.8 and up is required (latest Python preferred).
 
 ```
    python3 -m pip install -U pip tubeup
