@@ -18,25 +18,50 @@ Reccomended system specifications:
 
 ## Setup and Installation
 
-1. Install `ffmpeg`, pip3 (typically `python3-pip`), and git.  
-   To install ffmpeg in Ubuntu, enable the Universe repository.
+1. Install `ffmpeg`, pip3 (typically `python3-pip`), and `git`.  
+   To install `ffmpeg` in Ubuntu, enable the Universe repository.
 
 For Debian/Ubuntu:
 
 ```
-   sudo apt install ffmpeg python3-pip git
+   sudo apt install ffmpeg python3-pip git 
 ```
 
-2. Use pip3 to install the required python3 packages.
+2. Install a Python Virtual Envionment, install PipX, and ensure it's in `$PATH`
+
+```
+sudo apt install python3.10-venv
+```
+
+You'll need to change the version number of the package based on your installed version of python.
+
+Next you'll need to install `pipx` which sandboxes python apps from the system and makes maintance easier and cleaner
+
+```
+sudo pip3 install pipx
+```
+
+Now you'll need to ensure the path of the virtual environment from pipx is in `$PATH`
+
+```
+pipx ensurepath
+```
+
+3. Use `pipx` to install the required python3 packages.
    At a minimum Python 3.8 and up is required (latest Python preferred).
 
 ```
-   python3 -m pip install -U pip tubeup
+   pipx install tubeup
+```
+Then...
+
+```
+   pipx install internetarchive
 ```
 
-3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
+4. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
 
-4. Configure `internetarchive` with your Internet Archive account.
+5. Configure `internetarchive` with your Internet Archive account.
 
 ```
    ia configure
@@ -46,13 +71,13 @@ You will be prompted for your login credentials for the Internet Archive account
 
 Once configured to upload, you're ready to go.
 
-5. Start archiving a video by running the script on a URL (or multiple URLs) [supported by yt-dlp.](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md). For YouTube, this includes account URLs and playlist URLs.
+6. Start archiving a video by running the script on a URL (or multiple URLs) [supported by yt-dlp.](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md). For YouTube, this includes account URLs and playlist URLs.
 
 ```
    tubeup <url>
 ```
 
-6. Each archived video gets its own Archive.org item. Check out what you've uploaded at
+7. Each archived video gets its own Archive.org item. Check out what you've uploaded at
 
    `http://archive.org/details/@yourusername`.
 
@@ -60,7 +85,7 @@ Once configured to upload, you're ready to go.
 Perodically *before* running, upgrade `tubeup` and its dependencies by running:
 
 ```
-   python3 -m pip install -U tubeup pip
+   pipx upgrade-all
 ```
 
 
@@ -74,8 +99,8 @@ Dockerized tubeup is provided by [etnguyen03/docker-tubeup](https://github.com/e
 2. Use Windows Terminal by Microsoft to interact with the WSL2 instance.
 3. Fully update the Linux installation with your package manager of choice.
    ```sudo apt update ; sudo apt upgrade```
-4. Install python `pip` and `ffmpeg`.
-5. Install Tubeup using steps 4-6 in the Linux configuration guide above and configuring `internetarchive` for your Archive.org account.
+4. Install python `pip`, and `ffmpeg`.
+5. Install Tubeup using steps 2-6 in the Linux configuration guide above and configuring `internetarchive` for your Archive.org account.
 6. Periodically update your Linux packages and pip packages.
 
 ## Usage
