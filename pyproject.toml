@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-my-script = "tubeup:__main__"
+tubeup = "tubeup:__main__"
 
 [tool.setuptools.dynamic]
 version = {attr = "tubeup.__version__"}
