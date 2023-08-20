@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tubeup"
+dynamic = ["version"]
+description = "Youtube (and other video site) to Internet Archive Uploader"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+dependencies = [
+    "internetarchive",
+    "docopt==0.6.2",
+    "yt-dlp",
+]
+
+[project.scripts]
+my-script = "tubeup:__main__"
+
+[tool.setuptools.dynamic]
+version = {attr = "tubeup.__version__"}
