@@ -18,6 +18,12 @@ Reccomended system specifications:
 
 ## Setup and Installation
 
+0. Uninstall any previous tools from the OS repository or older pip installation methods:
+
+```
+sudo apt remove yt-dlp youtube-dl ; pip3 uninstall yt-dlp youtube-dl internetarchive jsonpatch jsondiff jsonpointer mid3cp mid3iconv mid3v2 moggsplit mutagen-inspect mutagen-pony normalizer tdmq tubeup
+```
+
 1. Install `ffmpeg`, pip3 (typically `python3-pip`), and `git`.  
    To install `ffmpeg` in Ubuntu, enable the Universe repository.
 
@@ -47,16 +53,13 @@ Now you'll need to ensure the path of the virtual environment from pipx is in `$
 pipx ensurepath
 ```
 
+Close your shell or terminal and open a new one.
+
 3. Use `pipx` to install the required python3 packages.
    At a minimum Python 3.8 and up is required (latest Python preferred).
 
 ```
-   pipx install tubeup
-```
-Then...
-
-```
-   pipx install internetarchive
+   pipx install tubeup --include-deps 
 ```
 
 4. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
