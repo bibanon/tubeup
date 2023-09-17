@@ -5,8 +5,10 @@ from tubeup.utils import sanitize_identifier, check_is_file_empty, strip_ip_from
 
 current_path = os.path.dirname(os.path.realpath(__file__))
 
+
 def get_testfile_path(name):
     return os.path.join(current_path, 'test_tubeup_files', name)
+
 
 class UtilsTest(unittest.TestCase):
 

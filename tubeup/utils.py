@@ -42,9 +42,9 @@ def strip_ip_from_url(url):
     if u.query != '':
         qs = parse_qs(u.query)
         try:
-            del(qs['ip'])
+            del (qs['ip'])
             u = u._replace(query=urlencode(qs, True))
-        except:
+        except KeyError:
             pass
     return u.geturl()
 
