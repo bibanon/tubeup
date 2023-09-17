@@ -24,6 +24,7 @@ Usage:
                   [--proxy <prox>]
                   [--quiet] [--debug]
                   [--use-download-archive]
+                  [--use-upload-archive]
                   [--output <output>]
                   [--ignore-existing-item]
   tubeup -h | --help
@@ -45,6 +46,10 @@ Options:
                                This will download only videos not listed in
                                the archive file. Record the IDs of all
                                downloaded videos in it.
+  -U --use-upload-archive      Record the video url to the upload archive.
+                               This will upload only videos not listed in
+                               the archive file. Record the IDs of all
+                               uploaded videos in it.
   -q --quiet                   Just print errors.
   -d --debug                   Print all logs to stdout.
   -o --output <output>         Youtube-dlc output template.
@@ -75,6 +80,7 @@ def main():
     quiet_mode = args['--quiet']
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
+    use_upload_archive = args['--use-upload-archive']
     ignore_existing_item = args['--ignore-existing-item']
 
     if debug_mode:
@@ -100,10 +106,15 @@ def main():
                                                 cookie_file, proxy_url,
                                                 username, password,
                                                 use_download_archive,
+                                                use_upload_archive,
                                                 ignore_existing_item):
-            print('\n:: Upload Finished. Item information:')
-            print('Title: %s' % meta['title'])
-            print('Item URL: https://archive.org/details/%s\n' % identifier)
+            if identifier:
+                print('\n:: Upload Finished. Item information:')
+                print('Title: %s' % meta['title'])
+                print('Item URL: https://archive.org/details/%s\n' % identifier)
+            else:
+                print('\n:: Upload skipped. Item information:')
+                print('Title: %s' % meta['title'])
     except Exception:
         print('\n\033[91m'  # Start red color text
               'An exception just occured, if you found this '
