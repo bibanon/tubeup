@@ -10,7 +10,7 @@ import internetarchive
 from internetarchive.config import parse_config_file
 from datetime import datetime
 from yt_dlp import YoutubeDL
-from .utils import (get_itemname, check_is_file_empty,
+from .utils import (get_itemname, check_is_file_empty, strip_ip_from_meta,
                     EMPTY_ANNOTATION_FILE)
 from logging import getLogger
 from urllib.parse import urlparse
@@ -323,6 +323,11 @@ class TubeUp(object):
         json_metadata_filepath = videobasename + '.info.json'
         with open(json_metadata_filepath, 'r', encoding='utf-8') as f:
             vid_meta = json.load(f)
+
+        mod, new_meta = strip_ip_from_meta(vid_meta)
+        if mod:
+            with open(json_metadata_filepath, 'w') as f:
+                json.dump(new_meta, f)
 
         # Exit if video download did not complete, don't upload .part files to IA
         for ext in ['*.part', '*.f303.*', '*.f302.*', '*.ytdl', '*.f251.*', '*.248.*', '*.f247.*', '*.temp']:

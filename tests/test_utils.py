@@ -1,6 +1,13 @@
 import unittest
 import os
-from tubeup.utils import sanitize_identifier, check_is_file_empty
+import json
+from tubeup.utils import sanitize_identifier, check_is_file_empty, strip_ip_from_meta
+
+current_path = os.path.dirname(os.path.realpath(__file__))
+
+
+def get_testfile_path(name):
+    return os.path.join(current_path, 'test_tubeup_files', name)
 
 
 class UtilsTest(unittest.TestCase):
@@ -48,3 +55,14 @@ class UtilsTest(unittest.TestCase):
                 FileNotFoundError,
                 r"^Path 'file_that_doesnt_exist.txt' doesn't exist$"):
             check_is_file_empty('file_that_doesnt_exist.txt')
+
+    def test_strip_ip_from_meta(self):
+        with open(get_testfile_path(
+                'Mountain_3_-_Video_Background_HD_1080p-6iRV8liah8A.'
+                'info.json')
+        ) as f:
+            vid_meta = json.load(f)
+            mod, new_meta = strip_ip_from_meta(vid_meta)
+            self.assertTrue(mod)
+            self.assertNotEqual(f.read(), json.dumps(new_meta))
+            self.assertNotRegex(json.dumps(new_meta), r'36\.73\.93\.234')
