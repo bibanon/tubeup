@@ -269,7 +269,6 @@ class TubeUp(object):
             'writeinfojson': True,
             'writedescription': True,
             'writethumbnail': True,
-            'writeannotations': True,
             'writesubtitles': True,
             'allsubtitles': True,
             'ignoreerrors': True,  # Geo-blocked,
@@ -282,11 +281,6 @@ class TubeUp(object):
             'nooverwrites': True,  # Don't touch what's already been
                                    # downloaded speeds things
             'consoletitle': True,   # Download percentage in console title
-            'prefer_ffmpeg': True,  # `ffmpeg` is better than `avconv`,
-                                    # let's prefer it's use
-            # Warns on out of date youtube-dl script, helps debugging for
-            # youtube-dl devs
-            'call_home': False,
             'logger': self.logger,
             'progress_hooks': [ydl_progress_hook]
         }
