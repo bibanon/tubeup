@@ -35,11 +35,13 @@ For Debian/Ubuntu:
 
 2. Install a Python Virtual Envionment, install PipX, and ensure it's in `$PATH`
 
+You'll need to change the version number of the package based on your installed version of python.
+
 ```
 sudo apt install python3.10-venv
 ```
 
-You'll need to change the version number of the package based on your installed version of python.
+
 
 Next you'll need to install `pipx` which sandboxes python apps from the system and makes maintance easier and cleaner
 
