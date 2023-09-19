@@ -21,7 +21,7 @@ Reccomended system specifications:
 0. Uninstall any previous tools from the OS repository or older pip installation methods:
 
 ```
-sudo apt remove yt-dlp youtube-dl ; pip3 uninstall yt-dlp youtube-dl internetarchive jsonpatch jsondiff jsonpointer mid3cp mid3iconv mid3v2 moggsplit mutagen-inspect mutagen-pony normalizer tdmq tubeup
+sudo apt remove yt-dlp youtube-dl ; pip3 uninstall yt-dlp youtube-dl internetarchive jsonpatch tubeup
 ```
 
 1. Install `ffmpeg`, pip3 (typically `python3-pip`), and `git`.  
