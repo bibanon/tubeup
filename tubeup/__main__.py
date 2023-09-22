@@ -27,6 +27,7 @@ Usage:
                   [--use-upload-archive]
                   [--output <output>]
                   [--ignore-existing-item]
+                  [--yt X...]
   tubeup -h | --help
   tubeup --version
 
@@ -54,12 +55,15 @@ Options:
   -d --debug                   Print all logs to stdout.
   -o --output <output>         Youtube-dlc output template.
   -i --ignore-existing-item    Don't check if an item already exists on archive.org
+  --yt X...                    Any option to be passed to underlying yt-dlp.
 """
 
 import sys
 import docopt
 import logging
 import traceback
+
+from yt_dlp import parse_options
 
 import internetarchive
 import internetarchive.cli
@@ -82,6 +86,7 @@ def main():
     use_download_archive = args['--use-download-archive']
     use_upload_archive = args['--use-upload-archive']
     ignore_existing_item = args['--ignore-existing-item']
+    parser, opts, all_urls, yt_args = parse_options(args['--yt'])
 
     if debug_mode:
         # Display log messages.
@@ -107,7 +112,8 @@ def main():
                                                 username, password,
                                                 use_download_archive,
                                                 use_upload_archive,
-                                                ignore_existing_item):
+                                                ignore_existing_item,
+                                                yt_args):
             if identifier:
                 print('\n:: Upload Finished. Item information:')
                 print('Title: %s' % meta['title'])

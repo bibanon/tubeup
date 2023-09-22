@@ -86,12 +86,13 @@ class TubeUp(object):
                                cookie_file=None, proxy_url=None,
                                ydl_username=None, ydl_password=None,
                                use_download_archive=False,
-                               ignore_existing_item=False):
+                               ignore_existing_item=False,
+                               yt_args=[]):
         """
         Get resource basenames from an url.
 
         :param urls:                  A list of urls that will be downloaded with
-                                      youtubedl.
+                                      youtubedl (or their corresponding info-files)
         :param cookie_file:           A cookie file for YoutubeDL.
         :param proxy_url:             A proxy url for YoutubeDL.
         :param ydl_username:          Username that will be used to download the
@@ -103,6 +104,7 @@ class TubeUp(object):
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
+        :param yt_args:               Additional parameters passed to yt-dlp.
         :return:                      Set of videos basename that has been downloaded.
         """
         downloaded_files_basename = set()
@@ -173,6 +175,10 @@ class TubeUp(object):
                                              cookie_file, proxy_url,
                                              ydl_username, ydl_password,
                                              use_download_archive)
+
+        # Default yt-dlp overriden by tubeup specific options
+        yt_args.update(ydl_opts)
+        ydl_opts = yt_args
 
         with YoutubeDL(ydl_opts) as ydl:
             for url in urls:
@@ -405,13 +411,14 @@ class TubeUp(object):
                      ydl_username=None, ydl_password=None,
                      use_download_archive=False,
                      use_upload_archive=False,
-                     ignore_existing_item=False):
+                     ignore_existing_item=False,
+                     yt_args=[]):
         """
         Download and upload videos from youtube_dl supported sites to
         archive.org
 
-        :param urls:                  List of url that will be downloaded and uploaded
-                                      to archive.org
+        :param urls:                  List of url or local info files that will
+                                      be downloaded and uploaded to archive.org
         :param custom_meta:           A custom metadata that will be used when
                                       uploading the file with archive.org.
         :param cookie_file:           A cookie file for YoutubeDL.
@@ -429,12 +436,13 @@ class TubeUp(object):
                                       the archive file. Record the IDs of all
                                       uploaded videos in it.
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
+        :param yt_args:               Additional parameters passed to yt-dlp.
         :return:                      Tuple containing identifier and metadata of the
                                       file that has been uploaded to archive.org.
         """
         downloaded_file_basenames = self.get_resource_basenames(
             urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive,
-            ignore_existing_item)
+            ignore_existing_item, yt_args)
         for basename in downloaded_file_basenames:
             identifier, meta = self.upload_ia(basename, use_upload_archive, custom_meta)
             yield identifier, meta
