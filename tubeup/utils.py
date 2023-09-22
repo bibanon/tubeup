@@ -38,7 +38,7 @@ def strip_ip_from_url(url):
     or in an "ip" query-parameter, like in ?ip=1.2.3.4
     """
     u = urlparse(url)
-    u = u._replace(path=re.sub(r'/ip/[^/]+', r'/ip/REDACTED', u.path))
+    u = u._replace(path=re.sub(r'%26ip%3D[^%]+', r'%26ip%3DREDACTED%', re.sub(r'/ip/[^/]+', r'/ip/REDACTED', u.path)))
     if u.query != '':
         qs = parse_qs(u.query)
         try:
