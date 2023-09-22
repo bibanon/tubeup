@@ -182,9 +182,16 @@ class TubeUp(object):
 
         with YoutubeDL(ydl_opts) as ydl:
             for url in urls:
+                info_dict = {}
                 if not ignore_existing_item:
-                    # Get the info dict of the url
-                    info_dict = ydl.extract_info(url, download=False)
+                    if os.path.exists(url):
+                        p = ydl.download_with_info_file(url)
+                        if p == 0:
+                            with open(url, 'r') as f:
+                                info_dict = json.load(f)
+                    else:
+                        # Get the info dict of the url
+                        info_dict = ydl.extract_info(url, download=False)
 
                     if info_dict.get('_type', 'video') == 'playlist':
                         for entry in info_dict['entries']:
@@ -192,7 +199,13 @@ class TubeUp(object):
                     else:
                         ydl_progress_each(info_dict)
                 else:
-                    info_dict = ydl.extract_info(url)
+                    if os.path.exists(url):
+                        p = ydl.download_with_info_file(url)
+                        if p == 0:
+                            with open(url, 'r') as f:
+                                info_dict = json.load(f)
+                    else:
+                        info_dict = ydl.extract_info(url)
                     downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, info_dict))
 
         self.logger.debug(
@@ -443,6 +456,8 @@ class TubeUp(object):
         downloaded_file_basenames = self.get_resource_basenames(
             urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive,
             ignore_existing_item, yt_args)
+        self.logger.debug('Archiving files from %d videos: %s', len(downloaded_file_basenames), downloaded_file_basenames)
+
         for basename in downloaded_file_basenames:
             identifier, meta = self.upload_ia(basename, use_upload_archive, custom_meta)
             yield identifier, meta
