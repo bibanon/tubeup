@@ -2,6 +2,7 @@ import os
 import sys
 import re
 import glob
+import fnmatch
 import time
 import json
 import logging
@@ -312,8 +313,12 @@ class TubeUp(object):
                 json.dump(new_meta, f)
 
         # Exit if video download did not complete, don't upload .part files to IA
+        # One glob() + fnmatch() is ten times less expensive than 8 globs(),
+        # (Half a second vs 5 seconds on 250k files, what is significant when resuming large playlists)
+        filenames = glob.glob(glob.escape(videobasename) + '*')
         for ext in ['*.part', '*.f303.*', '*.f302.*', '*.ytdl', '*.f251.*', '*.248.*', '*.f247.*', '*.temp']:
-            if glob.glob(videobasename + ext):
+            matching = fnmatch.filter(filenames, ext)
+            if matching:
                 msg = 'Video download incomplete, please re-run or delete video stubs in downloads folder, exiting...'
                 raise Exception(msg)
 
@@ -345,7 +350,7 @@ class TubeUp(object):
 
         # Upload all files with videobase name: e.g. video.mp4,
         # video.info.json, video.srt, etc.
-        files_to_upload = glob.glob(videobasename + '*')
+        files_to_upload = glob.glob(glob.escape(videobasename) + '*')
 
         # Upload the item to the Internet Archive
         item = internetarchive.get_item(itemname)
