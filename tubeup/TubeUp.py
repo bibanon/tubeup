@@ -307,11 +307,6 @@ class TubeUp(object):
         with open(json_metadata_filepath, 'r', encoding='utf-8') as f:
             vid_meta = json.load(f)
 
-        mod, new_meta = strip_ip_from_meta(vid_meta)
-        if mod:
-            with open(json_metadata_filepath, 'w') as f:
-                json.dump(new_meta, f)
-
         # Exit if video download did not complete, don't upload .part files to IA
         # One glob() + fnmatch() is ten times less expensive than 8 globs(),
         # (Half a second vs 5 seconds on 250k files, what is significant when resuming large playlists)
@@ -371,6 +366,11 @@ class TubeUp(object):
             if self.verbose:
                 print(msg)
             raise Exception(msg)
+
+        mod, new_meta = strip_ip_from_meta(vid_meta)
+        if mod:
+            with open(json_metadata_filepath, 'w') as f:
+                json.dump(new_meta, f)
 
         item.upload(files_to_upload, metadata=metadata, retries=15,
                     request_kwargs=dict(timeout=60), delete=not use_upload_archive,
