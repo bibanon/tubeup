@@ -86,12 +86,13 @@ class TubeUp(object):
                                cookie_file=None, proxy_url=None,
                                ydl_username=None, ydl_password=None,
                                use_download_archive=False,
-                               ignore_existing_item=False):
+                               ignore_existing_item=False,
+                               yt_args=[]):
         """
         Get resource basenames from an url.
 
         :param urls:                  A list of urls that will be downloaded with
-                                      youtubedl.
+                                      youtubedl (or their corresponding info-files)
         :param cookie_file:           A cookie file for YoutubeDL.
         :param proxy_url:             A proxy url for YoutubeDL.
         :param ydl_username:          Username that will be used to download the
@@ -103,6 +104,7 @@ class TubeUp(object):
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
+        :param yt_args:               Additional parameters passed to yt-dlp.
         :return:                      Set of videos basename that has been downloaded.
         """
         downloaded_files_basename = set()
@@ -174,11 +176,22 @@ class TubeUp(object):
                                              ydl_username, ydl_password,
                                              use_download_archive)
 
+        # Default yt-dlp overriden by tubeup specific options
+        yt_args.update(ydl_opts)
+        ydl_opts = yt_args
+
         with YoutubeDL(ydl_opts) as ydl:
             for url in urls:
+                info_dict = {}
                 if not ignore_existing_item:
-                    # Get the info dict of the url
-                    info_dict = ydl.extract_info(url, download=False)
+                    if os.path.exists(url):
+                        p = ydl.download_with_info_file(url)
+                        if p == 0:
+                            with open(url, 'r') as f:
+                                info_dict = json.load(f)
+                    else:
+                        # Get the info dict of the url
+                        info_dict = ydl.extract_info(url, download=False)
 
                     if info_dict.get('_type', 'video') == 'playlist':
                         for entry in info_dict['entries']:
@@ -186,7 +199,13 @@ class TubeUp(object):
                     else:
                         ydl_progress_each(info_dict)
                 else:
-                    info_dict = ydl.extract_info(url)
+                    if os.path.exists(url):
+                        p = ydl.download_with_info_file(url)
+                        if p == 0:
+                            with open(url, 'r') as f:
+                                info_dict = json.load(f)
+                    else:
+                        info_dict = ydl.extract_info(url)
                     downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, info_dict))
 
         self.logger.debug(
@@ -309,16 +328,21 @@ class TubeUp(object):
 
         return ydl_opts
 
-    def upload_ia(self, videobasename, custom_meta=None):
+    def upload_ia(self, videobasename, use_upload_archive=False, custom_meta=None):
         """
         Upload video to archive.org.
 
-        :param videobasename:  A video base name.
-        :param custom_meta:    A custom meta, will be used by internetarchive
-                               library when uploading to archive.org.
-        :return:               A tuple containing item name and metadata used
-                               when uploading to archive.org and whether the item
-                               already exists.
+        :param videobasename:         A video base name.
+        :param use_upload_archive:    Record the video url to the upload archive.
+                                      This will upload only videos not listed in
+                                      the archive file. Record the IDs of all
+                                      uploaded videos in it.
+        :param custom_meta:           A custom meta, will be used by internetarchive
+                                      library when uploading to archive.org.
+        :return:                      A tuple containing item name and metadata used
+                                      when uploading to archive.org and whether the item
+                                      already exists. A null item name means upload
+                                      didn't happened.
         """
         json_metadata_filepath = videobasename + '.info.json'
         with open(json_metadata_filepath, 'r', encoding='utf-8') as f:
@@ -338,6 +362,12 @@ class TubeUp(object):
         itemname = get_itemname(vid_meta)
         metadata = self.create_archive_org_metadata_from_youtubedl_meta(
             vid_meta)
+
+        if use_upload_archive:
+            ydl = YoutubeDL({'download_archive': os.path.join(self.dir_path['root'], '.iauparchive')})
+            if ydl.in_download_archive(vid_meta):
+                self.logger.debug('Skipping already uploaded video: %s', metadata['title'])
+                return None, metadata
 
         # Delete empty description file
         description_file_path = videobasename + '.description'
@@ -380,25 +410,27 @@ class TubeUp(object):
             raise Exception(msg)
 
         item.upload(files_to_upload, metadata=metadata, retries=9001,
-                    request_kwargs=dict(timeout=9001), delete=True,
+                    request_kwargs=dict(timeout=9001), delete=not use_upload_archive,
                     verbose=self.verbose, access_key=s3_access_key,
                     secret_key=s3_secret_key)
 
+        if use_upload_archive:
+            ydl.record_download_archive(vid_meta)
+
         return itemname, metadata
 
-    def archive_urls(self, urls, custom_meta=None,
+    def download_urls(self, urls,
                      cookie_file=None, proxy=None,
                      ydl_username=None, ydl_password=None,
                      use_download_archive=False,
-                     ignore_existing_item=False):
+                     ignore_existing_item=False,
+                     yt_args=[]):
         """
         Download and upload videos from youtube_dl supported sites to
         archive.org
 
-        :param urls:                  List of url that will be downloaded and uploaded
-                                      to archive.org
-        :param custom_meta:           A custom metadata that will be used when
-                                      uploading the file with archive.org.
+        :param urls:                  List of url or local info files that will
+                                      be downloaded and uploaded to archive.org
         :param cookie_file:           A cookie file for YoutubeDL.
         :param proxy_url:             A proxy url for YoutubeDL.
         :param ydl_username:          Username that will be used to download the
@@ -410,15 +442,15 @@ class TubeUp(object):
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
+        :param yt_args:               Additional parameters passed to yt-dlp.
         :return:                      Tuple containing identifier and metadata of the
                                       file that has been uploaded to archive.org.
         """
         downloaded_file_basenames = self.get_resource_basenames(
             urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive,
-            ignore_existing_item)
-        for basename in downloaded_file_basenames:
-            identifier, meta = self.upload_ia(basename, custom_meta)
-            yield identifier, meta
+            ignore_existing_item, yt_args)
+        self.logger.debug('Archiving files from %d videos: %s', len(downloaded_file_basenames), downloaded_file_basenames)
+        return downloaded_file_basenames
 
     @staticmethod
     def determine_collection_type(url):

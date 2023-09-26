@@ -590,3 +590,83 @@ class TubeUpTests(unittest.TestCase):
                  'scanner': SCANNER})]
 
             self.assertEqual(expected_result, result)
+
+    def test_archive_deletion(self):
+        root_path = os.path.join(current_path, 'test_tubeup_rootdir')
+        # Clean up before test
+        shutil.rmtree(root_path, ignore_errors=True)
+
+        tu = TubeUp(dir_path=root_path,
+                    ia_config_path=get_testfile_path('ia_config_for_test.ini'))
+
+        videobasename = os.path.join(
+            current_path, 'test_tubeup_rootdir', 'downloads',
+            'KdsN9YhkDrY')
+
+        copy_testfiles_to_tubeup_rootdir_test()
+        dest = os.path.join(root_path, 'downloads', '*')
+        files_before_upload = glob.glob(dest)
+
+        vid_info = {'mediatype': 'movies',
+                    'creator': 'RelaxingWorld',
+                    'channel': 'http://www.youtube.com/channel/UCWpsozCMdAnfI16rZHQ9XDg',
+                    'collection': 'opensource_movies',
+                    'title': 'Epic Ramadan - Video Background HD1080p',
+                    'description': ('If you enjoy my work, please consider Subscribe to my NEW '
+                                    'channel for more videos: <br>'
+                                    'https://www.youtube.com/MusicForRelaxation?sub_confirmation=1 <br>'
+                                    '▷ If you use this video, please put credits to my channel '
+                                    'in description: <br>'
+                                    'Source from RelaxingWorld: https://goo.gl/HsW75m<br>'
+                                    '<br>'
+                                    '▷ Also, do not forget to Subscribe to my channel. Thanks!'),
+                    'date': '2016-06-25',
+                    'year': '2016',
+                    'subject': ('Youtube;video;Film & Animation;Video Background;'
+                                'Footage;Animation;Cinema;Royalty Free Videos;'
+                                'Stock Video Footage;Video Backdrops;'
+                                'Amazing Nature;youtube;HD;1080p;Creative Commons Videos;'
+                                'relaxing music;Ramadan;'),
+                    'originalurl': 'https://www.youtube.com/watch?v=KdsN9YhkDrY',
+                    'licenseurl': '',
+                    'scanner': SCANNER}
+
+        with requests_mock.Mocker() as m:
+            # Mock the request to s3.us.archive.org, so it will responds
+            # a custom json. `internetarchive` library sends GET request to
+            # that url to check that we don't violate the upload limit.
+            m.get('https://s3.us.archive.org',
+                  content=b'{"over_limit": 0}',
+                  headers={'content-type': 'application/json'})
+
+            m.get('https://archive.org/metadata/youtube-KdsN9YhkDrY',
+                  content=b'{}',
+                  headers={'content-type': 'application/json'})
+
+            # Mock the PUT requests for internetarchive urls that defined
+            # in mock_upload_response_by_videobasename(), so this test
+            # doesn't perform upload to the real archive.org server.
+            mock_upload_response_by_videobasename(
+                m, 'youtube-KdsN9YhkDrY', videobasename)
+
+            # First upload, this actually get uploaded...
+            result = list(tu.archive_urls(
+                ['https://www.youtube.com/watch?v=KdsN9YhkDrY'], use_upload_archive=True))
+
+            # ... and returns a remote IA item name
+            expected_result = [('youtube-KdsN9YhkDrY', vid_info)]
+            self.assertEqual(expected_result, result)
+
+            # ... and no file got deleted
+            files_after_upload = glob.glob(dest)
+            self.assertListEqual(files_before_upload, files_after_upload)
+            # ... and a upload-archive file was created
+            self.assertTrue(os.path.exists(os.path.join(root_path, '.iauparchive')))
+
+            # Second upload, nothing was actually uploaded...
+            result = list(tu.archive_urls(
+                ['https://www.youtube.com/watch?v=KdsN9YhkDrY'], use_upload_archive=True))
+
+            # ... and no remote IA item name is returned
+            expected_result = [(None, vid_info)]
+            self.assertEqual(expected_result, result)

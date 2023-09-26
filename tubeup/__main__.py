@@ -24,8 +24,11 @@ Usage:
                   [--proxy <prox>]
                   [--quiet] [--debug]
                   [--use-download-archive]
+                  [--use-upload-archive]
                   [--output <output>]
                   [--ignore-existing-item]
+                  [--abort-on-error]
+                  [--yt X...]
   tubeup -h | --help
   tubeup --version
 
@@ -45,16 +48,24 @@ Options:
                                This will download only videos not listed in
                                the archive file. Record the IDs of all
                                downloaded videos in it.
+  -U --use-upload-archive      Record the video url to the upload archive.
+                               This will upload only videos not listed in
+                               the archive file. Record the IDs of all
+                               uploaded videos in it.
   -q --quiet                   Just print errors.
   -d --debug                   Print all logs to stdout.
+     --abort-on-error          Abort after the first failed upload.
   -o --output <output>         Youtube-dlc output template.
   -i --ignore-existing-item    Don't check if an item already exists on archive.org
+  --yt X...                    Any option to be passed to underlying yt-dlp.
 """
 
 import sys
 import docopt
 import logging
 import traceback
+
+from yt_dlp import parse_options
 
 import internetarchive
 import internetarchive.cli
@@ -75,7 +86,10 @@ def main():
     quiet_mode = args['--quiet']
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
+    use_upload_archive = args['--use-upload-archive']
     ignore_existing_item = args['--ignore-existing-item']
+    abort_on_error = args['--abort-on-error']
+    parser, opts, all_urls, yt_args = parse_options(args['--yt'])
 
     if debug_mode:
         # Display log messages.
@@ -95,25 +109,38 @@ def main():
     tu = TubeUp(verbose=not quiet_mode,
                 output_template=args['--output'])
 
-    try:
-        for identifier, meta in tu.archive_urls(URLs, metadata,
-                                                cookie_file, proxy_url,
-                                                username, password,
-                                                use_download_archive,
-                                                ignore_existing_item):
-            print('\n:: Upload Finished. Item information:')
-            print('Title: %s' % meta['title'])
-            print('Item URL: https://archive.org/details/%s\n' % identifier)
-    except Exception:
-        print('\n\033[91m'  # Start red color text
-              'An exception just occured, if you found this '
-              "exception isn't related with any of your connection problem, "
-              'please report this issue to '
-              'https://github.com/bibanon/tubeup/issues')
-        traceback.print_exc()
-        print('\033[0m')  # End the red color text
-        sys.exit(1)
+    downloaded_file_basenames = tu.download_urls(URLs,
+                                                 cookie_file, proxy_url,
+                                                 username, password,
+                                                 use_download_archive,
+                                                 ignore_existing_item,
+                                                 yt_args)
 
+    failures = []
+    for basename in downloaded_file_basenames:
+        try:
+            identifier, meta = tu.upload_ia(basename, use_upload_archive, metadata)
+            if identifier:
+                print('\n:: Upload Finished. Item information:')
+                print('Title: %s' % meta['title'])
+                print('Item URL: https://archive.org/details/%s\n' % identifier)
+            else:
+                print('\n:: Upload skipped. Item information:')
+                print('Title: %s' % meta['title'])
+        except Exception:
+            failures.append(basename)
+            print('\n\033[91m'  # Start red color text
+                  'An exception just occured, if you found this '
+                  "exception isn't related with any of your connection problem, "
+                  'please report this issue to '
+                  'https://github.com/bibanon/tubeup/issues')
+            traceback.print_exc()
+            print('\033[0m')  # End the red color text
+            if abort_on_error:
+                break
+
+    if len(failures) > 0:
+        print("Failed uploads:\n" + "\n".join(failures))
 
 if __name__ == '__main__':
     main()
