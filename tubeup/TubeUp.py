@@ -27,7 +27,8 @@ class TubeUp(object):
                  verbose=False,
                  dir_path='~/.tubeup',
                  ia_config_path=None,
-                 output_template=None):
+                 output_template=None,
+                 yt_args=[]):
         """
         `tubeup` is a tool to archive YouTube by downloading the videos and
         uploading it back to the archive.org.
@@ -41,6 +42,7 @@ class TubeUp(object):
                                 be used in uploading the file.
         :param output_template: A template string that will be used to
                                 generate the output filenames.
+        :param yt_args:         Additional parameters passed to yt-dlp.
         """
         self.dir_path = dir_path
         self.verbose = verbose
@@ -54,6 +56,8 @@ class TubeUp(object):
         # Just print errors in quiet mode
         if not self.verbose:
             self.logger.setLevel(logging.ERROR)
+
+        self.YDL = self.get_ytdlp_instance(yt_args)
 
     @property
     def dir_path(self):
@@ -82,42 +86,7 @@ class TubeUp(object):
                                       DOWNLOAD_DIR_NAME)
         }
 
-    def get_resource_basenames(self, urls,
-                               ignore_existing_item=False,
-                               yt_args=[]):
-        """
-        Get resource basenames from an url.
-
-        :param urls:                  A list of urls that will be downloaded with
-                                      youtubedl (or their corresponding info-files)
-        :param ignore_existing_item:  Ignores the check for existing items on archive.org.
-        :param yt_args:               Additional parameters passed to yt-dlp.
-        :return:                      Set of videos basename that has been downloaded.
-        """
-        downloaded_files_basename = set()
-
-        def check_if_ia_item_exists(infodict):
-            itemname = get_itemname(infodict)
-            item = internetarchive.get_item(itemname)
-            if item.exists and self.verbose:
-                print("\n:: Item already exists. Not downloading.")
-                print('Title: %s' % infodict['title'])
-                print('Video URL: %s\n' % infodict['webpage_url'])
-                return True
-            return False
-
-        def ydl_progress_each(entry):
-            if not entry:
-                self.logger.warning('Video "%s" is not available. Skipping.' % url)
-                return
-            if ydl.in_download_archive(entry):
-                return
-            if not check_if_ia_item_exists(entry):
-                ydl.extract_info(entry['webpage_url'])
-                downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, entry))
-            else:
-                ydl.record_download_archive(entry)
-
+    def get_ytdlp_instance(self, yt_args=[]):
         def ydl_progress_hook(d):
             if d['status'] == 'downloading' and self.verbose:
                 if d.get('_total_bytes_str') is not None:
@@ -162,9 +131,45 @@ class TubeUp(object):
 
         # Default yt-dlp overriden by tubeup specific options
         yt_args.update(ydl_opts)
-        ydl_opts = yt_args
 
-        with YoutubeDL(ydl_opts) as ydl:
+        return YoutubeDL(yt_args)
+
+
+    def get_resource_basenames(self, urls,
+                               ignore_existing_item=False):
+        """
+        Get resource basenames from an url.
+
+        :param urls:                  A list of urls that will be downloaded with
+                                      youtubedl (or their corresponding info-files)
+        :param ignore_existing_item:  Ignores the check for existing items on archive.org.
+        :return:                      Set of videos basename that has been downloaded.
+        """
+        downloaded_files_basename = set()
+
+        def check_if_ia_item_exists(infodict):
+            itemname = get_itemname(infodict)
+            item = internetarchive.get_item(itemname)
+            if item.exists and self.verbose:
+                print("\n:: Item already exists. Not downloading.")
+                print('Title: %s' % infodict['title'])
+                print('Video URL: %s\n' % infodict['webpage_url'])
+                return True
+            return False
+
+        def ydl_progress_each(entry):
+            if not entry:
+                self.logger.warning('Video "%s" is not available. Skipping.' % url)
+                return
+            if ydl.in_download_archive(entry):
+                return
+            if not check_if_ia_item_exists(entry):
+                ydl.extract_info(entry['webpage_url'])
+                downloaded_files_basename.update(self.create_basenames_from_ydl_info_dict(ydl, entry))
+            else:
+                ydl.record_download_archive(entry)
+
+        with self.YDL as ydl:
             for url in urls:
                 info_dict = {}
                 if not ignore_existing_item:
@@ -373,8 +378,7 @@ class TubeUp(object):
         return itemname, metadata
 
     def download_urls(self, urls,
-                     ignore_existing_item=False,
-                     yt_args=[]):
+                     ignore_existing_item=False):
         """
         Download and upload videos from youtube_dl supported sites to
         archive.org
@@ -382,12 +386,10 @@ class TubeUp(object):
         :param urls:                  List of url or local info files that will
                                       be downloaded and uploaded to archive.org
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
-        :param yt_args:               Additional parameters passed to yt-dlp.
         :return:                      Tuple containing identifier and metadata of the
                                       file that has been uploaded to archive.org.
         """
-        downloaded_file_basenames = self.get_resource_basenames(
-            urls, ignore_existing_item, yt_args)
+        downloaded_file_basenames = self.get_resource_basenames(urls, ignore_existing_item)
         self.logger.debug('Archiving files from %d videos: %s', len(downloaded_file_basenames), downloaded_file_basenames)
         return downloaded_file_basenames
 

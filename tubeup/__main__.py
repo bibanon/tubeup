@@ -123,10 +123,8 @@ def main():
 
     metadata = internetarchive.cli.argparser.get_args_dict(args['--metadata'])
 
-    tu = TubeUp(verbose=not quiet_mode,
-                output_template=args['--output'])
-
-    downloaded_file_basenames = tu.download_urls(URLs, ignore_existing_item, yt_args)
+    tu = TubeUp(verbose=not quiet_mode, output_template=args['--output'], yt_args=yt_args)
+    downloaded_file_basenames = tu.download_urls(URLs, ignore_existing_item)
 
     failures = []
     for basename in downloaded_file_basenames:
