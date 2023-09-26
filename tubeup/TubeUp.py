@@ -419,11 +419,10 @@ class TubeUp(object):
 
         return itemname, metadata
 
-    def archive_urls(self, urls, custom_meta=None,
+    def download_urls(self, urls,
                      cookie_file=None, proxy=None,
                      ydl_username=None, ydl_password=None,
                      use_download_archive=False,
-                     use_upload_archive=False,
                      ignore_existing_item=False,
                      yt_args=[]):
         """
@@ -432,8 +431,6 @@ class TubeUp(object):
 
         :param urls:                  List of url or local info files that will
                                       be downloaded and uploaded to archive.org
-        :param custom_meta:           A custom metadata that will be used when
-                                      uploading the file with archive.org.
         :param cookie_file:           A cookie file for YoutubeDL.
         :param proxy_url:             A proxy url for YoutubeDL.
         :param ydl_username:          Username that will be used to download the
@@ -444,10 +441,6 @@ class TubeUp(object):
                                       This will download only videos not listed in
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
-        :param use_upload_archive:    Record the video url to the upload archive.
-                                      This will upload only videos not listed in
-                                      the archive file. Record the IDs of all
-                                      uploaded videos in it.
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
         :param yt_args:               Additional parameters passed to yt-dlp.
         :return:                      Tuple containing identifier and metadata of the
@@ -457,10 +450,7 @@ class TubeUp(object):
             urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive,
             ignore_existing_item, yt_args)
         self.logger.debug('Archiving files from %d videos: %s', len(downloaded_file_basenames), downloaded_file_basenames)
-
-        for basename in downloaded_file_basenames:
-            identifier, meta = self.upload_ia(basename, use_upload_archive, custom_meta)
-            yield identifier, meta
+        return downloaded_file_basenames
 
     @staticmethod
     def determine_collection_type(url):
