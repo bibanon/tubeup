@@ -8,6 +8,15 @@ Tubeup - a multi-VOD service to Archive.org uploader
 
 It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/wiki) to archive single videos, playlists (see warning below about more than video uploads) or accounts to the Internet Archive.
 
+## Changes specific to this fork
+- Clean-up IP addresses contained by Youtube-generated info files before IA upload
+- Do not abort after a failure but try the next item + saner timeout values
+- Accept arbitrary yt-dlp options (⚠️)
+- Can upload existing resource (⚠️ under certain strict condition, see --help and a52031c)
+- Can upload existing resource based on a local JSON info file
+- More efficient at proceessing a large number of files/URL
+- Broken testsuite (⚠️)
+
 ## Prerequisites
 
 This script strongly recommends Linux or some sort of POSIX system (such as macOS), preferably from a rented VPS and not your personal machine or phone.
@@ -31,7 +40,7 @@ For Debian/Ubuntu:
    At a minimum Python 3.8 and up is required (latest Python preferred).
 
 ```
-   python3 -m pip install -U pip tubeup
+   python3 -m pip install -U pip git+https://github.com/drzraf/tubeup
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
