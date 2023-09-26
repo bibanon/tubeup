@@ -282,8 +282,6 @@ class TubeUp(object):
             'progress_with_newline': True,
             'forcetitle': True,
             'continuedl': True,
-            'retries': 9001,
-            'fragment_retries': 9001,
             'forcejson': False,
             'writeinfojson': True,
             'writedescription': True,
@@ -409,8 +407,8 @@ class TubeUp(object):
                 print(msg)
             raise Exception(msg)
 
-        item.upload(files_to_upload, metadata=metadata, retries=9001,
-                    request_kwargs=dict(timeout=9001), delete=not use_upload_archive,
+        item.upload(files_to_upload, metadata=metadata, retries=15,
+                    request_kwargs=dict(timeout=60), delete=not use_upload_archive,
                     verbose=self.verbose, access_key=s3_access_key,
                     secret_key=s3_secret_key)
 
