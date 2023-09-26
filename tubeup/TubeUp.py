@@ -232,6 +232,8 @@ class TubeUp(object):
 
         if info_type == 'playlist':
             # Iterate and get the filenames through the playlist
+            if 'entries' not in info_dict:
+                return set()
             for video in info_dict['entries']:
                 filenames.add(ydl.prepare_filename(video))
         else:
