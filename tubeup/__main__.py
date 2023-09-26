@@ -41,14 +41,11 @@ Arguments:
 
 Options:
   -h --help                    Show this screen.
-  -p --proxy <prox>            Use a proxy while uploading.
-  -u --username <user>         Provide a username, for sites like Nico Nico Douga.
-  -p --password <pass>         Provide a password, for sites like Nico Nico Douga.
-  -a --use-download-archive    Record the video url to the download archive.
-                               This will download only videos not listed in
-                               the archive file. Record the IDs of all
-                               downloaded videos in it.
-  -U --use-upload-archive      Record the video url to the upload archive.
+  -p --proxy <prox>            Deprecated. Shortcut for the corresponding yt-dlp option.
+  -u --username <user>         Deprecated. Shortcut for the corresponding yt-dlp option.
+  -p --password <pass>         Deprecated. Shortcut for the corresponding yt-dlp option.
+  -a --use-download-archive    Shortcut for --yt=--download-archive=%s
+  -U --use-upload-archive      Record the video url to the upload archive at %s
                                This will upload only videos not listed in
                                the archive file. Record the IDs of all
                                uploaded videos in it.
@@ -58,8 +55,23 @@ Options:
   -o --output <output>         Youtube-dlc output template.
   -i --ignore-existing-item    Don't check if an item already exists on archive.org
   --yt X...                    Any option to be passed to underlying yt-dlp.
+
+Example:
+  Assuming that *.info.json files are consistent and
+  that yt-dlp output template led to uniform/predictible file names,
+  then a way to upload existing files based without triggering new downloads
+  is to use a combination of the following:
+  * --output='<same as yt-dlp output>'
+  * --use-upload-archive
+  * --use-download-archive
+  * --ignore-existing-item
+  * --yt=--no-playlist
+  * --yt=--match-filter=!playlist
+  * --yt=--no-overwrites
+
 """
 
+import os
 import sys
 import docopt
 import logging
@@ -73,19 +85,24 @@ import internetarchive.cli
 from tubeup.TubeUp import TubeUp
 from tubeup import __version__
 
+DEFAULT_DOWNLOAD_ARCHIVE = os.path.join(os.path.expanduser('~/.tubeup'), '.ytdlarchive')
+DEFAULT_UPLOAD_ARCHIVE = os.path.join(os.path.expanduser('~/.tubeup'), '.iauparchive')
 
 def main():
     # Parse arguments from file docstring
-    args = docopt.docopt(__doc__, version=__version__)
+    args = docopt.docopt(__doc__ % (DEFAULT_DOWNLOAD_ARCHIVE, DEFAULT_UPLOAD_ARCHIVE),
+                         version=__version__)
 
     URLs = args['<url>']
-    cookie_file = args['--cookies']
-    proxy_url = args['--proxy']
-    username = args['--username']
-    password = args['--password']
+    for v in ['--cookies', '--proxy', '--username', '--password']:
+        if v in args and args[v]:
+            args['--yt'].append('%s=%s' % (v, args[v]))
+
+    if args['--use-download-archive']:
+        args['--yt'].append('--download-archive=' + DEFAULT_DOWNLOAD_ARCHIVE)
+
     quiet_mode = args['--quiet']
     debug_mode = args['--debug']
-    use_download_archive = args['--use-download-archive']
     use_upload_archive = args['--use-upload-archive']
     ignore_existing_item = args['--ignore-existing-item']
     abort_on_error = args['--abort-on-error']
@@ -109,12 +126,7 @@ def main():
     tu = TubeUp(verbose=not quiet_mode,
                 output_template=args['--output'])
 
-    downloaded_file_basenames = tu.download_urls(URLs,
-                                                 cookie_file, proxy_url,
-                                                 username, password,
-                                                 use_download_archive,
-                                                 ignore_existing_item,
-                                                 yt_args)
+    downloaded_file_basenames = tu.download_urls(URLs, ignore_existing_item, yt_args)
 
     failures = []
     for basename in downloaded_file_basenames:

@@ -83,9 +83,6 @@ class TubeUp(object):
         }
 
     def get_resource_basenames(self, urls,
-                               cookie_file=None, proxy_url=None,
-                               ydl_username=None, ydl_password=None,
-                               use_download_archive=False,
                                ignore_existing_item=False,
                                yt_args=[]):
         """
@@ -93,16 +90,6 @@ class TubeUp(object):
 
         :param urls:                  A list of urls that will be downloaded with
                                       youtubedl (or their corresponding info-files)
-        :param cookie_file:           A cookie file for YoutubeDL.
-        :param proxy_url:             A proxy url for YoutubeDL.
-        :param ydl_username:          Username that will be used to download the
-                                      resources with youtube_dl.
-        :param ydl_password:          Password of the related username, will be used
-                                      to download the resources with youtube_dl.
-        :param use_download_archive:  Record the video url to the download archive.
-                                      This will download only videos not listed in
-                                      the archive file. Record the IDs of all
-                                      downloaded videos in it.
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
         :param yt_args:               Additional parameters passed to yt-dlp.
         :return:                      Set of videos basename that has been downloaded.
@@ -171,10 +158,7 @@ class TubeUp(object):
                 if self.verbose:
                     print(msg)
 
-        ydl_opts = self.generate_ydl_options(ydl_progress_hook,
-                                             cookie_file, proxy_url,
-                                             ydl_username, ydl_password,
-                                             use_download_archive)
+        ydl_opts = self.generate_ydl_options(ydl_progress_hook)
 
         # Default yt-dlp overriden by tubeup specific options
         yt_args.update(ydl_opts)
@@ -250,11 +234,6 @@ class TubeUp(object):
 
     def generate_ydl_options(self,
                              ydl_progress_hook,
-                             cookie_file=None,
-                             proxy_url=None,
-                             ydl_username=None,
-                             ydl_password=None,
-                             use_download_archive=False,
                              ydl_output_template=None):
         """
         Generate a dictionary that contains options that will be used
@@ -262,16 +241,6 @@ class TubeUp(object):
 
         :param ydl_progress_hook:     A function that will be called during the
                                       download process by youtube_dl.
-        :param proxy_url:             A proxy url for YoutubeDL.
-        :param ydl_username:          Username that will be used to download the
-                                      resources with youtube_dl.
-        :param ydl_password:          Password of the related username, will be
-                                      used to download the resources with
-                                      youtube_dl.
-        :param use_download_archive:  Record the video url to the download archive.
-                                      This will download only videos not listed in
-                                      the archive file. Record the IDs of all
-                                      downloaded videos in it.
         :return:                      A dictionary that contains options that will
                                       be used by youtube_dl.
         """
@@ -309,22 +278,6 @@ class TubeUp(object):
             'logger': self.logger,
             'progress_hooks': [ydl_progress_hook]
         }
-
-        if cookie_file is not None:
-            ydl_opts['cookiefile'] = cookie_file
-
-        if proxy_url is not None:
-            ydl_opts['proxy'] = proxy_url
-
-        if ydl_username is not None:
-            ydl_opts['username'] = ydl_username
-
-        if ydl_password is not None:
-            ydl_opts['password'] = ydl_password
-
-        if use_download_archive:
-            ydl_opts['download_archive'] = os.path.join(self.dir_path['root'],
-                                                        '.ytdlarchive')
 
         return ydl_opts
 
@@ -420,9 +373,6 @@ class TubeUp(object):
         return itemname, metadata
 
     def download_urls(self, urls,
-                     cookie_file=None, proxy=None,
-                     ydl_username=None, ydl_password=None,
-                     use_download_archive=False,
                      ignore_existing_item=False,
                      yt_args=[]):
         """
@@ -431,24 +381,13 @@ class TubeUp(object):
 
         :param urls:                  List of url or local info files that will
                                       be downloaded and uploaded to archive.org
-        :param cookie_file:           A cookie file for YoutubeDL.
-        :param proxy_url:             A proxy url for YoutubeDL.
-        :param ydl_username:          Username that will be used to download the
-                                      resources with youtube_dl.
-        :param ydl_password:          Password of the related username, will be used
-                                      to download the resources with youtube_dl.
-        :param use_download_archive:  Record the video url to the download archive.
-                                      This will download only videos not listed in
-                                      the archive file. Record the IDs of all
-                                      downloaded videos in it.
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
         :param yt_args:               Additional parameters passed to yt-dlp.
         :return:                      Tuple containing identifier and metadata of the
                                       file that has been uploaded to archive.org.
         """
         downloaded_file_basenames = self.get_resource_basenames(
-            urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive,
-            ignore_existing_item, yt_args)
+            urls, ignore_existing_item, yt_args)
         self.logger.debug('Archiving files from %d videos: %s', len(downloaded_file_basenames), downloaded_file_basenames)
         return downloaded_file_basenames
 
