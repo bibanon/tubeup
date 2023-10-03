@@ -86,7 +86,8 @@ class TubeUp(object):
                                cookie_file=None, proxy_url=None,
                                ydl_username=None, ydl_password=None,
                                use_download_archive=False,
-                               ignore_existing_item=False):
+                               ignore_existing_item=False,
+                               forced_ia_itemname=None):
         """
         Get resource basenames from an url.
 
@@ -103,17 +104,29 @@ class TubeUp(object):
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
+        :param forced_ia_itemname:    Forces archive.org item name (url) instead of generating
+                                      it from yt-dlp metadata. It is sometimes neccessary when
+                                      downloading non-youtube videos with broken or non-existent
+                                      metadata.
         :return:                      Set of videos basename that has been downloaded.
         """
+        assert (forced_ia_itemname is None or len(forced_ia_itemname) > 0), \
+            "Forced IA itemname must be a non-empty string"
+        
+        if len(urls) > 1:
+            raise Exception("When using forced IA item name - only one URL is allowed")
+        
         downloaded_files_basename = set()
 
         def check_if_ia_item_exists(infodict):
-            itemname = get_itemname(infodict)
+            itemname = forced_ia_itemname or get_itemname(infodict)
             item = internetarchive.get_item(itemname)
             if item.exists and self.verbose:
                 print("\n:: Item already exists. Not downloading.")
                 print('Title: %s' % infodict['title'])
                 print('Video URL: %s\n' % infodict['webpage_url'])
+                if forced_ia_itemname:
+                    print("Forced IA item name: %s", forced_ia_itemname)
                 return True
             return False
 
@@ -180,7 +193,15 @@ class TubeUp(object):
                     # Get the info dict of the url
                     info_dict = ydl.extract_info(url, download=False)
 
+                    if info_dict is None:
+                        self.logger.error('No file metadata for %s - most likely yt-dlp exited with error.' % (url,))
+
                     if info_dict.get('_type', 'video') == 'playlist':
+                        if forced_ia_itemname:
+                            raise Exception(
+                                ('Forced IA item name option can only be used with single video',
+                                  '- not a playlist')
+                            )
                         for entry in info_dict['entries']:
                             ydl_progress_each(entry)
                     else:
@@ -309,16 +330,20 @@ class TubeUp(object):
 
         return ydl_opts
 
-    def upload_ia(self, videobasename, custom_meta=None):
+    def upload_ia(self, videobasename, custom_meta=None, forced_ia_itemname=None):
         """
         Upload video to archive.org.
 
-        :param videobasename:  A video base name.
-        :param custom_meta:    A custom meta, will be used by internetarchive
-                               library when uploading to archive.org.
-        :return:               A tuple containing item name and metadata used
-                               when uploading to archive.org and whether the item
-                               already exists.
+        :param videobasename:       A video base name.
+        :param custom_meta:         A custom meta, will be used by internetarchive
+                                    library when uploading to archive.org.
+        :param forced_ia_itemname:  Forces archive.org item name (url) instead of generating
+                                    it from yt-dlp metadata. It is sometimes neccessary when
+                                    downloading non-youtube videos with broken or non-existent
+                                    metadata.
+        :return:                    A tuple containing item name and metadata used
+                                    when uploading to archive.org and whether the item
+                                    already exists.
         """
         json_metadata_filepath = videobasename + '.info.json'
         with open(json_metadata_filepath, 'r', encoding='utf-8') as f:
@@ -330,7 +355,7 @@ class TubeUp(object):
                 msg = 'Video download incomplete, please re-run or delete video stubs in downloads folder, exiting...'
                 raise Exception(msg)
 
-        itemname = get_itemname(vid_meta)
+        itemname = forced_ia_itemname or get_itemname(vid_meta)
         metadata = self.create_archive_org_metadata_from_youtubedl_meta(
             vid_meta)
 
@@ -385,7 +410,8 @@ class TubeUp(object):
                      cookie_file=None, proxy=None,
                      ydl_username=None, ydl_password=None,
                      use_download_archive=False,
-                     ignore_existing_item=False):
+                     ignore_existing_item=False,
+                     forced_ia_itemname=None):
         """
         Download and upload videos from youtube_dl supported sites to
         archive.org
@@ -405,14 +431,18 @@ class TubeUp(object):
                                       the archive file. Record the IDs of all
                                       downloaded videos in it.
         :param ignore_existing_item:  Ignores the check for existing items on archive.org.
+        :param forced_ia_itemname:    Forces archive.org item name (url) instead of generating
+                                      it from yt-dlp metadata. It is sometimes neccessary when
+                                      downloading non-youtube videos with broken or non-existent
+                                      metadata.
         :return:                      Tuple containing identifier and metadata of the
                                       file that has been uploaded to archive.org.
         """
         downloaded_file_basenames = self.get_resource_basenames(
             urls, cookie_file, proxy, ydl_username, ydl_password, use_download_archive,
-            ignore_existing_item)
+            ignore_existing_item, forced_ia_itemname)
         for basename in downloaded_file_basenames:
-            identifier, meta = self.upload_ia(basename, custom_meta)
+            identifier, meta = self.upload_ia(basename, custom_meta, forced_ia_itemname)
             yield identifier, meta
 
     @staticmethod

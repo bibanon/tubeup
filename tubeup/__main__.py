@@ -26,6 +26,7 @@ Usage:
                   [--use-download-archive]
                   [--output <output>]
                   [--ignore-existing-item]
+                  [--ia-item-name <name>]
   tubeup -h | --help
   tubeup --version
 
@@ -49,6 +50,7 @@ Options:
   -d --debug                   Print all logs to stdout.
   -o --output <output>         Youtube-dlc output template.
   -i --ignore-existing-item    Don't check if an item already exists on archive.org
+  -n --ia-item-name <name>     Force archive.org item name instead of relying on video metadata
 """
 
 import sys
@@ -59,8 +61,13 @@ import traceback
 import internetarchive
 import internetarchive.cli
 
+from pathlib import Path
+
 from tubeup.TubeUp import TubeUp
 from tubeup import __version__
+import tubeup
+
+print(tubeup.__file__)
 
 
 def main():
@@ -76,6 +83,7 @@ def main():
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
     ignore_existing_item = args['--ignore-existing-item']
+    forced_ia_itemname = args['--ia-item-name']
 
     if debug_mode:
         # Display log messages.
@@ -100,7 +108,8 @@ def main():
                                                 cookie_file, proxy_url,
                                                 username, password,
                                                 use_download_archive,
-                                                ignore_existing_item):
+                                                ignore_existing_item,
+                                                forced_ia_itemname):
             print('\n:: Upload Finished. Item information:')
             print('Title: %s' % meta['title'])
             print('Item URL: https://archive.org/details/%s\n' % identifier)
