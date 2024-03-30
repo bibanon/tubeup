@@ -13,25 +13,31 @@ It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/
 This script strongly recommends Linux or some sort of POSIX system (such as macOS), preferably from a rented VPS and not your personal machine or phone.
 
 Reccomended system specifications:
-- Linux VPS with Python 3.8 or higher and `pip` installed
+- Linux VPS with Python 3.8 or higher and `pipx` installed
 - 2GB of RAM, 100GB of storage or much more for anything other than single short video mirroring. If your OS drive is too small, `symlink` it to something larger.
 
 ## Setup and Installation
 
-1. Install `ffmpeg`, pip3 (typically `python3-pip`), and git.  
+1. Install `ffmpeg`, pip3 (typically `python3-pipx` or in Arch `python-pipx`), and git.  
    To install ffmpeg in Ubuntu, enable the Universe repository.
 
 For Debian/Ubuntu:
 
 ```
-   sudo apt install ffmpeg python3-pip git
+   sudo apt install ffmpeg python3-pipx git
 ```
 
-2. Use pip3 to install the required python3 packages.
+Then run:
+
+```
+pipx ensurepath
+```
+
+2. Use pipx to install the required python packages.
    At a minimum Python 3.8 and up is required (latest Python preferred).
 
 ```
-   python3 -m pip install -U pip tubeup
+   pipx install tubeup --include-deps
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
@@ -54,13 +60,13 @@ Once configured to upload, you're ready to go.
 
 6. Each archived video gets its own Archive.org item. Check out what you've uploaded at
 
-   `http://archive.org/details/@yourusername`.
+   `http://archive.org/details/@YOURUSERNAME`.
 
 
 Perodically *before* running, upgrade `tubeup` and its dependencies by running:
 
 ```
-   python3 -m pip install -U tubeup pip
+   pipx upgrade-all
 ```
 
 
@@ -74,9 +80,9 @@ Dockerized tubeup is provided by [etnguyen03/docker-tubeup](https://github.com/e
 2. Use Windows Terminal by Microsoft to interact with the WSL2 instance.
 3. Fully update the Linux installation with your package manager of choice.
    ```sudo apt update ; sudo apt upgrade```
-4. Install python `pip` and `ffmpeg`.
+4. Install python `pipx` and `ffmpeg`.
 5. Install Tubeup using steps 4-6 in the Linux configuration guide above and configuring `internetarchive` for your Archive.org account.
-6. Periodically update your Linux packages and pip packages.
+6. Periodically update your Linux packages and python packages.
 
 ## Usage
 
