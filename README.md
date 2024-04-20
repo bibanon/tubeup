@@ -24,9 +24,12 @@ Reccomended system specifications:
 For Debian/Ubuntu:
 
 ```
-   sudo apt install ffmpeg python3-pipx git
+sudo apt install ffmpeg python3-pipx git
 ```
-
+and
+```
+pip install pipx
+```
 Then run:
 
 ```
@@ -37,7 +40,7 @@ pipx ensurepath
    At a minimum Python 3.8 and up is required (latest Python preferred).
 
 ```
-   pipx install tubeup --include-deps
+pipx install tubeup --include-deps
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
@@ -45,7 +48,7 @@ pipx ensurepath
 4. Configure `internetarchive` with your Internet Archive account.
 
 ```
-   ia configure
+ia configure
 ```
 
 You will be prompted for your login credentials for the Internet Archive account you use.
@@ -55,7 +58,7 @@ Once configured to upload, you're ready to go.
 5. Start archiving a video by running the script on a URL (or multiple URLs) [supported by yt-dlp.](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md). For YouTube, this includes account URLs and playlist URLs.
 
 ```
-   tubeup <url>
+tubeup <url>
 ```
 
 6. Each archived video gets its own Archive.org item. Check out what you've uploaded at
@@ -66,7 +69,7 @@ Once configured to upload, you're ready to go.
 Perodically *before* running, upgrade `tubeup` and its dependencies by running:
 
 ```
-   pipx upgrade-all
+pipx upgrade-all
 ```
 
 
