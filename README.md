@@ -153,7 +153,8 @@ Read the appropriate section [in this guide](https://archive.org/about/faqs.php#
 ## Troubleshooting
 
 * Some videos are copyright blocked in certain countries. Use the proxy or torrenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countries to bypass geo-restrictions.
-* Upload taking forever? Getting s3 throttling on upload? Tubeup has specifically been tailored to wait the longest possible time before failing, and we've never seen a S3 outage that outlasted the insane wait times set in Tubeup.
+* Upload taking forever? Getting s3 throttling on upload? Tubeup has specifically been tailored to wait the longest possible time before failing, and we've never seen a S3 outage that outlasted the insane wait times set in Tubeup. Disabling
+* waits for S3 timeouts won't make the upload work, instead it will leave the downloaded contents on your disk in the downloads folder (`~/.tubeup/downloads`). The waits are a safety in case timeouts occur.
 
 ## A note on live videos
 
