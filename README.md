@@ -30,14 +30,14 @@ For Debian/Ubuntu:
 Then run:
 
 ```
-pipx ensurepath
+   pipx ensurepath
 ```
 
 2. Use pipx to install the required python packages.
    At a minimum Python 3.8 and up is required (latest Python preferred).
 
 ```
-   pipx install tubeup --include-deps
+   pipx install tubeup 
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
