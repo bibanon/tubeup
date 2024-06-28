@@ -18,13 +18,15 @@ Reccomended system specifications:
 
 ## Setup and Installation
 
-1. Install `ffmpeg`, pip3 (typically `python3-pipx` or in Arch `python-pipx`), and git.  
-   To install ffmpeg in Ubuntu, enable the Universe repository.
+1. Install `ffmpeg`, pip3 (typically `python3-pipx` or in Arch `python-pipx`), and git.
+   You'll also need to remove any previous likely stale `yt-dlp` installation from your
+   distro repositores as you don't want to use a version that old.
+   You'll also need the `universe` repository enabled for Debian systems.
 
 For Debian/Ubuntu:
 
 ```
-   sudo apt install ffmpeg python3-pipx git
+   sudo apt install ffmpeg python3-pipx git ; sudo apt remove yt-dlp 
 ```
 
 Then run:
@@ -33,11 +35,13 @@ Then run:
    pipx ensurepath
 ```
 
+For distros other than Debian based ones, consult your package managers manpage or the internet for the correct package names.
+
 2. Use pipx to install the required python packages.
    At a minimum Python 3.8 and up is required (latest Python preferred).
 
 ```
-   pipx install tubeup 
+   pipx install tubeup --include-deps
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
