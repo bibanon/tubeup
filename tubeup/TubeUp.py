@@ -265,8 +265,8 @@ class TubeUp(object):
             'continuedl': True,
             'retries': 9001,
             'fragment_retries': 9001,
-            'usenetrc': True, #use netrc to authenticate. this option requires the existence of
-                              # a ${HOME}/.netrc file for it to work, otherwise it will be ignored
+            'usenetrc': True,  # use netrc to authenticate. this option requires the existence of
+                               # a ${HOME}/.netrc file for it to work, otherwise it will be ignored
             'forcejson': False,
             'writeinfojson': True,
             'writedescription': True,
