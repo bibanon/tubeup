@@ -93,20 +93,28 @@ Youtube has been blacklisting some users from ripping videos and would show them
 Here are the steps to get it to work with Tubeup:
 you can follow the steps in the oauth repo, but it will be provided here also.
 1. make a netrc file:
-          ```  touch ${HOME}/.netrc
-               chmod a-rwx,u+rw ${HOME}/.netrc ```
+    ```
+     touch ${HOME}/.netrc
+     chmod a-rwx,u+rw ${HOME}/.netrc
+   ```     
    
-2. paste this line into the .netrc file:
-     ```  machine youtube login oauth2 password "" ```
+3. paste this line into the .netrc file:
    
-3. inject the oauth plugin into the yt-dlp venv:
-     ``` pipx inject yt-dlp https://github.com/coletdjnz/yt-dlp-youtube-oauth2/archive/refs/heads/master.zip ```
+     ```
+       machine youtube login oauth2 password ""
+     ```
+   
+5. inject the oauth plugin into the yt-dlp venv:
+   
+     ```
+   pipx inject yt-dlp https://github.com/coletdjnz/yt-dlp-youtube-oauth2/archive/refs/heads/master.zip
+     ```
 
-4. to verify the plugin is working you should see this in  ``` yt-dlp -v  ``` :
+7. to verify the plugin is working you should see this in  ``` yt-dlp -v  ``` :
+
+       [debug] Extractor Plugins: oauth2 (YoutubeIE), oauth2 (Youtube...), ...
    
-       ``` [debug] Extractor Plugins: oauth2 (YoutubeIE), oauth2 (Youtube...), ...  ```
-   
-6. on the first run you will be prompted to authorize yt-dlp to access your YouTube account.
+8. on the first run you will be prompted to authorize yt-dlp to access your YouTube account.
 
 ``` [youtube+oauth2] To give yt-dlp access to your account, go to https://www.google.com/device and enter code XXX-YYY-ZZZ ```
    
