@@ -42,7 +42,7 @@ For distros other than Debian based ones, consult your package managers manpage 
 
 ```
    pipx install tubeup
-   pipx install yt-dlp[default]
+   pipx install `yt-dlp[default]`
    pipx install internetarchive
 ```
 
