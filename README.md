@@ -41,7 +41,9 @@ For distros other than Debian based ones, consult your package managers manpage 
    At a minimum Python 3.8 and up is required (latest Python preferred).
 
 ```
-   pipx install tubeup --include-deps
+   pipx install tubeup
+   pipx install yt-dlp[default]
+   pipx install internetarchive
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
@@ -85,8 +87,8 @@ Dockerized tubeup is provided by [etnguyen03/docker-tubeup](https://github.com/e
 3. Fully update the Linux installation with your package manager of choice.
    ```sudo apt update ; sudo apt upgrade```
 4. Install python `pipx` and `ffmpeg`.
-5. Install Tubeup using steps 4-6 in the Linux configuration guide above and configuring `internetarchive` for your Archive.org account.
-6. Periodically update your Linux packages and python packages.
+5. Install Tubeup using steps 3-6 in the Linux configuration guide above and configuring `internetarchive` for your Archive.org account.
+6. Periodically update your Linux packages and python packages with `pipx`.
 
 ## Usage
 
