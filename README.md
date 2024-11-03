@@ -41,8 +41,8 @@ For distros other than Debian based ones, consult your package managers manpage 
    At a minimum Python 3.8 and up is required (latest Python preferred).
 
 ```
+   pipx install "yt-dlp[default]" --include-deps
    pipx install tubeup
-   pipx install `yt-dlp[default]`
    pipx install internetarchive
 ```
 
