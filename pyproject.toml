@@ -7,7 +7,7 @@ name = "tubeup"
 dynamic = ["version"]
 description = "VOD service to Archive.org uploader"
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 license = {file = "LICENSE"}
 dependencies = [
     "internetarchive==4.1.0",
