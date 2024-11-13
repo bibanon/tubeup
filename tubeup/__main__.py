@@ -90,7 +90,7 @@ def main():
         ch.setFormatter(formatter)
         root.addHandler(ch)
 
-    metadata = internetarchive.cli.argparser.get_args_dict(args['--metadata'])
+    metadata = internetarchive.cli.cli_utils.get_args_dict(args['--metadata'])
 
     tu = TubeUp(verbose=not quiet_mode,
                 output_template=args['--output'])
