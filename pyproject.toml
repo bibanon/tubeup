@@ -10,13 +10,13 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = {file = "LICENSE"}
 dependencies = [
-    "internetarchive==4.1.0",
+    "internetarchive",
     "docopt==0.6.2",
     "yt-dlp",
 ]
 
 [project.scripts]
-tubeup = "tubeup:__main__"
+tubeup = "tubeup.__main__:main"
 
 [tool.setuptools.dynamic]
 version = {attr = "tubeup.__version__"}
