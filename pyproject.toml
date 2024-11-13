@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = {file = "LICENSE"}
 dependencies = [
-    "internetarchive==4.1.0",
+    "internetarchive>=5.0.3",
     "docopt==0.6.2",
     "yt-dlp",
 ]
