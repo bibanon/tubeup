@@ -1,5 +1,6 @@
 import os
 import re
+from collections import defaultdict
 
 
 EMPTY_ANNOTATION_FILE = ('<?xml version="1.0" encoding="UTF-8" ?>'

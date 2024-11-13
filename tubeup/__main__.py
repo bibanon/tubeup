@@ -56,7 +56,6 @@ import docopt
 import logging
 import traceback
 
-import internetarchive
 import internetarchive.cli
 
 from tubeup.TubeUp import TubeUp
