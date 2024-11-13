@@ -56,9 +56,7 @@ import docopt
 import logging
 import traceback
 
-import internetarchive
-import internetarchive.cli
-
+from tubeup.utils import key_value_to_dict
 from tubeup.TubeUp import TubeUp
 from tubeup import __version__
 
@@ -90,7 +88,7 @@ def main():
         ch.setFormatter(formatter)
         root.addHandler(ch)
 
-    metadata = internetarchive.cli.argparser.get_args_dict(args['--metadata'])
+    metadata = key_value_to_dict(args['--metadata'])
 
     tu = TubeUp(verbose=not quiet_mode,
                 output_template=args['--output'])
