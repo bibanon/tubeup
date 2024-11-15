@@ -27,7 +27,7 @@ class TubeUp(object):
                  verbose=False,
                  dir_path='~/.tubeup',
                  ia_config_path=None,
-                 output_template=None):
+                 output_template='%(id)s.%(ext)s'):
         """
         `tubeup` is a tool to archive YouTube by downloading the videos and
         uploading it back to the archive.org.
@@ -46,10 +46,7 @@ class TubeUp(object):
         self.verbose = verbose
         self.ia_config_path = ia_config_path
         self.logger = getLogger(__name__)
-        if output_template is None:
-            self.output_template = '%(id)s.%(ext)s'
-        else:
-            self.output_template = output_template
+        self.output_template = output_template
 
         # Just print errors in quiet mode
         if not self.verbose:
