@@ -28,7 +28,7 @@ Carefully read and work through this check list in order to prevent the most com
 Please provide version information from core dependencies:
 
 yt-dlp version:
-`yt-dlp --version`
+`yt-dlp -v`
 
 `internetarchive` python client version:
 `ia --version`
