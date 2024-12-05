@@ -39,7 +39,6 @@ Then run:
 ```
    pipx install yt-dlp[default]
    pipx install tubeup
-   pipx inject tubeup internetarchive==4.1.0
 ```
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
