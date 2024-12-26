@@ -37,7 +37,7 @@ Then run:
    At a minimum Python 3.9 and up is required (latest Python preferred).
 
 ```
-   pipx install "yt-dlp[default,curl-cffi,]"
+   pipx install "yt-dlp[default,curl-cffi]"
    pipx install tubeup
 ```
 
