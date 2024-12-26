@@ -24,7 +24,7 @@ Reccomended system specifications:
 For Debian/Ubuntu:
 
 ```
-   sudo apt install ffmpeg python3-pipx git
+   sudo apt remove yt-dlp ; sudo apt install ffmpeg python3-pipx git
 ```
 
 Then run:
@@ -38,6 +38,7 @@ Then run:
 
 ```
    pipx install "yt-dlp[default,curl-cffi]"
+   pipx install internetarchive
    pipx install tubeup
 ```
 
