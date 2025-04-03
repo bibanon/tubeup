@@ -11,6 +11,7 @@ from tubeup.TubeUp import TubeUp, DOWNLOAD_DIR_NAME
 from tubeup import __version__
 from yt_dlp import YoutubeDL
 from .constants import info_dict_playlist, info_dict_video
+from unittest.mock import patch
 
 
 current_path = os.path.dirname(os.path.realpath(__file__))
@@ -50,6 +51,28 @@ def copy_testfiles_to_tubeup_rootdir_test():
                          filepath))
 
 
+# Hijacked yt-dlp class so we don't make any real download requests.
+class MockYTDLP(YoutubeDL):
+    def extract_info(self, url, download=True):
+        filenames = {
+            "https://www.youtube.com/watch?v=KdsN9YhkDrY": "KdsN9YhkDrY.info.json",
+        }
+
+        print("MockYTDLP: Mocked yt-dlp info extraction of URL %s" % (url))
+
+        # make sure the url is one we expect to get. If the tests URL ever
+        # change for some reason, this will fail, and we can add new cases
+        # if needed.
+        if url not in filenames:
+            raise ValueError("unexpected URL")
+
+        jsonpath = os.path.join(current_path, 'test_tubeup_rootdir',
+                                'downloads', filenames[url])
+        with open(jsonpath, "r") as f:
+            return json.load(f)
+
+
+@patch("tubeup.TubeUp.YoutubeDL", MockYTDLP)
 class TubeUpTests(unittest.TestCase):
 
     def setUp(self):
@@ -146,7 +169,7 @@ class TubeUpTests(unittest.TestCase):
             'writesubtitles': True,
             'allsubtitles': True,
             'ignoreerrors': True,
-            'fixup': 'warn',
+            'fixup': 'detect_or_warn',
             'nooverwrites': True,
             'consoletitle': True,
             'prefer_ffmpeg': True,
@@ -178,7 +201,7 @@ class TubeUpTests(unittest.TestCase):
             'writesubtitles': True,
             'allsubtitles': True,
             'ignoreerrors': True,
-            'fixup': 'warn',
+            'fixup': 'detect_or_warn',
             'nooverwrites': True,
             'consoletitle': True,
             'prefer_ffmpeg': True,
@@ -211,7 +234,7 @@ class TubeUpTests(unittest.TestCase):
             'writesubtitles': True,
             'allsubtitles': True,
             'ignoreerrors': True,
-            'fixup': 'warn',
+            'fixup': 'detect_or_warn',
             'nooverwrites': True,
             'consoletitle': True,
             'prefer_ffmpeg': True,
@@ -246,7 +269,7 @@ class TubeUpTests(unittest.TestCase):
             'writesubtitles': True,
             'allsubtitles': True,
             'ignoreerrors': True,
-            'fixup': 'warn',
+            'fixup': 'detect_or_warn',
             'nooverwrites': True,
             'consoletitle': True,
             'prefer_ffmpeg': True,
@@ -283,7 +306,7 @@ class TubeUpTests(unittest.TestCase):
             'writesubtitles': True,
             'allsubtitles': True,
             'ignoreerrors': True,
-            'fixup': 'warn',
+            'fixup': 'detect_or_warn',
             'nooverwrites': True,
             'consoletitle': True,
             'prefer_ffmpeg': True,

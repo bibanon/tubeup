@@ -278,7 +278,7 @@ class TubeUp(object):
                                    # ripping will  continue uninterupted,
                                    # use with verbose off
             'fixup': 'detect_or_warn',  # Slightly more verbosity for debugging
-                              # problems
+                                        # problems
             'nooverwrites': True,  # Don't touch what's already been
                                    # downloaded speeds things
             'consoletitle': True,   # Download percentage in console title
