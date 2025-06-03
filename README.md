@@ -13,7 +13,7 @@ It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/
 This script strongly recommends Linux or some sort of POSIX system (such as macOS), preferably from a rented VPS and not your personal machine or phone.
 
 Reccomended system specifications:
-- Linux VPS with Python 3.8 or higher and `pipx` installed
+- Linux VPS with Python 3.9 or higher and `pipx` installed
 - 2GB of RAM, 100GB of storage or much more for anything other than single short video mirroring. If your OS drive is too small, `symlink` it to something larger.
 
 ## Setup and Installation
