@@ -6,14 +6,52 @@ build-backend = "setuptools.build_meta"
 name = "tubeup"
 dynamic = ["version"]
 description = "VOD service to Archive.org uploader"
+authors = [
+    {name = "Bibliotheca Anonoma"}
+]
 readme = "README.md"
 requires-python = ">=3.9"
-license = {file = "LICENSE"}
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
 dependencies = [
     "internetarchive",
     "docopt==0.6.2",
+    "yt-dlp[default,curl-cffi]",
+]
+keywords = [
+    "archive.org",
+    "archiving",
+    "bibliotheca anonoma",
+    "internet archive",
+    "vod",
+    "video",
+    "youtube",
+    "youtube-dl",
+    "youtube-dlc",
     "yt-dlp",
 ]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Utilities",
+]
+
+[project.urls]
+homepage = "https://github.com/bibanon/tubeup"
+source = "https://github.com/bibanon/tubeup.git"
+issues = "https://github.com/bibanon/tubeup/issues"
 
 [project.scripts]
 tubeup = "tubeup.__main__:main"
