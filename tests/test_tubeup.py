@@ -165,15 +165,12 @@ class TubeUpTests(unittest.TestCase):
             'writeinfojson': True,
             'writedescription': True,
             'writethumbnail': True,
-            'writeannotations': True,
             'writesubtitles': True,
             'allsubtitles': True,
             'ignoreerrors': True,
             'fixup': 'detect_or_warn',
             'nooverwrites': True,
             'consoletitle': True,
-            'prefer_ffmpeg': True,
-            'call_home': False,
             'logger': self.tu.logger,
             'progress_hooks': [mocked_ydl_progress_hook]}
 
