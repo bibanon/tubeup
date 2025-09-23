@@ -271,16 +271,10 @@ class TubeUp(object):
             'writethumbnail': True,
             'writesubtitles': True,
             'allsubtitles': True,
-            'ignoreerrors': True,  # Geo-blocked,
-                                   # copyrighted/private/deleted
-                                   # will be printed to STDOUT and channel
-                                   # ripping will  continue uninterupted,
-                                   # use with verbose off
-            'fixup': 'detect_or_warn',  # Slightly more verbosity for debugging
-                                        # problems
-            'nooverwrites': True,  # Don't touch what's already been
-                                   # downloaded speeds things
-            'consoletitle': True,   # Download percentage in console title
+            'ignoreerrors': True,  
+            'fixup': 'detect_or_warn',
+            'nooverwrites': True,
+            'consoletitle': True,
             'logger': self.logger,
             'progress_hooks': [ydl_progress_hook]
         }
