@@ -271,7 +271,7 @@ class TubeUp(object):
             'writethumbnail': True,
             'writesubtitles': True,
             'allsubtitles': True,
-            'ignoreerrors': True,  
+            'ignoreerrors': True,
             'fixup': 'detect_or_warn',
             'nooverwrites': True,
             'consoletitle': True,
