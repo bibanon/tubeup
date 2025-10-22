@@ -18,6 +18,8 @@ Reccomended system specifications:
 
 ## Setup and Installation
 
+Installation via third-party package managers like Homebrew, MacPorts, or Linux system packages (apt, yum, etc.) *is not supported.*
+
 1. Install `ffmpeg`, pip3 (typically `python3-pipx` or in Arch `python-pipx`), and git.  
    To install ffmpeg in Ubuntu, enable the Universe repository.
 
