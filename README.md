@@ -91,7 +91,7 @@ Dockerized tubeup is provided by [etnguyen03/docker-tubeup](https://github.com/e
 2. Use Windows Terminal by Microsoft to interact with the WSL2 instance.
 3. Fully update the Linux installation with your package manager of choice.
    ```sudo apt update ; sudo apt upgrade```
-4. Install python `pipx` and `ffmpeg`.
+4. Install python `pipx`, `ffmpeg` and `deno`.
 5. Install Tubeup using steps 4-6 in the Linux configuration guide above and configuring `internetarchive` for your Archive.org account.
 6. Periodically update your Linux packages and python packages.
 
