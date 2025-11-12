@@ -20,13 +20,13 @@ Reccomended system specifications:
 
 Installation via third-party package managers like Homebrew, MacPorts, or Linux system packages (apt, yum, etc.) *is not supported.*
 
-1. Install `ffmpeg`, pip3 (typically `python3-pipx` or in Arch `python-pipx`), and git.  
+1. Install `ffmpeg`, pip3 (typically `python3-pipx` or in Arch `python-pipx`), and Deno (external java script support required by yt-dlp for Youtube extractor).  
    To install ffmpeg in Ubuntu, enable the Universe repository.
 
 For Debian/Ubuntu:
 
 ```
-   sudo apt remove yt-dlp ; sudo apt install ffmpeg python3-pipx git
+   sudo apt remove yt-dlp ; sudo apt install ffmpeg python3-pipx deno
 ```
 
 Then run:
