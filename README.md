@@ -187,7 +187,7 @@ Do not use Tubeup to archive live Youtube (or any other site) video. We will not
 
 ## License (GPLv3)
 
-Copyright (C) 2024 Bibliotheca Anonoma
+Copyright (C) 2026 Bibliotheca Anonoma
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
