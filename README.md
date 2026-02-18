@@ -106,6 +106,7 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
+                  [--dir <dir>]
                   [--ignore-existing-item]
   tubeup -h | --help
   tubeup --version
@@ -117,6 +118,8 @@ Arguments:
                                 of compatible websites.
   --metadata=<key:value>        Custom metadata to add to the archive.org
                                 item.
+  --dir <dir>                   Provide a directory for downloads and metadata.
+  
 Options:
   -h --help                    Show this screen.
   -p --proxy <prox>            Use a proxy while uploading.
