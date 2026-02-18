@@ -25,6 +25,7 @@ Usage:
                   [--quiet] [--debug]
                   [--use-download-archive]
                   [--output <output>]
+                  [--dir <dir>]
                   [--ignore-existing-item]
   tubeup -h | --help
   tubeup --version
@@ -35,6 +36,7 @@ Arguments:
                                 of compatible websites.
   --metadata=<key:value>        Custom metadata to add to the archive.org
                                 item.
+  --dir <dir>                   Provide a directory for downloads and metadata.
 
 Options:
   -h --help                    Show this screen.
@@ -74,6 +76,7 @@ def main():
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
     ignore_existing_item = args['--ignore-existing-item']
+    dir_path = args['--dir']
 
     if debug_mode:
         # Display log messages.
@@ -91,6 +94,7 @@ def main():
     metadata = key_value_to_dict(args['--metadata'])
 
     tu = TubeUp(verbose=not quiet_mode,
+                dir_path=dir_path,
                 output_template=args['--output'])
 
     try:
