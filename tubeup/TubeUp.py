@@ -22,6 +22,8 @@ DOWNLOAD_DIR_NAME = 'downloads'
 
 
 class TubeUp(object):
+    class DirError(Exception):
+        pass
 
     def __init__(self,
                  verbose=False,
@@ -69,17 +71,45 @@ class TubeUp(object):
                           videos, if it not created yet, the directory
                           will be created.
         """
-        extended_usr_dir_path = os.path.expanduser(dir_path)
+        try:
+            dir_path = os.fspath(dir_path)
+        except TypeError as exc:
+            raise TubeUp.DirError(
+                'Download directory must be a string or path-like object.'
+            ) from exc
 
-        # Create the directories.
-        os.makedirs(
-            os.path.join(extended_usr_dir_path, DOWNLOAD_DIR_NAME),
-            exist_ok=True)
+        if not dir_path or not dir_path.strip():
+            raise TubeUp.DirError('Download directory must not be empty.')
+
+        extended_usr_dir_path = os.path.abspath(os.path.expanduser(dir_path))
+        downloads_dir_path = os.path.join(extended_usr_dir_path,
+                                          DOWNLOAD_DIR_NAME)
+
+        if (os.path.exists(extended_usr_dir_path) and
+                not os.path.isdir(extended_usr_dir_path)):
+            raise TubeUp.DirError(
+                'Download root path "%s" already exists as a file. '
+                'Choose a different --dir to avoid data loss.'
+                % extended_usr_dir_path)
+
+        if os.path.exists(downloads_dir_path) and not os.path.isdir(downloads_dir_path):
+            raise TubeUp.DirError(
+                'Download path "%s" already exists as a file. '
+                'Choose a different --dir to avoid data loss.'
+                % downloads_dir_path)
+
+        try:
+            os.makedirs(extended_usr_dir_path, exist_ok=True)
+            os.makedirs(downloads_dir_path, exist_ok=True)
+        except OSError as exc:
+            raise TubeUp.DirError(
+                'Cannot create download directory "%s": %s'
+                % (downloads_dir_path, exc)
+            ) from exc
 
         self._dir_path = {
             'root': extended_usr_dir_path,
-            'downloads': os.path.join(extended_usr_dir_path,
-                                      DOWNLOAD_DIR_NAME)
+            'downloads': downloads_dir_path
         }
 
     def get_resource_basenames(self, urls,

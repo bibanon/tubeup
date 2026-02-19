@@ -76,7 +76,7 @@ def main():
     debug_mode = args['--debug']
     use_download_archive = args['--use-download-archive']
     ignore_existing_item = args['--ignore-existing-item']
-    dir_path = args['--dir']
+    dir_path = args['--dir'] or '~/.tubeup'
 
     if debug_mode:
         # Display log messages.
@@ -93,9 +93,17 @@ def main():
 
     metadata = key_value_to_dict(args['--metadata'])
 
-    tu = TubeUp(verbose=not quiet_mode,
-                dir_path=dir_path,
-                output_template=args['--output'])
+    try:
+        tu = TubeUp(verbose=not quiet_mode,
+                    dir_path=dir_path,
+                    output_template=args['--output'])
+    except TubeUp.DirError as exc:
+        print('\n\033[91m'
+              'Cannot use download directory: %s\n'
+              '%s\n'
+              'Please provide a valid writable path with --dir.\033[0m'
+              % (dir_path, exc))
+        sys.exit(1)
 
     try:
         for identifier, meta in tu.archive_urls(URLs, metadata,
