@@ -97,7 +97,7 @@ def main():
         tu = TubeUp(verbose=not quiet_mode,
                     dir_path=dir_path,
                     output_template=args['--output'])
-    except (TypeError, ValueError, OSError) as exc:
+    except TubeUp.DirError as exc:
         print('\n\033[91m'
               'Cannot use download directory: %s\n'
               '%s\n'

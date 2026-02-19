@@ -22,6 +22,8 @@ DOWNLOAD_DIR_NAME = 'downloads'
 
 
 class TubeUp(object):
+    class DirError(Exception):
+        pass #away
 
     def __init__(self,
                  verbose=False,
@@ -72,12 +74,12 @@ class TubeUp(object):
         try:
             dir_path = os.fspath(dir_path)
         except TypeError as exc:
-            raise TypeError(
+            raise TubeUp.DirError(
                 'Download directory must be a string or path-like object.'
             ) from exc
 
         if not dir_path or not dir_path.strip():
-            raise ValueError('Download directory must not be empty.')
+            raise TubeUp.DirError('Download directory must not be empty.')
 
         extended_usr_dir_path = os.path.abspath(os.path.expanduser(dir_path))
         downloads_dir_path = os.path.join(extended_usr_dir_path,
@@ -85,13 +87,13 @@ class TubeUp(object):
 
         if (os.path.exists(extended_usr_dir_path) and
                 not os.path.isdir(extended_usr_dir_path)):
-            raise ValueError(
+            raise TubeUp.DirError(
                 'Download root path "%s" already exists as a file. '
                 'Choose a different --dir to avoid data loss.'
                 % extended_usr_dir_path)
 
         if os.path.exists(downloads_dir_path) and not os.path.isdir(downloads_dir_path):
-            raise ValueError(
+            raise TubeUp.DirError(
                 'Download path "%s" already exists as a file. '
                 'Choose a different --dir to avoid data loss.'
                 % downloads_dir_path)
@@ -100,7 +102,7 @@ class TubeUp(object):
             os.makedirs(extended_usr_dir_path, exist_ok=True)
             os.makedirs(downloads_dir_path, exist_ok=True)
         except OSError as exc:
-            raise OSError(
+            raise TubeUp.DirError(
                 'Cannot create download directory "%s": %s'
                 % (downloads_dir_path, exc)
             ) from exc
