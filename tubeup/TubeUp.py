@@ -23,7 +23,7 @@ DOWNLOAD_DIR_NAME = 'downloads'
 
 class TubeUp(object):
     class DirError(Exception):
-        pass #away
+        pass
 
     def __init__(self,
                  verbose=False,
