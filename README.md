@@ -66,21 +66,17 @@ Once configured to upload, you're ready to go.
    `http://archive.org/details/@YOURUSERNAME`.
 
 
-Perodically *before* running, upgrade `tubeup` and its dependencies by running:
+7. Upgrading
+
+Perodically *before* running, upgrade `tubeup` its pyton dependencies and Deno by running:
 
 ```
-   pipx upgrade-all
-```
-
-To upgrade Deno run:
-
-```
-deno upgrade
+   pipx upgrade-all ; deno upgrade
 ```
 To use a nightly yt-dlp build, inject it into your yt-dlp virtual environment:
 
 ```
-pipx inject yt-dlp "yt-dlp[default,curl-cffi] @ https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/[NIGHTLY TAG]/yt-dlp.tar.gz" --force
+   pipx inject yt-dlp "yt-dlp[default,curl-cffi] @ https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/[NIGHTLY TAG]/yt-dlp.tar.gz" --force
 ```
 
 Where `[NIGHTLY TAG]` would for example be `2025.10.11.232807` in [this yt-dlp release](https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/tag/2025.10.11.232807).
