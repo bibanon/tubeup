@@ -36,7 +36,6 @@ Then run:
 ```
 
 2. Use pipx to install the required python packages.
-   At a minimum Python 3.9 and up is required (latest Python preferred).
 
 ```
    pipx install "yt-dlp[default,curl-cffi]" internetarchive tubeup
