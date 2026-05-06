@@ -123,7 +123,7 @@ Arguments:
   
 Options:
   -h --help                    Show this screen.
-  -p --proxy <prox>            Use a proxy while uploading.
+  -x --proxy <prox>            Use a proxy while uploading.
   -u --username <user>         Provide a username, for sites like Nico Nico Douga.
   -p --password <pass>         Provide a password, for sites like Nico Nico Douga.
   -a --use-download-archive    Record the video url to the download archive.
