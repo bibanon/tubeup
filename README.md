@@ -4,29 +4,35 @@ Tubeup - a multi-VOD service to Archive.org uploader
 ![Unit Tests](https://github.com/bibanon/tubeup/workflows/Unit%20Tests/badge.svg)
 ![Lint](https://github.com/bibanon/tubeup/workflows/Lint/badge.svg)
 
-`tubeup` uses yt-dlp to download a Youtube video (or [any other provider supported by yt-dlp](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md)), and then uploads it with all metadata to the Internet Archive using the python module internetarchive.
+`tubeup` uses [yt-dlp](https://github.com/yt-dlp/yt-dlp) to download a YouTube video (or [any other provider supported by yt-dlp](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md)), and then uploads it with all metadata to the Internet Archive using the python module internetarchive.
 
-It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/wiki) to archive single videos, playlists (see warning below about more than video uploads) or accounts to the Internet Archive.
+It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/wiki) to archive single videos, playlists (see warning below about more than video uploads), or accounts to the Internet Archive.
 
 ## Prerequisites
 
 This script strongly recommends Linux or some sort of POSIX system (such as macOS), preferably from a rented VPS and not your personal machine or phone.
 
-Reccomended system specifications:
+Recommended system specifications:
 - Linux VPS with Python 3.10 or higher and `pipx` installed
-- 2GB of RAM, 100GB of storage or much more for anything other than single short video mirroring. If your OS drive is too small, `symlink` it to something larger.
+- 2GB of RAM, 100GB of storage or more for anything other than single short video mirroring. If your system drive or partition is too small, you can create a symlink to a larger volume.
 
 ## Setup and Installation
 
-Installation via third-party package managers like Homebrew, MacPorts, or Linux system packages (apt, yum, etc.) *is not supported.*
+Installation via third-party package managers including MacPorts, or Linux system packages (apt, yum, etc.) is not supported at this time.
 
-1. Install `ffmpeg`, pip3 (typically `python3-pipx` or in Arch `python-pipx`), and Deno (external java script support required by yt-dlp for Youtube extractor).  
-   To install ffmpeg in Ubuntu, enable the Universe repository.
+1. Install `ffmpeg`, pip3 (Typically `python3-pipx`, or in Arch you can use `python-pipx`), and Deno (External JavaScript support is required by `yt-dlp` for YouTube extraction).  
+   **Note**: To install FFmpeg in Ubuntu, be sure to enable the Universe repository.
 
 For Debian/Ubuntu:
 
 ```
    sudo apt remove yt-dlp ; sudo apt install ffmpeg python3-pipx deno
+```
+
+macOS:
+
+```
+brew install ffmpeg pipx deno
 ```
 
 Then run:
@@ -67,7 +73,7 @@ Once configured to upload, you're ready to go.
 
 7. Upgrading
 
-Perodically *before* running, upgrade `tubeup` its pyton dependencies and Deno by running:
+Periodically *before* running, upgrade `tubeup` its Python dependencies and Deno by running:
 
 ```
    pipx upgrade-all ; deno upgrade
@@ -80,65 +86,29 @@ To use a nightly yt-dlp build, inject it into your yt-dlp virtual environment:
 
 Where `[NIGHTLY TAG]` would for example be `2025.10.11.232807` in [this yt-dlp release](https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/tag/2025.10.11.232807).
 
-Upgrades will take it to latest nightly, which yt-dlp releases with a stable tag (see notes about upgrading below).
+Upgrades will take it to latest nightly, which YT-dlp releases with a stable tag (see notes about upgrading below).
 
 ## Docker
 
-Dockerized tubeup is provided by [etnguyen03/docker-tubeup](https://github.com/etnguyen03/docker-tubeup). Instructions are provided.
+A Docker image with instructions is provided by [etnguyen03/docker-tubeup](https://github.com/etnguyen03/docker-tubeup).
    
-## Windows Setup
+## Windows
 
-1. Install WSL2, pick a distribution of your choice. Ubuntu is popular and well-supported.
-2. Use Windows Terminal by Microsoft to interact with the WSL2 instance.
-3. Fully update the Linux installation with your package manager of choice.
+1. Install WSL2 and pick a distribution of your choice. Ubuntu is popular and well-supported.
+2. Use the Windows Terminal to interact with the WSL2 instance.
+3. Update the Linux installation with your package manager of choice.
    ```sudo apt update ; sudo apt upgrade```
 4. Install python `pipx`, `ffmpeg` and `deno`.
-5. Install Tubeup using steps 4-6 in the Linux configuration guide above and configuring `internetarchive` for your Archive.org account.
+5. Install Tubeup using steps 4-6 in configuration guide above and configure `internetarchive` for your Archive.org account.
 6. Periodically update your Linux packages and python packages.
 
 ## Usage
 
-```
-Usage:
-  tubeup <url>... [--username <user>] [--password <pass>]
-                  [--metadata=<key:value>...]
-                  [--cookies=<filename>]
-                  [--proxy <prox>]
-                  [--quiet] [--debug]
-                  [--use-download-archive]
-                  [--output <output>]
-                  [--dir <dir>]
-                  [--ignore-existing-item]
-  tubeup -h | --help
-  tubeup --version
-```
-```
-Arguments:
-  <url>                         yt-dlp compatible URL to download.
-                                Check yt-dlp documentation for a list
-                                of compatible websites.
-  --metadata=<key:value>        Custom metadata to add to the archive.org
-                                item.
-  --dir <dir>                   Provide a directory for downloads and metadata.
-  
-Options:
-  -h --help                    Show this screen.
-  -x --proxy <prox>            Use a proxy while uploading.
-  -u --username <user>         Provide a username, for sites like Nico Nico Douga.
-  -p --password <pass>         Provide a password, for sites like Nico Nico Douga.
-  -a --use-download-archive    Record the video url to the download archive.
-                               This will download only videos not listed in
-                               the archive file. Record the IDs of all
-                               downloaded videos in it.
-  -q --quiet                   Just print errors.
-  -d --debug                   Print all logs to stdout.
-  -o --output <output>         yt-dlp output template.
-  -i --ignore-existing-item    Don't check if an item already exists on archive.org
-```
+See the man page for a complete list of instructions (`man tubeup`)
 
 ## Metadata
 
-You can specify custom metadata with the `--metadata` flag.
+You can specify custom metadata using the `--metadata` flag.
 For example, this script will upload your video to the [Community Video collection](https://archive.org/details/opensource_movies) by default.
 You can specify a different collection with the `--metadata` flag:
 
@@ -161,22 +131,22 @@ Archive.org users can upload to four open collections:
 Note that care should be taken when uploading entire channels.
 Read the appropriate section [in this guide](https://archive.org/about/faqs.php#Collections) for creating collections, and contact the [collections staff](mailto:collections-service@archive.org) if you're uploading a channel or multiple channels on one subject (gaming or horticulture for example). Internet Archive collections staff will either create a collection for you or merge any uploaded items based on the YouTube uploader name that are already up into a new collection.
 
-**Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the Internet Archive admins first before doing large uploads; it's better to ask for guidence or help first than run afoul of the rules._
+**Dumping entire channels into Community Video is abusive and may get your account locked.** _Talk to the Internet Archive admins first before doing large uploads; it's better to ask for guidance or help first than run afoul of the rules._
 
 **If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it.** Talk to the collection owner or staff if you need assistance with this.
 
 ## Troubleshooting
 
-* Some videos are copyright blocked in certain countries. Use the proxy or torrenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countries to bypass geo-restrictions.
-* Upload taking forever? Getting s3 throttling on upload? Tubeup has specifically been tailored to wait the longest possible time before failing, and we've never seen a S3 outage that outlasted the insane wait times set in Tubeup. Disabling waits for S3 timeouts won't make the upload work, instead it will leave the downloaded contents on your disk in the downloads folder (`~/.tubeup/downloads`) because the download will immeaditly fail instead of gracefully waiting. The waits are a safety in case timeouts occur, do not disable them.
+* Some videos are copyright blocked in certain countries. Use the proxy or tormenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countries to bypass geo-restrictions.
+* Upload taking forever? Getting s3 throttling on upload? Tubeup has specifically been tailored to wait the longest possible time before failing, and we've never seen a S3 outage that outlasted the insane wait times set in Tubeup. Disabling waits for S3 timeouts won't make the upload work, instead it will leave the downloaded contents on your disk in the downloads folder (`~/.tubeup/downloads`) because the download will immediately fail instead of gracefully waiting. The waits are a safety in case timeouts occur, do not disable them.
 
 ## A note on live videos
 
-- [yt-dlp cannot do simultaneous downloads, cannot prioritize live video first on Youtube over live chat](https://github.com/bibanon/tubeup/discussions/283#discussioncomment-5625558), This couldn't be fixed unless for YT which is what most people use it for, except by disabling livechat ripping to start video ripping, but even if that solution was acceptable by building in a flag on our end that disables chats to get video (again unacceptable) thats canceled by the next problem....
+- [YT-dlp cannot do simultaneous downloads, cannot prioritize live video first on YouTube over live chat](https://github.com/bibanon/tubeup/discussions/283#discussioncomment-5625558), This couldn't be fixed unless for YT which is what most people use it for, except by disabling livechat ripping to start video ripping, but even if that solution was acceptable by building in a flag on our end that disables chats to get video (again unacceptable) that's canceled by the next problem....
 
-- [yt-dlp has a unacceptably high failure rate with `--live-from-start` is called](https://github.com/bibanon/tubeup/issues/186#issuecomment-1127698704), sometimes the result doesn't mux, and in Twitches case is incomplete and isn't supported by all extractors. This flag is actually considered experimental by yt-dlp maintainers and has been said is unsuitable for archival purposes.
+- [yt-dlp has a unacceptably high failure rate with `--live-from-start` is called](https://github.com/bibanon/tubeup/issues/186#issuecomment-1127698704), sometimes the result doesn't mux, and in Twitches case is incomplete and isn't supported by all extractors. This flag is actually considered experimental by YT-dlp maintainers and has been said is unsuitable for archival purposes.
 
-Do not use Tubeup to archive live Youtube (or any other site) video. We will not/cannot fix it, it's not even our problem, and any solutions are unpalitable since they involve more code complexity to be maintained ontop of having to disable livechat for one extractor only for live video.
+Do not use Tubeup to archive live YouTube (or any other site) video. We will not/cannot fix it, it's not even our problem, and any solutions are unpalatable since they involve more code complexity to be maintained on top of having to disable livechat for one extractor only for live video.
 
 ## Major Credits (in no particular order)
 
