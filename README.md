@@ -37,7 +37,9 @@ Then run:
 
 Install Deno for challenge solving:
 
-```curl -fsSL https://deno.land/install.sh | sh```
+```
+curl -fsSL https://deno.land/install.sh | sh
+```
 
 2. Use pipx to install the required python packages.
 
@@ -48,21 +50,22 @@ Install Deno for challenge solving:
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
 
+
 4. Configure `internetarchive` with your Internet Archive account.
 
 ```
    ia configure
 ```
 
-You will be prompted for your login credentials for the Internet Archive account you use.
+You will be prompted for your login credentials for the Internet Archive account you use. Once configured to upload, you're ready to go.
 
-Once configured to upload, you're ready to go.
 
 5. Start archiving a video by running the script on a URL (or multiple URLs) [supported by yt-dlp.](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md). For YouTube, this includes account URLs and playlist URLs.
 
 ```
    tubeup <url>
 ```
+
 
 6. Each archived video gets its own Archive.org item. Check out what you've uploaded at
 
@@ -76,7 +79,7 @@ Perodically *before* running, upgrade `tubeup` its pyton dependencies and Deno b
 ```
    pipx upgrade-all ; deno upgrade
 ```
-To use a nightly yt-dlp build, inject it into your yt-dlp virtual environment:
+To use a nightly yt-dlp build, inject it into your yt-dlp virtual environment [using the latest nightly build tag seen here](https://github.com/yt-dlp/yt-dlp-nightly-builds/releases)
 
 ```
    pipx inject yt-dlp "yt-dlp[default,curl-cffi] @ https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/[NIGHTLY TAG]/yt-dlp.tar.gz" --force ; pipx upgrade
@@ -100,7 +103,8 @@ Dockerized tubeup is provided by [etnguyen03/docker-tubeup](https://github.com/e
 5. Install Deno 
     ```curl -fsSL https://deno.land/install.sh | sh```
 6. Install Tubeup using steps 4-6 in the Linux configuration guide above and configuring `internetarchive` for your Archive.org account.
-7. Periodically update your distro repository packages, python packages and Deno.
+7. Periodically update your distro repository packages, python packages and Deno. This command should be the same or similar to the one in the Linux guide.
+
 
 ## Usage
 
@@ -142,6 +146,7 @@ Options:
   -i --ignore-existing-item    Don't check if an item already exists on archive.org
 ```
 
+
 ## Metadata
 
 You can specify custom metadata with the `--metadata` flag.
@@ -154,6 +159,7 @@ You can specify a different collection with the `--metadata` flag:
 
 Any arbitrary metadata can be added to the item, with a few exceptions.
 You can learn more about archive.org metadata [here](https://archive.org/services/docs/api/metadata-schema/).
+
 
 ### Collections
 
@@ -171,10 +177,12 @@ Read the appropriate section [in this guide](https://archive.org/about/faqs.php#
 
 **If you do not own a collection you will need to be added as an admin for that collection if you want to upload to it.** Talk to the collection owner or staff if you need assistance with this.
 
+
 ## Troubleshooting
 
 * Some videos are copyright blocked in certain countries. Use the proxy or torrenting/privacy VPN option to use a proxy to bypass this. Sweden and Germany are good countries to bypass geo-restrictions.
 * Upload taking forever? Getting s3 throttling on upload? Tubeup has specifically been tailored to wait the longest possible time before failing, and we've never seen a S3 outage that outlasted the insane wait times set in Tubeup. Disabling waits for S3 timeouts won't make the upload work, instead it will leave the downloaded contents on your disk in the downloads folder (`~/.tubeup/downloads`) because the download will immeaditly fail instead of gracefully waiting. The waits are a safety in case timeouts occur, do not disable them.
+
 
 ## A note on live videos
 
@@ -183,6 +191,7 @@ Read the appropriate section [in this guide](https://archive.org/about/faqs.php#
 - [yt-dlp has a unacceptably high failure rate with `--live-from-start` is called](https://github.com/bibanon/tubeup/issues/186#issuecomment-1127698704), sometimes the result doesn't mux, and in Twitches case is incomplete and isn't supported by all extractors. This flag is actually considered experimental by yt-dlp maintainers and has been said is unsuitable for archival purposes.
 
 Do not use Tubeup to archive live Youtube (or any other site) video. We will not/cannot fix it, it's not even our problem, and any solutions are unpalitable since they involve more code complexity to be maintained ontop of having to disable livechat for one extractor only for live video.
+
 
 ## Major Credits (in no particular order)
 
@@ -194,6 +203,7 @@ Do not use Tubeup to archive live Youtube (or any other site) video. We will not
 - mrpapersonic for adding logic to check if an item already exists in the Internet Archive and if so skips ingestion.
 - [Jake Johnson](https://github.com/jjjake) of the Internet Archive for adding variable collections ability as a flag, switching Tubeup from a script to PyPi repository, ISO-compliant item dates, fixing what others couldn't, and many improvements.
 - [Refeed](https://github.com/refeed) for re-basing the code to OOP, turning Tubeup itself into a library. and adding download and upload bar graphs, and squashing bugs.
+
 
 ## License (GPLv3)
 
@@ -211,6 +221,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 
 ## Star History
 
