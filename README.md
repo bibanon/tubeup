@@ -26,25 +26,25 @@ Installation via third-party package managers like Homebrew, MacPorts, or Linux 
 For Debian/Ubuntu:
 
 ```
-   sudo apt remove yt-dlp ; sudo apt install ffmpeg python3-pipx
+    sudo apt remove yt-dlp ; sudo apt install ffmpeg python3-pipx
 ```
 
 Then run:
 
 ```
-   pipx ensurepath
+    pipx ensurepath
 ```
 
 Install Deno for challenge solving:
 
 ```
-curl -fsSL https://deno.land/install.sh | sh
+    curl -fsSL https://deno.land/install.sh | sh
 ```
 
 2. Use pipx to install the required python packages.
 
 ```
-   pipx install "yt-dlp[default,curl-cffi]" internetarchive tubeup
+    pipx install "yt-dlp[default,curl-cffi]" internetarchive tubeup
 ```
 
 
@@ -54,7 +54,7 @@ curl -fsSL https://deno.land/install.sh | sh
 4. Configure `internetarchive` with your Internet Archive account.
 
 ```
-   ia configure
+    ia configure
 ```
 
 You will be prompted for your login credentials for the Internet Archive account you use. Once configured to upload, you're ready to go.
@@ -63,7 +63,7 @@ You will be prompted for your login credentials for the Internet Archive account
 5. Start archiving a video by running the script on a URL (or multiple URLs) [supported by yt-dlp.](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md). For YouTube, this includes account URLs and playlist URLs.
 
 ```
-   tubeup <url>
+    tubeup <url>
 ```
 
 
@@ -77,12 +77,12 @@ You will be prompted for your login credentials for the Internet Archive account
 Perodically *before* running, upgrade `tubeup` its pyton dependencies and Deno by running:
 
 ```
-   pipx upgrade-all ; deno upgrade
+    pipx upgrade-all ; deno upgrade
 ```
 To use a nightly yt-dlp build, inject it into your yt-dlp virtual environment [using the latest nightly build tag seen here](https://github.com/yt-dlp/yt-dlp-nightly-builds/releases)
 
 ```
-   pipx inject yt-dlp "yt-dlp[default,curl-cffi] @ https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/[NIGHTLY TAG]/yt-dlp.tar.gz" --force ; pipx upgrade
+    pipx inject yt-dlp "yt-dlp[default,curl-cffi] @ https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/[NIGHTLY TAG]/yt-dlp.tar.gz" --force ; pipx upgrade
 ```
 
 Where `[NIGHTLY TAG]` would for example be `2025.10.11.232807` in [this yt-dlp release](https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/tag/2025.10.11.232807).
@@ -154,7 +154,7 @@ For example, this script will upload your video to the [Community Video collecti
 You can specify a different collection with the `--metadata` flag:
 
 ```
-   tubeup --metadata=collection:opensource_audio <url>
+    tubeup --metadata=collection:opensource_audio <url>
 ```
 
 Any arbitrary metadata can be added to the item, with a few exceptions.
