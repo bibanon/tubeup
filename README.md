@@ -26,7 +26,7 @@ Installation via third-party package managers like Homebrew, MacPorts, or Linux 
 For Debian/Ubuntu:
 
 ```
-   sudo apt remove yt-dlp ; sudo apt install ffmpeg python3-pipx deno
+   sudo apt remove yt-dlp ; sudo apt install ffmpeg python3-pipx
 ```
 
 Then run:
@@ -34,6 +34,10 @@ Then run:
 ```
    pipx ensurepath
 ```
+
+Install Deno for challenge solving:
+
+```curl -fsSL https://deno.land/install.sh | sh```
 
 2. Use pipx to install the required python packages.
 
@@ -75,7 +79,7 @@ Perodically *before* running, upgrade `tubeup` its pyton dependencies and Deno b
 To use a nightly yt-dlp build, inject it into your yt-dlp virtual environment:
 
 ```
-   pipx inject yt-dlp "yt-dlp[default,curl-cffi] @ https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/[NIGHTLY TAG]/yt-dlp.tar.gz" --force
+   pipx inject yt-dlp "yt-dlp[default,curl-cffi] @ https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/download/[NIGHTLY TAG]/yt-dlp.tar.gz" --force ; pipx upgrade
 ```
 
 Where `[NIGHTLY TAG]` would for example be `2025.10.11.232807` in [this yt-dlp release](https://github.com/yt-dlp/yt-dlp-nightly-builds/releases/tag/2025.10.11.232807).
@@ -88,13 +92,15 @@ Dockerized tubeup is provided by [etnguyen03/docker-tubeup](https://github.com/e
    
 ## Windows Setup
 
-1. Install WSL2, pick a distribution of your choice. Ubuntu is popular and well-supported.
+1. Install WSL2, pick a distribution of your choice. Ubuntu is popular, well-supported and used here as a example.
 2. Use Windows Terminal by Microsoft to interact with the WSL2 instance.
-3. Fully update the Linux installation with your package manager of choice.
+3. Fully update the Linux installation. 
    ```sudo apt update ; sudo apt upgrade```
-4. Install python `pipx`, `ffmpeg` and `deno`.
-5. Install Tubeup using steps 4-6 in the Linux configuration guide above and configuring `internetarchive` for your Archive.org account.
-6. Periodically update your Linux packages and python packages.
+4. Install python `pipx`, `ffmpeg`.
+5. Install Deno 
+    ```curl -fsSL https://deno.land/install.sh | sh```
+6. Install Tubeup using steps 4-6 in the Linux configuration guide above and configuring `internetarchive` for your Archive.org account.
+7. Periodically update your distro repository packages, python packages and Deno.
 
 ## Usage
 
