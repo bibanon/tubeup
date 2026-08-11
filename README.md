@@ -225,10 +225,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ## Star History
 
-<a href="https://www.star-history.com/#bibanon/tubeup&Date">
+<a href="https://star-history.dera.page/#bibanon/tubeup&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=bibanon/tubeup&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=bibanon/tubeup&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=bibanon/tubeup&type=Date" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://star-history.dera.page/svg?repos=bibanon/tubeup&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://star-history.dera.page/svg?repos=bibanon/tubeup&type=Date" />
+   <img alt="Star History Chart" src="https://star-history.dera.page/svg?repos=bibanon/tubeup&type=Date" />
  </picture>
 </a>
