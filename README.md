@@ -10,38 +10,42 @@ It was designed by the [Bibliotheca Anonoma](https://github.com/bibanon/bibanon/
 
 ## Prerequisites
 
-This script strongly recommends Linux or some sort of POSIX system (such as macOS), preferably from a rented VPS and not your personal machine or phone.
+This script strongly recommends Linux or some sort of POSIX system (such as macOS), preferably from a VPS or Linux/Unix shell you have access to..
 
 Reccomended system specifications:
-- Linux VPS with Python 3.10 or higher and `pipx` installed
+- Linux VPS with Python 3.10 or higher, with `pipx` and `deno` installed
 - 2GB of RAM, 100GB of storage or much more for anything other than single short video mirroring. If your OS drive is too small, `symlink` it to something larger.
 
 ## Setup and Installation
 
 Installation via third-party package managers like Homebrew, MacPorts, or Linux system packages (apt, yum, etc.) *is not supported.*
 
-1. Install `ffmpeg`, pip3 (typically `python3-pipx` or in Arch `python-pipx`), and Deno (external java script support required by yt-dlp for Youtube extractor).  
+
+1. Install `ffmpeg`, `pipx` (typically `python3-pipx` or in Arch `python-pipx`), `curl` and `deno`.  
    To install ffmpeg in Ubuntu, enable the Universe repository.
 
 For Debian/Ubuntu:
 
 ```
-    sudo apt remove yt-dlp ; sudo apt install ffmpeg python3-pipx
+    sudo apt remove yt-dlp ; sudo apt install ffmpeg python3-pipx curl
 ```
 
-Then run:
+
+Then run this to add pipx path to your shell RC file:
 
 ```
     pipx ensurepath
 ```
 
-Install Deno for challenge solving:
+
+Install Deno for challenge solving (external java script support required by yt-dlp for Youtube extractor):
 
 ```
     curl -fsSL https://deno.land/install.sh | sh
 ```
 
-2. Use pipx to install the required python packages.
+
+2. Use pipx to install the required python packages. Yt-dlp requires it be installed into the `default` group, and `curl-cffi` improves success for some extractors.
 
 ```
     pipx install "yt-dlp[default,curl-cffi]" internetarchive tubeup
@@ -49,6 +53,7 @@ Install Deno for challenge solving:
 
 
 3. If you don't already have an Internet Archive account, [register for one](https://archive.org/account/login.createaccount.php) to give the script upload privileges.
+
 
 
 4. Configure `internetarchive` with your Internet Archive account.
@@ -74,7 +79,7 @@ You will be prompted for your login credentials for the Internet Archive account
 
 7. Upgrading
 
-Perodically *before* running, upgrade `tubeup` its pyton dependencies and Deno by running:
+Periodically *before* use, upgrade `tubeup` its python dependencies and Deno by running:
 
 ```
     pipx upgrade-all ; deno upgrade
